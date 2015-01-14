@@ -8,6 +8,7 @@
 #define PRECOMPILE(SCRIPT) 		call compile preProcessFileLineNumbers SCRIPT 
 #define WAIT(CODE) 				waitUntil {CODE}
 #define DEBUG					if (Navy_Debug) then
+#define RUN_ON_SERVER			if (isServer) then
 #define ALTITUDE(OBJECT)		((getposATL OBJECT) select 2)
 #define HC_NAMES				adm_hc_defaultNames
 #define isHC(VAR)				((name VAR) in HC_NAMES)
@@ -25,6 +26,9 @@
 #define SIDE_ARRAY			[BLU,OPF,IND,CIV]
 #define SIDE_ARRAY_STR		[BLU_STR,OPF_STR,IND_STR,CIV_STR]
 
-#define DEBUG_HEADER	format ["%1-[CH]",time]
+#define DEBUG_HEADER	format ["%1-[NAVY]",time]
+#define DEBUG_RPT		true
+#define DEBUG_HINTS		true
+#define DEBUG_SIDECHAT	true
 
 #endif //NAVY_MACROS_H

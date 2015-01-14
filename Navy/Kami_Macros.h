@@ -1,3 +1,5 @@
+// Credit: Kami
+// https://github.com/kami-
 #ifndef KAMI_MACROS_H
 #define KAMI_MACROS_H
 
