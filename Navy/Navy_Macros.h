@@ -26,9 +26,9 @@
 #define SIDE_ARRAY			[BLU,OPF,IND,CIV]
 #define SIDE_ARRAY_STR		[BLU_STR,OPF_STR,IND_STR,CIV_STR]
 
-#define DEBUG_HEADER	format ["%1-[NAVY]",time]
-#define DEBUG_RPT		true
-#define DEBUG_HINTS		true
-#define DEBUG_SIDECHAT	true
+#define DEBUG_HEADER		format ["%1-[NAVY]: ",time]
+#define DEBUG_RPT			true
+#define DEBUG_HINTS			true
+#define DEBUG_SIDECHAT		true
 
 #endif //NAVY_MACROS_H

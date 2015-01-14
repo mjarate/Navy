@@ -5,7 +5,7 @@ Navy_Debug_RPT =
 	FUN_ARGS_1(_message);
 	if (DEBUG_LOGTORPT) then
 	{
-		diag_log format _message;
+		diag_log format ["%1%2",DEBUG_HEADER,(format _message)];
 	};
 };
 
@@ -21,11 +21,11 @@ Navy_Debug_Hint =
 		};
 		if (_silent) then
 		{
-			hintSilent format _message;
+			hintSilent format ["%1%2",DEBUG_HEADER,(format _message)];
 		}
 		else
 		{
-			hint format _message;
+			hint format ["%1%2",DEBUG_HEADER,(format _message)];
 		};
 	};
 };
@@ -35,7 +35,7 @@ Navy_Debug_SideChat =
 	FUN_ARGS_1(_message);
 	if (DEBUG_SIDECHAT) then
 	{
-		player sideChat format _message;
+		player sideChat format ["%1%2",DEBUG_HEADER,(format _message)];
 	};
 };
 
