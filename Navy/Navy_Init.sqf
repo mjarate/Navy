@@ -6,6 +6,7 @@
 
 Navy_PreInit =
 {
+	PRECOMPILE("Navy\Navy_Settings.sqf");
 	if (Navy_WaitForHull3) then
 	{
 		WAIT(hull3_isInitialized);
@@ -35,11 +36,16 @@ Navy_Init_Variables =
 	Navy_Vehicle_Counter = 0;
 };
 
+Navy_Init_CreateSpawnLocation =
+{
+	Navy_SpawnLocation = "HeliHEmpty" createVehicleLocal NAVY_SPAWN_LOCATION_POS;
+};
+
 Navy_Init =
 {
 	Navy_Initialised = false;
 	[] call Navy_Init_Variables;
-	PRECOMPILE("Navy\Navy_Settings.sqf");
+	[] call Navy_Init_CreateSpawnLocation;
 	// Turn Debug off in multiplayer settings
 	if (isMultiplayer && !DEBUG_MULTIPLAYER) then
 	{
@@ -52,6 +58,7 @@ Navy_Init =
 		[] call Navy_Debug_Init;
 	};
 	PRECOMPILE("Navy\Navy_General.sqf");
+	PRECOMPILE("Navy\Navy_Units.sqf");
 	PRECOMPILE("Navy\Navy_Vehicles.sqf");
 	PRECOMPILE("Navy\Navy_Routines.sqf");
 	PRECOMPILE("Navy\Navy_Mission.sqf");

@@ -3,7 +3,7 @@
 #ifndef NAVY_MACROS_H
 #define NAVY_MACROS_H
 
-#define Navy_Version			0.1
+#define Navy_Version			0.2
 
 #define PRECOMPILE(SCRIPT) 		call compile preProcessFileLineNumbers SCRIPT 
 #define WAIT(CODE) 				waitUntil {CODE}
@@ -22,11 +22,16 @@
 
 #define BLU_STR		"WEST"
 #define OPF_STR		"EAST"
-#define IND_STR		"GUER"
+#define IND_STR		"RESISTANCE"
 #define CIV_STR		"CIV"
 
 #define SIDE_ARRAY			[BLU,OPF,IND,CIV]
 #define SIDE_ARRAY_STR		[BLU_STR,OPF_STR,IND_STR,CIV_STR]
+
+#define CONFIG_CREWMEN_FIELD	"crewmen"
+
+#define NAVY_DRIVER_SKILL_LEVEL 	1
+#define NAVY_SPAWN_LOCATION_POS 	[10000,10000]
 
 #define DEBUG_HEADER		format ["%1-[NAVY]: ",time]
 #define DEBUG_RPT			true
@@ -34,8 +39,8 @@
 #define DEBUG_SIDECHAT		true
 #define DEBUG_MULTIPLAYER	false
 
-#define DEBUG_MARKER_SIZE_UNIT			[0.3,0.3]
-#define DEBUG_MARKER_SIZE_VEHICLE		[0.6,0.6]
+#define DEBUG_MARKER_SIZE_UNIT			[1,1]
+#define DEBUG_MARKER_SIZE_VEHICLE		[1.5,1.5]
 #define DEBUG_MARKER_COLOUR_UNIT		"ColorGreen"
 #define DEBUG_MARKER_COLOUR_VEHICLE		"ColorBrown"
 #define DEBUG_MARKER_UPDATE_DELAY		2

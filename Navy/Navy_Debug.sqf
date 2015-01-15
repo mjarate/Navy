@@ -16,7 +16,7 @@ Navy_Debug_SideChatRPT =
 Navy_Debug_RPT =
 {
 	FUN_ARGS_1(_message);
-	if (DEBUG_LOGTORPT) then
+	if (DEBUG_RPT) then
 	{
 		diag_log format ["%1%2",DEBUG_HEADER,(format _message)];
 	};
@@ -66,14 +66,14 @@ Navy_Debug_InitMarker =
 	}
 	else
 	{
-		_vehicle_str = "Unit";_
+		_vehicle_str = "Unit";
 		_marker_colour = DEBUG_MARKER_COLOUR_UNIT;
 		_marker_size = DEBUG_MARKER_SIZE_UNIT;
 		_marker_counter = Navy_Unit_Counter;
 		INC(Navy_Unit_Counter);
 	};
-	_marker_name = format ["Navy_%1_%2_%3",_vehicle,_marker_counter,_unit];
-	[_marker_name,getposATL _unit,"ICON","mil_traingle_noShadow",_marker_colour,_marker_size] call adm_common_fnc_createLocalMarker;
+	_marker_name = format ["Navy_%1_%2",_vehicle_str,_marker_counter];
+	[_marker_name,getposATL _unit,"ICON","mil_triangle_noShadow",_marker_colour,_marker_size] call adm_common_fnc_createLocalMarker;
 	Navy_Debug_Markers pushBack _marker_name;
 	_marker_name;
 };
@@ -93,7 +93,8 @@ Navy_Debug_TrackWithMarker =
 	{
 		_delay = DEBUG_MARKER_UPDATE_DELAY;
 	};
-	DECLARE(_debug_marker_name) = [_unit] call Navy_Debug_InitMarker;
+	DECLARE(_marker_name) = [_unit] call Navy_Debug_InitMarker;
+	_marker_name setMarkerTextLocal _marker_name;
 	while {alive _unit} do
 	{
 		_pos_and_dir = [_unit] call Navy_General_ReturnPosAndDir;

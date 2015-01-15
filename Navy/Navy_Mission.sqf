@@ -2,5 +2,6 @@
 
 Navy_Timeline =
 {
-	["B_Heli_Light_01_F",[0,0,0],true] call Navy_Vehicle_SpawnAirVehicle;
+	["NATO_WOODLAND","B_Heli_Light_01_F",getposATL spawn_item,false] call Navy_Vehicle_SpawnFilledAirVehicle;
+	hint "Mission file finished";
 };
