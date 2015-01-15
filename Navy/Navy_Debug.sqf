@@ -78,11 +78,11 @@ Navy_Debug_InitMarker =
 	_marker_name;
 };
 
-Navy_Debug_RemoveMarker =
+Navy_Debug_DeleteMarker =
 {
 	FUN_ARGS_1(_marker_name);
-	Navy_Debug_Markers = Navy_Debug_Markers - [_marker_name]; // REPLACE WITH DELETEAT!
 	REMOVE_ELEMENT(Navy_Debug_Markers,_marker_name);
+	deleteMarkerLocal _marker_name;
 };
 
 Navy_Debug_TrackUnit =
@@ -101,5 +101,5 @@ Navy_Debug_TrackUnit =
 		_marker_name setMarkerDirLocal (_pos_and_dir select 1);
 		sleep _delay;
 	};
-	[_marker_name] call Navy_Debug_RemoveMarker;
+	[_marker_name] call Navy_Debug_DeleteMarker;
 };
