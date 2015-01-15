@@ -62,7 +62,7 @@ Navy_Debug_InitMarker =
 		_marker_colour = DEBUG_MARKER_COLOUR_VEHICLE;
 		_marker_size = DEBUG_MARKER_SIZE_VEHICLE;
 		_marker_counter = Navy_Vehicle_Counter;
-		INC(Navy_Vehicle_Counter);
+		
 	}
 	else
 	{
@@ -85,7 +85,7 @@ Navy_Debug_DeleteMarker =
 	deleteMarkerLocal _marker_name;
 };
 
-Navy_Debug_TrackUnit =
+Navy_Debug_TrackWithMarker =
 {
 	FUN_ARGS_2(_unit,_delay);
 	PVT_1(_pos_and_dir);
