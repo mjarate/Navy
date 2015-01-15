@@ -30,5 +30,12 @@
 #define DEBUG_RPT			true
 #define DEBUG_HINTS			true
 #define DEBUG_SIDECHAT		true
+#define DEBUG_MULTIPLAYER	false
+
+#define DEBUG_MARKER_SIZE_UNIT			[0.3,0.3]
+#define DEBUG_MARKER_SIZE_VEHICLE		[0.6,0.6]
+#define DEBUG_MARKER_COLOUR_UNIT		"ColorGreen"
+#define DEBUG_MARKER_COLOUR_VEHICLE		"ColorBrown"
+#define DEBUG_MARKER_UPDATE_DELAY		2
 
 #endif //NAVY_MACROS_H

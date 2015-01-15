@@ -23,16 +23,33 @@ Navy_PreInit =
 	};
 };
 
+Navy_Init_Variables =
+{
+	Navy_Units = [];
+	Navy_Unit_Counter = 0;
+	Navy_Vehicles = [];
+	Navy_Vehicle_Counter = 0;
+};
+
 Navy_Init =
 {
 	Navy_Initialised = false;
+	[] call Navy_Init_Variables;
 	PRECOMPILE("Navy\Navy_Settings.sqf");
+	// Turn Debug off in multiplayer settings
+	if (isMultiplayer && !DEBUG_MULTIPLAYER) then
+	{
+		Navy_Debug = false;
+	};
 	// Compile Debug functions only if debug is enabled
 	DEBUG
 	{
 		PRECOMPILE("Navy\Navy_Debug.sqf");
+		[] call Navy_Debug_Init;
 	};
+	PRECOMPILE("Navy\Navy_General.sqf");
 	PRECOMPILE("Navy\Navy_Vehicles.sqf");
 	PRECOMPILE("Navy\Navy_Routines.sqf");
 	Navy_Initialised = true;
+	publicVariable "Navy_Initialised";
 };
