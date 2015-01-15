@@ -1,5 +1,9 @@
 #include "Navy_Macros.h"
 
+// Add the following to your init.sqf:
+// call compile preprocessFileLineNumbers "Navy\Navy_Init.sqf";
+// [] call Navy_PreInit;
+
 Navy_PreInit =
 {
 	if (Navy_WaitForHull3) then
@@ -12,13 +16,13 @@ Navy_PreInit =
 	WAIT(!isNil "adm_api_fnc_executeIfAdmiralMachine");
 	if (Navy_RunOnHC) then
 	{
-		[[],Navy_Init] call adm_api_fnc_executeIfAdmiralMachine;
+		[[],Navy_Init] spawn adm_api_fnc_executeIfAdmiralMachine;
 	}
 	else
 	{
 		RUN_ON_SERVER
 		{
-			[] call Navy_Init;
+			[] spawn Navy_Init;
 		};
 	};
 };
@@ -50,6 +54,9 @@ Navy_Init =
 	PRECOMPILE("Navy\Navy_General.sqf");
 	PRECOMPILE("Navy\Navy_Vehicles.sqf");
 	PRECOMPILE("Navy\Navy_Routines.sqf");
+	PRECOMPILE("Navy\Navy_Mission.sqf");
 	Navy_Initialised = true;
 	publicVariable "Navy_Initialised";
+	[["Navy Version %1 has successfully initliased.",Navy_Version]] call Navy_General_Log;
+	[] spawn Navy_Timeline;
 };

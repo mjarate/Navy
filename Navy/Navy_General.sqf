@@ -9,3 +9,13 @@ Navy_General_ReturnPosAndDir =
 	//_pos_and_dir;
 	[_pos,_dir];
 };
+
+Navy_General_Log =
+{
+	FUN_ARGS_1(_message);
+	diag_log format["%1%2",DEBUG_HEADER,format _message];
+	DEBUG
+	{
+		[_message] call Navy_Debug_SideChat;
+	};
+};
