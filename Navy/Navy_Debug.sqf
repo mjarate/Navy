@@ -82,6 +82,7 @@ Navy_Debug_RemoveMarker =
 {
 	FUN_ARGS_1(_marker_name);
 	Navy_Debug_Markers = Navy_Debug_Markers - [_marker_name]; // REPLACE WITH DELETEAT!
+	REMOVE_ELEMENT(Navy_Debug_Markers,_marker_name);
 };
 
 Navy_Debug_TrackUnit =

@@ -13,6 +13,8 @@
 #define HC_NAMES				adm_hc_defaultNames
 #define isHC(VAR)				((name VAR) in HC_NAMES)
 
+#define REMOVE_ELEMENT(ARRAY,VAR)	ARRAY deleteAt (ARRAY find VAR)
+
 #define BLU			west
 #define OPF			east
 #define IND			resistance
