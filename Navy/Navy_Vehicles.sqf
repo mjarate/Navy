@@ -7,6 +7,10 @@ Navy_Vehicle_SpawnFilledAirVehicle =
 	_driver = [_unit_template] call Navy_Units_SpawnDriver;
 	_vehicle = [_vehicle_classname,_spawn_position,_flying] call Navy_Vehicle_SpawnAirVehicle;
 	_driver moveinDriver _vehicle;
+	DEBUG
+	{
+		[["Driver %1 placed in vehicle %2 at position %3 flying: %4",_driver,_vehicle,_spawn_position,_flying]] call Navy_Debug_SideChatRPT;
+	};
 };
 
 Navy_Vehicle_SpawnAirVehicle =

@@ -12,9 +12,11 @@ Navy_PreInit =
 		WAIT(hull3_isInitialized);
 	};
 	// Wait for Admiral AI Suite to finish initialising
-	WAIT(sleep 0.5; adm_isInitialized);
+	//WAIT(sleep 0.5; adm_isInitialized);
+	WAIT_DELAY(0.5,adm_isInitialized);
 	// Make sure the admiral API command for running on HC is available
-	WAIT(!isNil "adm_api_fnc_executeIfAdmiralMachine");
+	//WAIT(sleep 0.5; !isNil "adm_api_fnc_executeIfAdmiralMachine");
+	WAIT_DELAY(0.5,!isNil "adm_api_fnc_executeIfAdmiralMachine");
 	if (Navy_RunOnHC) then
 	{
 		[[],Navy_Init] spawn adm_api_fnc_executeIfAdmiralMachine;

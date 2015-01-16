@@ -7,6 +7,7 @@
 
 #define PRECOMPILE(SCRIPT) 		call compile preProcessFileLineNumbers SCRIPT 
 #define WAIT(CODE) 				waitUntil {CODE}
+#define WAIT_DELAY(DELAY,CODE)	waitUntil {sleep DELAY; CODE}
 #define DEBUG					if (Navy_Debug) then
 #define RUN_ON_SERVER			if (isServer) then
 #define ALTITUDE(OBJECT)		((getposATL OBJECT) select 2)
