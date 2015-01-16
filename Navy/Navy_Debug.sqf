@@ -106,7 +106,7 @@ Navy_Debug_TrackWithMarker =
 	else
 	{
 		_delay = DEBUG_MARKER_UNIT_DELAY;
-		WAIT_DELAY(1,(!(_object in crew (vehicle _object))) || !alive _object);
+		WAIT_DELAY(1,(_object == (vehicle _object)) || !alive _object);
 	};
 	DECLARE(_marker_name) = [_object,_vehicle] call Navy_Debug_InitMarker;
 	_marker_name setMarkerTextLocal _marker_name;

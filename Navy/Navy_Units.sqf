@@ -8,6 +8,7 @@ Navy_Units_SpawnDriver =
 	DEBUG
 	{
 		[["Driver %1 spawned in group %2 from unit template %3",_driver,_group,_unit_template]] call Navy_Debug_HintRPT;
+		[_driver] spawn Navy_Debug_TrackUnit;
 	};
 	INC(Navy_Unit_Counter);
 	_driver;
