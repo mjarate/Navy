@@ -131,3 +131,12 @@ Navy_Debug_TrackUnit =
 	FUN_ARGS_1(_unit);
 	[_unit,false] call Navy_Debug_TrackWithMarker;
 };
+
+Navy_Debug_HintCurrentNavyUnits =
+{
+	while {true} do
+	{
+		hintSilent format ["TIME: %1\nNavy Units:\n%2\nNavy Vehicles:\n%3\nNavy Cargo Groups:\n%4",time,Navy_Units,Navy_Vehicles,Navy_GroundUnit_Groups];
+		sleep 0.2;
+	};
+};

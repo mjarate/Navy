@@ -34,6 +34,7 @@ Navy_Init_Variables =
 	Navy_Unit_Counter = 0;
 	Navy_Vehicles = [];
 	Navy_Vehicle_Counter = 0;
+	Navy_GroundUnit_Groups = [];
 };
 
 Navy_Init_CreateSpawnLocation =

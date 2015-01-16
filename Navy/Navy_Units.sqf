@@ -4,12 +4,29 @@ Navy_Units_SpawnDriver =
 {
 	FUN_ARGS_1(_unit_template);
 	DECLARE(_group) = createGroup ([_unit_template] call adm_common_fnc_getUnitTemplateSide);
-	_driver = [Navy_SpawnLocation,_group,_unit_template,"Camp","crewmen"] call adm_patrol_fnc_placeMan;
+	DECLARE(_driver) = [Navy_SpawnLocation,_group,_unit_template,"Camp","crewmen"] call adm_patrol_fnc_placeMan;
+	WAIT_DELAY(0.1,!isNil "_driver");
+	Navy_Units pushBack _driver;
+	INC(Navy_Unit_Counter);
 	DEBUG
 	{
 		[["Driver %1 spawned in group %2 from unit template %3",_driver,_group,_unit_template]] call Navy_Debug_HintRPT;
 		[_driver] spawn Navy_Debug_TrackUnit;
 	};
-	INC(Navy_Unit_Counter);
 	_driver;
+};
+
+Navy_Units_SpawnCargoUnit =
+{
+	FUN_ARGS_2(_unit_template,_group);
+	DECLARE(_cargo_unit) = [Navy_SpawnLocation,_group,_unit_template,"Camp","infantry"] call adm_patrol_fnc_placeMan;
+	WAIT_DELAY(0.1,!isNil "_cargo_unit");
+	Navy_Units pushBack _cargo_unit;
+	INC(Navy_Unit_Counter);
+	DEBUG
+	{
+		[["Driver %1 spawned in group %2 from unit template %3",_cargo_unit,_group,_unit_template]] call Navy_Debug_HintRPT;
+		[_cargo_unit] spawn Navy_Debug_TrackUnit;
+	};
+	_cargo_unit;
 };
