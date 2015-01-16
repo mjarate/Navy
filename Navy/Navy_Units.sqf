@@ -9,5 +9,6 @@ Navy_Units_SpawnDriver =
 	{
 		[["Driver %1 spawned in group %2 from unit template %3",_driver,_group,_unit_template]] call Navy_Debug_SideChatRPT;
 	};
+	INC(Navy_Unit_Counter);
 	_driver;
 };

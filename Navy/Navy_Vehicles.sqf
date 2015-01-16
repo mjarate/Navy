@@ -9,6 +9,7 @@ Navy_Vehicle_SpawnFilledAirVehicle =
 	_driver moveinDriver _vehicle;
 	DEBUG
 	{
+		[_vehicleID] spawn Navy_Debug_TrackVehicle;
 		[["Driver %1 placed in vehicle %2 at position %3 flying: %4",_driver,_vehicle,_spawn_position,_flying]] call Navy_Debug_SideChatRPT;
 	};
 };
@@ -26,10 +27,6 @@ Navy_Vehicle_SpawnAirVehicle =
 	};
 	DECLARE(_vehicleID) = createVehicle [_classname,_spawn_position,[],0,_flying];
 	WAIT(sleep 0.1;!isNull _vehicleID);
-	DEBUG
-	{
-		[_vehicleID] spawn Navy_Debug_TrackWithMarker;
-	};
 	INC(Navy_Vehicle_Counter);
 	_vehicleID;
 };
