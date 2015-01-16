@@ -11,9 +11,9 @@ Navy_General_ReturnPosAndDir =
 Navy_General_Log =
 {
 	FUN_ARGS_1(_message);
-	diag_log format["%1%2",DEBUG_HEADER,format _message];
+	diag_log format ["%1%2",DEBUG_HEADER,format _message];
 	DEBUG
 	{
-		[_message] call Navy_Debug_SideChat;
+		[_message] call Navy_Debug_Hint;
 	};
 };

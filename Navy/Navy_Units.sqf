@@ -7,7 +7,7 @@ Navy_Units_SpawnDriver =
 	_driver = [Navy_SpawnLocation,_group,_unit_template,"Camp","crewmen"] call adm_patrol_fnc_placeMan;
 	DEBUG
 	{
-		[["Driver %1 spawned in group %2 from unit template %3",_driver,_group,_unit_template]] call Navy_Debug_SideChatRPT;
+		[["Driver %1 spawned in group %2 from unit template %3",_driver,_group,_unit_template]] call Navy_Debug_HintRPT;
 	};
 	INC(Navy_Unit_Counter);
 	_driver;

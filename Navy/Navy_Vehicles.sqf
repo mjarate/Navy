@@ -3,15 +3,19 @@
 Navy_Vehicle_SpawnFilledAirVehicle =
 {
 	FUN_ARGS_4(_unit_template,_vehicle_classname,_spawn_position,_flying);
-	PVT_2(_driver,_vehicle);
+	PVT_2(_driver,_vehicleID);
 	_driver = [_unit_template] call Navy_Units_SpawnDriver;
-	_vehicle = [_vehicle_classname,_spawn_position,_flying] call Navy_Vehicle_SpawnAirVehicle;
-	_driver moveinDriver _vehicle;
+	_vehicleID = [_vehicle_classname,_spawn_position,_flying] call Navy_Vehicle_SpawnAirVehicle;
+	_driver moveinDriver _vehicleID;
 	DEBUG
 	{
 		[_vehicleID] spawn Navy_Debug_TrackVehicle;
-		[["Driver %1 placed in vehicle %2 at position %3 flying: %4",_driver,_vehicle,_spawn_position,_flying]] call Navy_Debug_SideChatRPT;
+		[["Driver %1 placed in vehicle %2 at position %3 flying: %4",_driver,_vehicleID,_spawn_position,_flying]] call Navy_Debug_HintRPT;
 	};
+	sleep 5;
+	_driver action ["getOut", _vehicleID];
+	sleep 1;
+	_driver setposATL [0,0,0];
 };
 
 Navy_Vehicle_SpawnAirVehicle =

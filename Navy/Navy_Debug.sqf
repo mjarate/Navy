@@ -6,11 +6,18 @@ Navy_Debug_Init =
 	[["Navy Debug successfully initialised."]] call Navy_Debug_SideChatRPT;
 };
 
+Navy_Debug_HintRPT =
+{
+	FUN_ARGS_1(_message);
+	[_message] call Navy_Debug_RPT;
+	[_message,false] call Navy_Debug_Hint;
+};
+
 Navy_Debug_SideChatRPT =
 {
 	FUN_ARGS_1(_message);
-	[[_message]] call Navy_Debug_RPT;
-	[[_message]] call Navy_Debug_SideChat;
+	[_message] call Navy_Debug_RPT;
+	[_message] call Navy_Debug_SideChat;
 };
 
 Navy_Debug_RPT =
@@ -18,7 +25,7 @@ Navy_Debug_RPT =
 	FUN_ARGS_1(_message);
 	if (DEBUG_RPT) then
 	{
-		diag_log format ["%1%2",DEBUG_HEADER,(format _message)];
+		diag_log format ["%1%2",DEBUG_HEADER,format _message];
 	};
 };
 
@@ -34,11 +41,11 @@ Navy_Debug_Hint =
 		};
 		if (_silent) then
 		{
-			hintSilent format ["%1%2",DEBUG_HEADER,(format _message)];
+			hintSilent format ["%1%2",DEBUG_HEADER,format _message];
 		}
 		else
 		{
-			hint format ["%1%2",DEBUG_HEADER,(format _message)];
+			hint format ["%1%2",DEBUG_HEADER,format _message];
 		};
 	};
 };
@@ -48,7 +55,7 @@ Navy_Debug_SideChat =
 	FUN_ARGS_1(_message);
 	if (DEBUG_SIDECHAT) then
 	{
-		player sideChat format ["%1%2",DEBUG_HEADER,(format _message)];
+		player sideChat format ["%1%2",DEBUG_HEADER,format _message];
 	};
 };
 
