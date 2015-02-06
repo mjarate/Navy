@@ -42,6 +42,22 @@ Navy_Init_CreateSpawnLocation =
 	Navy_SpawnLocation = "HeliHEmpty" createVehicleLocal NAVY_SPAWN_LOCATION_POS;
 };
 
+Navy_Precompile =
+{
+	// Compile Debug functions only if debug is enabled
+	DEBUG
+	{
+		PRECOMPILE("Navy\Navy_Debug.sqf");
+		[] call Navy_Debug_Init;
+	};
+	PRECOMPILE("Navy\Navy_General.sqf");
+	PRECOMPILE("Navy\Navy_Waypoints.sqf");
+	PRECOMPILE("Navy\Navy_Units.sqf");
+	PRECOMPILE("Navy\Navy_Vehicles.sqf");
+	PRECOMPILE("Navy\Navy_Routines.sqf");
+	PRECOMPILE("Navy\Navy_Mission.sqf");
+};
+
 Navy_Init =
 {
 	Navy_Initialised = false;
@@ -52,19 +68,9 @@ Navy_Init =
 	{
 		Navy_Debug = false;
 	};
-	// Compile Debug functions only if debug is enabled
-	DEBUG
-	{
-		PRECOMPILE("Navy\Navy_Debug.sqf");
-		[] call Navy_Debug_Init;
-	};
-	PRECOMPILE("Navy\Navy_General.sqf");
-	PRECOMPILE("Navy\Navy_Units.sqf");
-	PRECOMPILE("Navy\Navy_Vehicles.sqf");
-	PRECOMPILE("Navy\Navy_Routines.sqf");
-	PRECOMPILE("Navy\Navy_Mission.sqf");
+	[] call Navy_Precompile;
 	Navy_Initialised = true;
 	publicVariable "Navy_Initialised";
-	[["Navy Version %1 has successfully initliased.",Navy_Version]] call Navy_General_Log;
+	[["Navy Version %1 has successfully initliased.",NAVY_VERSION]] call Navy_General_Log;
 	[] spawn Navy_Timeline;
 };

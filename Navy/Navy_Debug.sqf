@@ -59,6 +59,13 @@ Navy_Debug_SideChat =
 	};
 };
 
+Navy_Debug_DebugMarker =
+{
+	FUN_ARGS_1(_position);
+	DECLARE(_marker) = [format ["DEBUG_MARKER_%1",random 10000],_position,"ICON","dot","ColorRed",[1,1]] call adm_common_fnc_createLocalMarker;
+	_marker setMarkerTextLocal "DEBUG!";
+};
+
 Navy_Debug_InitMarker =
 {
 	FUN_ARGS_2(_unit,_vehicle);

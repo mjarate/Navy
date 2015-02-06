@@ -4,7 +4,12 @@ Navy_Units_SpawnDriver =
 {
 	FUN_ARGS_1(_unit_template);
 	DECLARE(_group) = createGroup ([_unit_template] call adm_common_fnc_getUnitTemplateSide);
-	DECLARE(_driver) = [Navy_SpawnLocation,_group,_unit_template,"Camp","crewmen"] call adm_patrol_fnc_placeMan;
+	DECLARE(_driver) =
+	[
+		Navy_SpawnLocation,
+		_group,_unit_template,
+		CONFIG_CAMP_FIELD,CONFIG_CREWMEN_FIELD
+	] call adm_patrol_fnc_placeMan;
 	WAIT_DELAY(0.1,!isNil "_driver");
 	Navy_Units pushBack _driver;
 	INC(Navy_Unit_Counter);
@@ -19,7 +24,13 @@ Navy_Units_SpawnDriver =
 Navy_Units_SpawnCargoUnit =
 {
 	FUN_ARGS_2(_unit_template,_group);
-	DECLARE(_cargo_unit) = [Navy_SpawnLocation,_group,_unit_template,"Camp","infantry"] call adm_patrol_fnc_placeMan;
+	DECLARE(_cargo_unit) =
+	[
+		Navy_SpawnLocation,
+		_group,_unit_template,
+		CONFIG_CAMP_FIELD,
+		CONFIG_INFANTRY_FIELD
+	] call adm_patrol_fnc_placeMan;
 	WAIT_DELAY(0.1,!isNil "_cargo_unit");
 	Navy_Units pushBack _cargo_unit;
 	INC(Navy_Unit_Counter);
@@ -29,4 +40,15 @@ Navy_Units_SpawnCargoUnit =
 		[_cargo_unit] spawn Navy_Debug_TrackUnit;
 	};
 	_cargo_unit;
+};
+
+Navy_Units_CreateUnitPatrolZone =
+{
+	FUN_ARGS_3(_position,_zone_type,_radius);
+	DECLARE(_trigger) = createTrigger ["EmptyDetector",_position];
+	sleep 1;
+	_trigger setTriggerText _zone_type;
+	_trigger setTriggerArea [_radius,_radius,0,false];
+	_trigger setTriggerActivation ["ANY","NOT PRESENT",false];
+	_trigger;
 };
