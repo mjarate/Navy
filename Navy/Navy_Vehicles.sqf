@@ -6,6 +6,7 @@ Navy_Vehicle_SpawnFilledAirVehicle =
 	PVT_3(_driver,_vehicleID,_cargo_group);
 	_driver = [_unit_template] call Navy_Units_SpawnDriver;
 	_vehicleID = [_vehicle_classname,_spawn_position,_flying] call Navy_Vehicle_SpawnAirVehicle;
+	_driver assignAsDriver _vehicleID;
 	_driver moveinDriver _vehicleID;
 	DEBUG
 	{
@@ -19,7 +20,7 @@ Navy_Vehicle_SpawnFilledAirVehicle =
 	} forEach units _cargo_group;
 	DEBUG
 	{
-		[["Cargo unit group %1 has been placed in the vehicle %2",units _cargo_group,_vehicleID]] call Navy_Debug_HintRPT;
+		[["Cargo unit group %1 has been placed in the vehicle %2",_cargo_group,_vehicleID]] call Navy_Debug_HintRPT;
 	};
 	[_vehicleID,_cargo_group];
 };
@@ -36,7 +37,7 @@ Navy_Vehicle_SpawnAirVehicle =
 		_flying = "NONE";
 	};
 	DECLARE(_vehicleID) = createVehicle [_classname,_spawn_position,[],0,_flying];
-	WAIT(sleep 0.1;!isNull _vehicleID);
+	WAIT_DELAY(0.1,!isNil "_vehicleID");
 	Navy_Vehicles pushBack _vehicleID;
 	INC(Navy_Vehicle_Counter);
 	_vehicleID;
@@ -63,7 +64,7 @@ Navy_Vehicle_FillCargo =
 
 Navy_Vehicle_EjectCargo =
 {
-	FUN_ARGS_3(_vehicleID,_cargo_group,_delay);
+	FUN_ARGS_2(_cargo_group,_delay);
 	if (isNil "_delay") then
 	{
 		_delay = NAVY_DEFAULT_PARADROP_DELAY;
@@ -71,12 +72,13 @@ Navy_Vehicle_EjectCargo =
 	{
 		removeBackpack _x;
 		_x addBackpackGlobal "B_Parachute";
+		//(_x) action ["EJECT", vehicle _x];
+		moveOut _x;
 		unassignVehicle _x;
-		_x action ["eject", _vehicleID];
 		sleep _delay;
 	} forEach units _cargo_group;
 	DEBUG
 	{
-		[["Cargo Unit Group: %1 has paradropped from vehicle: %2",_cargo_group,_vehicleID]] call Navy_Debug_HintRPT;
+		[["Cargo Unit Group: %1 has paradropped successfully.",_cargo_group]] call Navy_Debug_HintRPT;
 	};
 };

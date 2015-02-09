@@ -7,11 +7,14 @@ Navy_Units_SpawnDriver =
 	DECLARE(_driver) =
 	[
 		Navy_SpawnLocation,
-		_group,_unit_template,
-		CONFIG_CAMP_FIELD,CONFIG_CREWMEN_FIELD
+		_group,
+		_unit_template,
+		CONFIG_CAMP_FIELD,
+		CONFIG_CREWMEN_FIELD
 	] call adm_patrol_fnc_placeMan;
 	WAIT_DELAY(0.1,!isNil "_driver");
 	Navy_Units pushBack _driver;
+	_driver allowFleeing 0;
 	INC(Navy_Unit_Counter);
 	DEBUG
 	{
@@ -27,7 +30,8 @@ Navy_Units_SpawnCargoUnit =
 	DECLARE(_cargo_unit) =
 	[
 		Navy_SpawnLocation,
-		_group,_unit_template,
+		_group,
+		_unit_template,
 		CONFIG_CAMP_FIELD,
 		CONFIG_INFANTRY_FIELD
 	] call adm_patrol_fnc_placeMan;

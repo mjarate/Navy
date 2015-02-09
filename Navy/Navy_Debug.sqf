@@ -61,9 +61,9 @@ Navy_Debug_SideChat =
 
 Navy_Debug_DebugMarker =
 {
-	FUN_ARGS_1(_position);
-	DECLARE(_marker) = [format ["DEBUG_MARKER_%1",random 10000],_position,"ICON","dot","ColorRed",[1,1]] call adm_common_fnc_createLocalMarker;
-	_marker setMarkerTextLocal "DEBUG!";
+	FUN_ARGS_2(_position,_text);
+	DECLARE(_marker) = [format ["DEBUG_MARKER_%1",random 10000],_position,"ICON","hd_dot","ColorRed",[1,1]] call adm_common_fnc_createLocalMarker;
+	_marker setMarkerTextLocal format _text;
 };
 
 Navy_Debug_InitMarker =
@@ -144,6 +144,19 @@ Navy_Debug_HintCurrentNavyUnits =
 	while {true} do
 	{
 		hintSilent format ["TIME: %1\nNavy Units:\n%2\nNavy Vehicles:\n%3\nNavy Cargo Groups:\n%4",time,Navy_Units,Navy_Vehicles,Navy_GroundUnit_Groups];
+		sleep 0.2;
+	};
+};
+
+Navy_Debug_TrackCurrentWaypoints = 
+{
+	FUN_ARGS_1(_unit);
+	PVT_2(_waypoint_list,_current_waypoint);
+	while {true} do
+	{
+		_waypoint_list = waypoints (group _unit);
+		_current_waypoint = currentWaypoint (group _unit);
+		hintSilent format ["TIME: %1\nUnit: %2\nGroup: %3\nCurrent Waypoint: %4\nWaypoint list;\n%5",time,_unit,(group _unit),_current_waypoint,_waypoint_list];
 		sleep 0.2;
 	};
 };

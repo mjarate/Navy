@@ -2,15 +2,19 @@
 
 Navy_RunParadrop =
 {
-	FUN_ARGS_7(_unit_template,_vehicle_classname,_cargo_amount,_spawn_position,_first_waypoint_object,_cargo_waypoint_object,_end_waypoint_object);
+	FUN_ARGS_7(_unit_template,_vehicle_classname,_cargo_amount,_spawn_position,_first_waypoint_object,_end_waypoint_object,_cargo_waypoint_object);
 	DECLARE(_vehicle_and_cargo_group) = [_unit_template,_vehicle_classname,_spawn_position,_cargo_amount,true] call Navy_Vehicle_SpawnFilledAirVehicle;
 	[
 		(_vehicle_and_cargo_group select 0),
 		(_vehicle_and_cargo_group select 1),
 		_first_waypoint_object,
-		_cargo_waypoint_object,
-		_end_waypoint_object
+		_end_waypoint_object,
+		_cargo_waypoint_object
 	] call Navy_Routine_Paradrop;
+	DEBUG
+	{
+		[["Paradrop routine with template %1 and classname %2 has finished executing.",_unit_template,_vehicle_classname]] call Navy_Debug_HintRPT;
+	};
 };
 
 Navy_General_ReturnPosAndDir =
