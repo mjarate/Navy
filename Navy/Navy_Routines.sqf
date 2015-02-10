@@ -45,7 +45,7 @@ Navy_Routine_Paradrop =
 		0,
 		"MOVE",
 		"AWARE",
-		"FULL",
+		"NORMAL",
 		"RED",
 		["",""]
 	] call Navy_Waypoint_AddFullWaypoint;
@@ -56,22 +56,20 @@ Navy_Routine_Paradrop =
 		0,
 		"MOVE",
 		"AWARE",
-		"FULL",
+		"NORMAL",
 		"RED",
 		["",""]
 	] call Navy_Waypoint_AddFullWaypoint;
-	[_vehicleID,"Door_L"] call Navy_Vehicle_Animation_Door_Open;
-	[_vehicleID,"Door_R"] call Navy_Vehicle_Animation_Door_Open;
+	[_vehicleID,["Door_L","Door_R"]] call Navy_Vehicle_Animation_OpenDoorArray;
 	WAIT_DELAY(0.5,(currentWaypoint (group _pilot)) == 2);
-	[_cargo_group,0.6] call Navy_Vehicle_EjectCargo;
+	[_cargo_group,0.7] call Navy_Vehicle_EjectCargo;
 	DECLARE(_WP3) = [
 		(leader _cargo_group),
 		(getposATL _cargo_waypoint_object),
 		NAVY_DEFAULT_CARGO_UNIT_RADIUS,
 		4
 	] call Navy_Waypoint_AddPatrolWaypoints;
-	[_vehicleID,"Door_L"] call Navy_Vehicle_Animation_Door_Close;
-	[_vehicleID,"Door_R"] call Navy_Vehicle_Animation_Door_Close;
+	[_vehicleID,["Door_L","Door_R"]] call Navy_Vehicle_Animation_CloseDoorArray;
 	waitUntil
 	{
 		sleep 2;

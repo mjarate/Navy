@@ -30,7 +30,7 @@ Navy_Waypoint_AddPatrolWaypoints =
 	{
 		_random_x = (_position select 0) + random _radius;
 		_random_y = (_position select 1) + random _radius;
-		_WP = [_unit,_i,[_random_x,_random_y],0,"MOVE","AWARE",SELECT_RAND(NAVY_PATROL_SPEEDS),"RED",["",""]] call Navy_Waypoint_AddFullWaypoint;
+		_WP = [_unit,_i,[_random_x,_random_y],0,"MOVE","AWARE","FULL","RED",["",""]] call Navy_Waypoint_AddFullWaypoint;
 	};
 	_WP setWaypointStatements ["true","(group this) setCurrentWaypoint [group this,1]"];
 	DEBUG

@@ -1,5 +1,18 @@
 #include "Navy_Macros.h"
 
+Navy_Vehicle_SpawnAirVehicle =
+{
+	FUN_ARGS_2(_classname,_spawn_position);
+	DECLARE(_vehicleID) = createVehicle [_classname,_spawn_position,[],0,Navy_Vehicle_StartingForm];
+	WAIT_DELAY(0.1,!isNil "_vehicleID");
+	_spawn_position = getposATL _spawn_position;
+	_vehicleID setposATL [(_spawn_position select 0),(_spawn_position select 1),NAVY_DEFAULT_FLIGHT_HEIGHT];
+	_vehicleID flyInHeight NAVY_DEFAULT_FLIGHT_HEIGHT;
+	Navy_Vehicles pushBack _vehicleID;
+	INC(Navy_Vehicle_Counter);
+	_vehicleID;
+};
+
 Navy_Vehicle_SpawnFilledAirVehicle =
 {
 	FUN_ARGS_4(_unit_template,_vehicle_classname,_spawn_position,_cargo_amount);
@@ -23,16 +36,6 @@ Navy_Vehicle_SpawnFilledAirVehicle =
 		[["Cargo unit group %1 has been placed in the vehicle %2",_cargo_group,_vehicleID]] call Navy_Debug_HintRPT;
 	};
 	[_vehicleID,_cargo_group];
-};
-
-Navy_Vehicle_SpawnAirVehicle =
-{
-	FUN_ARGS_2(_classname,_spawn_position);
-	DECLARE(_vehicleID) = createVehicle [_classname,_spawn_position,[],0,Navy_Vehicle_StartingForm];
-	WAIT_DELAY(0.1,!isNil "_vehicleID");
-	Navy_Vehicles pushBack _vehicleID;
-	INC(Navy_Vehicle_Counter);
-	_vehicleID;
 };
 
 Navy_Vehicle_FillCargo =
@@ -67,6 +70,7 @@ Navy_Vehicle_EjectCargo =
 		//(_x) action ["EJECT", vehicle _x]; // This was breaking the helicopter's motion
 		moveOut _x;
 		unassignVehicle _x;
+		_x setVelocity [0,0,-5];
 		sleep _delay;
 	} forEach units _cargo_group;
 	DEBUG
@@ -75,22 +79,38 @@ Navy_Vehicle_EjectCargo =
 	};
 };
 
-Navy_Vehicle_Animation_Door_Open =
+Navy_Vehicle_Animation_Door =
+{
+	FUN_ARGS_3(_vehicleID,_door,_phase);
+	_vehicleID animateDoor [_door,_phase,false];
+};
+
+Navy_Vehicle_Animation_OpenDoor =
 {
 	FUN_ARGS_2(_vehicleID,_door);
 	[_vehicleID,_door,1] call Navy_Vehicle_Animation_Door;
 };
 
-Navy_Vehicle_Animation_Door_Close =
+Navy_Vehicle_Animation_CloseDoor =
 {
 	FUN_ARGS_2(_vehicleID,_door);
 	[_vehicleID,_door,0] call Navy_Vehicle_Animation_Door;
 };
 
-Navy_Vehicle_Animation_Door =
+Navy_Vehicle_Animation_OpenDoorArray =
 {
-	FUN_ARGS_3(_vehicleID,_door,_phase);
-	_vehicleID animateDoor [_door,_phase,false];
+	FUN_ARGS_2(_vehicleID,_door_array);
+	{
+		[_vehicleID,_x] call Navy_Vehicle_Animation_OpenDoor;
+	} forEach _door_array;
+};
+
+Navy_Vehicle_Animation_CloseDoorArray =
+{
+	FUN_ARGS_2(_vehicleID,_door_array);
+	{
+		[_vehicleID,_x] call Navy_Vehicle_Animation_CloseDoor;
+	} forEach _door_array;
 };
 
 Navy_Vehicle_CleanUp =
