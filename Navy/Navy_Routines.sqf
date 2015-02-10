@@ -8,7 +8,10 @@ Navy_Routine_HeliInsert =
 	DECLARE(_WP2_pos) = getposATL _end_waypoint_object;
 	DECLARE(_WP3_pos) = getposATL _cargo_waypoint_object;
 	PVT_3(_WP1,_WP2,_WP3);
-	// First: point at which the cargo units will land, Second: Clean up, Third: Cargo Units Waypoint
+	// First: point at which the cargo units will land
+	// Second: Clean up
+	// Third: Cargo Units Waypoint
+	
 	/*
 	_WP1 = [_pilot,[_WP1_pos,0],"MOVE","AWARE","BLUE"] call adm_common_fnc_createWaypoint;
 	// Statement Array: [condition,script]. Waypoint is not considered done until the condition is reached, script will run when waypoint is done.

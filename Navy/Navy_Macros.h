@@ -3,7 +3,7 @@
 #ifndef NAVY_MACROS_H
 #define NAVY_MACROS_H
 
-#define NAVY_VERSION			0.2
+#define NAVY_VERSION			0.3.2
 
 #define PRECOMPILE(SCRIPT) 			call compile preProcessFileLineNumbers SCRIPT 
 #define WAIT(CODE) 					waitUntil {CODE}

@@ -72,7 +72,7 @@ Navy_Vehicle_EjectCargo =
 	{
 		removeBackpack _x;
 		_x addBackpackGlobal "B_Parachute";
-		//(_x) action ["EJECT", vehicle _x];
+		//(_x) action ["EJECT", vehicle _x]; // This was breaking the helicopter's motion
 		moveOut _x;
 		unassignVehicle _x;
 		sleep _delay;

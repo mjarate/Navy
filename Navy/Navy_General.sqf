@@ -34,14 +34,7 @@ Navy_General_Log =
 		[_message] call Navy_Debug_Hint;
 	};
 };
-/*
-Navy_General_DistanceBetweenObjects =
-{
-	FUN_ARGS_1(_object1,_object2);
-	DECLARE(_distance) = (getposATL _object1) distance (getposATL _object2);
-	_distance;
-};
-*/
+
 Navy_General_NumberBelowLimit =
 {
 	FUN_ARGS_2(_number,_limit);
