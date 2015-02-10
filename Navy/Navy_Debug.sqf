@@ -102,10 +102,6 @@ Navy_Debug_TrackWithMarker =
 {
 	FUN_ARGS_3(_object,_vehicle,_delay);
 	PVT_1(_pos_and_dir);
-	if (isNil "_delay") then
-	{
-		_delay = DEBUG_MARKER_DEFAULT_DELAY;
-	};
 	if (_vehicle) then
 	{
 		_delay = DEBUG_MARKER_VEHI_DELAY;
