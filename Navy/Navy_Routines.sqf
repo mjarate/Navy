@@ -32,8 +32,9 @@ Navy_Routine_Paradrop =
 {
 	FUN_ARGS_5(_vehicleID,_cargo_group,_first_waypoint_object,_end_waypoint_object,_cargo_waypoint_object);
 	DECLARE(_pilot) = driver _vehicleID;
-	[_pilot] spawn Navy_Debug_TrackCurrentWaypoints;
-	// First: point at which the cargo units will jump out, Second: Clean up, Third: Cargo Units Waypoint
+	// First: point at which the cargo units will jump out
+	// Second: Clean up
+	// Third: Cargo Units Waypoint
 	DECLARE(_WP1) = [
 		(driver _vehicleID),
 		1,
@@ -56,19 +57,12 @@ Navy_Routine_Paradrop =
 		"RED",
 		["",""]
 	] call Navy_Waypoint_AddFullWaypoint;
-	/*
-	waitUntil
-	{
-		sleep 0.5;
-		[_vehicleID,_first_waypoint_object,NAVY_DEFAULT_PARADROP_DISTANCE] call Navy_General_DistanceBelowLimit;
-	};
-	*/
 	WAIT_DELAY(0.5,(currentWaypoint (group _pilot)) == 2);
-	[_cargo_group,0.5] call Navy_Vehicle_EjectCargo;
+	[_cargo_group,0.6] call Navy_Vehicle_EjectCargo;
 	DECLARE(_WP3) = [
 		(leader _cargo_group),
 		(getposATL _cargo_waypoint_object),
-		100,
+		NAVY_DEFAULT_CARGO_UNIT_RADIUS,
 		4
 	] call Navy_Waypoint_AddPatrolWaypoints;
 	waitUntil

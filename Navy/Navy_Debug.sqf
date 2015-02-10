@@ -61,9 +61,19 @@ Navy_Debug_SideChat =
 
 Navy_Debug_DebugMarker =
 {
-	FUN_ARGS_3(_name_str,_position,_text);
-	DECLARE(_marker) = [_name_str,_position,"ICON","hd_dot","ColorRed",[1,1]] call adm_common_fnc_createLocalMarker;
+	FUN_ARGS_4(_name_str,_position,_size,_text);
+	if (isNil "_size") then
+	{
+		_size = [1,1];
+	};
+	DECLARE(_marker) = [_name_str,_position,"ICON","hd_dot","ColorRed",_size] call adm_common_fnc_createLocalMarker;
 	_marker setMarkerTextLocal format _text;
+};
+
+Navy_Debug_WaypointMarker =
+{
+	FUN_ARGS_3(_name_str,_position,_text);
+	[_name_str,_position,DEBUG_MARKER_SIZE_WAYPOINT,_text] call Navy_Debug_DebugMarker;
 };
 
 Navy_Debug_InitMarker =

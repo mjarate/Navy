@@ -17,7 +17,7 @@ Navy_Waypoint_AddFullWaypoint =
 	DEBUG
 	{
 		[["Group: %1 given waypoint: %2",(group _unit),_waypoint]] call Navy_Debug_HintRPT;
-		[str(_waypoint),_position,["WP: %1",_waypoint]] call Navy_Debug_DebugMarker;
+		[str(_waypoint),_position,["WP: %1",_waypoint]] call Navy_Debug_WaypointMarker;
 	};
 	_waypoint;
 };
@@ -32,7 +32,7 @@ Navy_Waypoint_AddPatrolWaypoints =
 		_random_y = (_position select 1) + random _radius;
 		_WP = [_unit,_i,[_random_x,_random_y],0,"MOVE","AWARE",SELECT_RAND(NAVY_PATROL_SPEEDS),"RED",["",""]] call Navy_Waypoint_AddFullWaypoint;
 	};
-	_WP setWaypointStatements ["true","(group this) setCurrentWaypoint [group this,0]"];
+	_WP setWaypointStatements ["true","(group this) setCurrentWaypoint [group this,1]"];
 	DEBUG
 	{
 		[["Group: %1 given waypoints: %2",(group _unit),(waypoints (group _unit))]] call Navy_Debug_HintRPT;

@@ -42,7 +42,7 @@ Navy_Init_CreateSpawnLocation =
 	Navy_SpawnLocation = "HeliHEmpty" createVehicleLocal NAVY_SPAWN_LOCATION_POS;
 };
 
-Navy_Precompile =
+Navy_Precompile_Functions =
 {
 	// Compile Debug functions only if debug is enabled
 	DEBUG
@@ -61,6 +61,7 @@ Navy_Precompile =
 Navy_Init =
 {
 	Navy_Initialised = false;
+	publicVariable "Navy_Initialised";
 	[] call Navy_Init_Variables;
 	[] call Navy_Init_CreateSpawnLocation;
 	// Turn Debug off in multiplayer settings
@@ -68,7 +69,7 @@ Navy_Init =
 	{
 		Navy_Debug = false;
 	};
-	[] call Navy_Precompile;
+	[] call Navy_Precompile_Functions;
 	Navy_Initialised = true;
 	publicVariable "Navy_Initialised";
 	[["Navy Version %1 has successfully initliased.",NAVY_VERSION]] call Navy_General_Log;
