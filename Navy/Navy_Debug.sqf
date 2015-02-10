@@ -61,8 +61,8 @@ Navy_Debug_SideChat =
 
 Navy_Debug_DebugMarker =
 {
-	FUN_ARGS_2(_position,_text);
-	DECLARE(_marker) = [format ["DEBUG_MARKER_%1",random 10000],_position,"ICON","hd_dot","ColorRed",[1,1]] call adm_common_fnc_createLocalMarker;
+	FUN_ARGS_3(_name_str,_position,_text);
+	DECLARE(_marker) = [_name_str,_position,"ICON","hd_dot","ColorRed",[1,1]] call adm_common_fnc_createLocalMarker;
 	_marker setMarkerTextLocal format _text;
 };
 
@@ -148,11 +148,12 @@ Navy_Debug_TrackCurrentWaypoints =
 {
 	FUN_ARGS_1(_unit);
 	PVT_2(_waypoint_list,_current_waypoint);
-	while {true} do
+	while {alive _unit} do
 	{
 		_waypoint_list = waypoints (group _unit);
 		_current_waypoint = currentWaypoint (group _unit);
 		hintSilent format ["TIME: %1\nUnit: %2\nGroup: %3\nCurrent Waypoint: %4\nWaypoint list;\n%5",time,_unit,(group _unit),_current_waypoint,_waypoint_list];
 		sleep 0.2;
 	};
+	hint format ["%1 is no longer alive.",_unit];
 };

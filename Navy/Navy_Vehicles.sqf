@@ -82,3 +82,24 @@ Navy_Vehicle_EjectCargo =
 		[["Cargo Unit Group: %1 has paradropped successfully.",_cargo_group]] call Navy_Debug_HintRPT;
 	};
 };
+
+Navy_Vehicle_CleanUp =
+{
+	FUN_ARGS_1(_vehicleID);
+	DEBUG
+	{
+		[["Vehicle %1 and crew %2 are being deleted",_vehicleID,(crew _vehicleID)]] call Navy_Debug_HintRPT;
+		DECLARE(_waypoints) = waypoints _vehicleID; // Required to remove debug markers
+		PVT_1(_i);
+		for "_i" from 1 to (count _waypoints) do // waypoint 0 does not have a debug marker attached
+		{
+			deleteMarkerLocal (str(_waypoints select _i));
+		};
+	};
+	sleep 1;
+	{
+		deleteVehicle _x;
+	} forEach (crew _vehicleID);
+	deleteVehicle _vehicleID;
+	
+};

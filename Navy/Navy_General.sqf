@@ -72,18 +72,3 @@ Navy_General_CalculateHypotenuse =
 	DECLARE(_hypotenuse) = sqrt((_altitude ^ 2) * (_ground_distance ^ 2));
 	_hypotenuse;
 };
-
-Navy_General_CleanUpVehicle =
-{
-	FUN_ARGS_1(_vehicleID);
-	DECLARE(_crew) = crew _vehicleID;
-	DEBUG
-	{
-		[["Vehicle %1 and crew %2 are being deleted",_vehicleID,_crew]] call Navy_Debug_HintRPT;
-	};
-	sleep 1;
-	{
-		deleteVehicle _x;
-	} forEach _crew;
-	deleteVehicle _vehicleID;
-};

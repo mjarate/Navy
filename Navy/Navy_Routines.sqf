@@ -56,11 +56,13 @@ Navy_Routine_Paradrop =
 		"RED",
 		["",""]
 	] call Navy_Waypoint_AddFullWaypoint;
+	/*
 	waitUntil
 	{
 		sleep 0.5;
 		[_vehicleID,_first_waypoint_object,NAVY_DEFAULT_PARADROP_DISTANCE] call Navy_General_DistanceBelowLimit;
 	};
+	*/
 	WAIT_DELAY(0.5,(currentWaypoint (group _pilot)) == 2);
 	[_cargo_group,0.5] call Navy_Vehicle_EjectCargo;
 	DECLARE(_WP3) = [
@@ -69,6 +71,12 @@ Navy_Routine_Paradrop =
 		100,
 		4
 	] call Navy_Waypoint_AddPatrolWaypoints;
+	waitUntil
+	{
+		sleep 2;
+		[_vehicleID,_end_waypoint_object,NAVY_DEFAULT_CLEANUP_DISTANCE] call Navy_General_DistanceBelowLimit;
+	};
+	[_vehicleID] call Navy_Vehicle_CleanUp;
 	DEBUG
 	{
 		[["Vehicle with ID: %1 has finished executing the paradrop routine",_vehicleID]] call Navy_Debug_HintRPT;
