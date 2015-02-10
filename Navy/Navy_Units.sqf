@@ -19,7 +19,7 @@ Navy_Units_SpawnDriver =
 	DEBUG
 	{
 		[["Driver %1 spawned in group %2 from unit template %3",_driver,_group,_unit_template]] call Navy_Debug_HintRPT;
-		[_driver] spawn Navy_Debug_TrackUnit;
+		//[_driver] spawn Navy_Debug_TrackUnit;
 	};
 	_driver;
 };
@@ -40,19 +40,8 @@ Navy_Units_SpawnCargoUnit =
 	INC(Navy_Unit_Counter);
 	DEBUG
 	{
-		[["Driver %1 spawned in group %2 from unit template %3",_cargo_unit,_group,_unit_template]] call Navy_Debug_HintRPT;
+		[["Cargo Unit %1 spawned in group %2 from unit template %3",_cargo_unit,_group,_unit_template]] call Navy_Debug_HintRPT;
 		[_cargo_unit] spawn Navy_Debug_TrackUnit;
 	};
 	_cargo_unit;
-};
-
-Navy_Units_CreateUnitPatrolZone =
-{
-	FUN_ARGS_3(_position,_zone_type,_radius);
-	DECLARE(_trigger) = createTrigger ["EmptyDetector",_position];
-	sleep 1;
-	_trigger setTriggerText _zone_type;
-	_trigger setTriggerArea [_radius,_radius,0,false];
-	_trigger setTriggerActivation ["ANY","NOT PRESENT",false];
-	_trigger;
 };

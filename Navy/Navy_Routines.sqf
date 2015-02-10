@@ -66,20 +66,9 @@ Navy_Routine_Paradrop =
 	DECLARE(_WP3) = [
 		(leader _cargo_group),
 		(getposATL _cargo_waypoint_object),
-		250,
-		3
-	] call Navy_Waypoint_AddPatrolWaypoints;
-	//(group _pilot) setCurrentWaypoint [group _pilot,2];
-	
-	/*
-	_WP3 = 
-	[
-		_cargo_group,
-		typeOf (SELECT_RAND(_cargo_group)),
-		[_WP3_pos,"patrol",200] call Navy_Units_CreateUnitPatrolZone,
+		100,
 		4
-	] call adm_patrol_fnc_createWaypoints;
-	*/
+	] call Navy_Waypoint_AddPatrolWaypoints;
 	DEBUG
 	{
 		[["Vehicle with ID: %1 has finished executing the paradrop routine",_vehicleID]] call Navy_Debug_HintRPT;

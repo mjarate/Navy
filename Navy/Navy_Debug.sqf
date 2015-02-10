@@ -113,10 +113,10 @@ Navy_Debug_TrackWithMarker =
 	else
 	{
 		_delay = DEBUG_MARKER_UNIT_DELAY;
-		WAIT_DELAY(1,(_object == (vehicle _object)) || !alive _object);
+		//WAIT_DELAY(1,(_object == (vehicle _object)) || !alive _object);
 	};
 	DECLARE(_marker_name) = [_object,_vehicle] call Navy_Debug_InitMarker;
-	_marker_name setMarkerTextLocal _marker_name;
+	_marker_name setMarkerTextLocal str(_marker_name);
 	while {alive _object} do
 	{
 		_pos_and_dir = [_object] call Navy_General_ReturnPosAndDir;

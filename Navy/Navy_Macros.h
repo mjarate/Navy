@@ -51,7 +51,7 @@
 #define DEBUG_SIDECHAT		true
 #define DEBUG_MULTIPLAYER	false
 
-#define DEBUG_MARKER_SIZE_UNIT			[0.6,0.6]
+#define DEBUG_MARKER_SIZE_UNIT			[0.5,0.5]
 #define DEBUG_MARKER_SIZE_VEHICLE		[1,1]
 #define DEBUG_MARKER_COLOUR_UNIT		"ColorGreen"
 #define DEBUG_MARKER_COLOUR_VEHICLE		"ColorBrown"
