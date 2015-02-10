@@ -3,7 +3,7 @@
 #ifndef NAVY_MACROS_H
 #define NAVY_MACROS_H
 
-#define NAVY_VERSION			0.3.2
+#define NAVY_VERSION			0.3
 
 #define PRECOMPILE(SCRIPT) 			call compile preProcessFileLineNumbers SCRIPT 
 #define WAIT(CODE) 					waitUntil {CODE}
@@ -38,6 +38,7 @@
 
 #define NAVY_DRIVER_SKILL_LEVEL 		1
 #define NAVY_SPAWN_LOCATION_POS 		[10000,10000]
+#define NAVY_DEFAULT_SPAWN_FORM			'FLY'
 #define NAVY_DEFAULT_LANDING_DISTANCE	150
 #define NAVY_DEFAULT_PARADROP_DELAY		0.6
 #define NAVY_DEFAULT_PARADROP_DISTANCE	400

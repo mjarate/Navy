@@ -2,16 +2,16 @@
 
 Navy_Vehicle_SpawnFilledAirVehicle =
 {
-	FUN_ARGS_5(_unit_template,_vehicle_classname,_spawn_position,_cargo_amount,_flying);
+	FUN_ARGS_4(_unit_template,_vehicle_classname,_spawn_position,_cargo_amount);
 	PVT_3(_driver,_vehicleID,_cargo_group);
 	_driver = [_unit_template] call Navy_Units_SpawnDriver;
-	_vehicleID = [_vehicle_classname,_spawn_position,_flying] call Navy_Vehicle_SpawnAirVehicle;
+	_vehicleID = [_vehicle_classname,_spawn_position] call Navy_Vehicle_SpawnAirVehicle;
 	_driver assignAsDriver _vehicleID;
 	_driver moveinDriver _vehicleID;
 	DEBUG
 	{
 		[_vehicleID] spawn Navy_Debug_TrackVehicle;
-		[["Driver %1 placed in vehicle %2 at position %3 flying: %4",_driver,_vehicleID,_spawn_position,_flying]] call Navy_Debug_HintRPT;
+		[["Driver %1 placed in vehicle %2 at position %3 with form: %4",_driver,_vehicleID,_spawn_position,Navy_Vehicle_StartingForm]] call Navy_Debug_HintRPT;
 	};
 	_cargo_group = [_unit_template,_cargo_amount] call Navy_Vehicle_FillCargo;
 	{
@@ -27,16 +27,8 @@ Navy_Vehicle_SpawnFilledAirVehicle =
 
 Navy_Vehicle_SpawnAirVehicle =
 {
-	FUN_ARGS_3(_classname,_spawn_position,_flying);
-	if (_flying) then
-	{
-		_flying = "FLY";
-	}
-	else
-	{
-		_flying = "NONE";
-	};
-	DECLARE(_vehicleID) = createVehicle [_classname,_spawn_position,[],0,_flying];
+	FUN_ARGS_2(_classname,_spawn_position);
+	DECLARE(_vehicleID) = createVehicle [_classname,_spawn_position,[],0,Navy_Vehicle_StartingForm];
 	WAIT_DELAY(0.1,!isNil "_vehicleID");
 	Navy_Vehicles pushBack _vehicleID;
 	INC(Navy_Vehicle_Counter);
@@ -81,6 +73,24 @@ Navy_Vehicle_EjectCargo =
 	{
 		[["Cargo Unit Group: %1 has paradropped successfully.",_cargo_group]] call Navy_Debug_HintRPT;
 	};
+};
+
+Navy_Vehicle_Animation_Door_Open =
+{
+	FUN_ARGS_2(_vehicleID,_door);
+	[_vehicleID,_door,1] call Navy_Vehicle_Animation_Door;
+};
+
+Navy_Vehicle_Animation_Door_Close =
+{
+	FUN_ARGS_2(_vehicleID,_door);
+	[_vehicleID,_door,0] call Navy_Vehicle_Animation_Door;
+};
+
+Navy_Vehicle_Animation_Door =
+{
+	FUN_ARGS_3(_vehicleID,_door,_phase);
+	_vehicleID animateDoor [_door,_phase,false];
 };
 
 Navy_Vehicle_CleanUp =

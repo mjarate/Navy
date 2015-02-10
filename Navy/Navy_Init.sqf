@@ -68,6 +68,7 @@ Navy_Init =
 	if (isMultiplayer && !DEBUG_MULTIPLAYER) then
 	{
 		Navy_Debug = false;
+		Navy_Vehicle_StartingForm = NAVY_DEFAULT_SPAWN_FORM;
 	};
 	[] call Navy_Precompile_Functions;
 	Navy_Initialised = true;
