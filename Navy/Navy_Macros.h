@@ -27,8 +27,8 @@
 #define IND_STR		"RESISTANCE"
 #define CIV_STR		"CIV"
 
-#define SIDE_ARRAY			[BLU,OPF,IND,CIV]
-#define SIDE_ARRAY_STR		[BLU_STR,OPF_STR,IND_STR,CIV_STR]
+#define SIDE_ARRAY				[BLU,OPF,IND,CIV]
+#define SIDE_ARRAY_STR			[BLU_STR,OPF_STR,IND_STR,CIV_STR]
 
 #define CONFIG_INFANTRY_FIELD	"infantry"
 #define CONFIG_CREWMEN_FIELD	"crewmen"
@@ -46,11 +46,11 @@
 #define NAVY_DEFAULT_CARGO_UNIT_RADIUS 	200
 #define NAVY_DEFAULT_FLIGHT_HEIGHT		150
 
-#define DEBUG_HEADER		format ["%1-[NAVY]: ",time]
-#define DEBUG_RPT			true
-#define DEBUG_HINTS			true
-#define DEBUG_SIDECHAT		true
-#define DEBUG_MULTIPLAYER	false
+#define DEBUG_HEADER			format ["%1-[NAVY]: ",time]
+#define DEBUG_RPT				true
+#define DEBUG_HINTS				true
+#define DEBUG_SIDECHAT			true
+#define DEBUG_MULTIPLAYER		false
 
 #define DEBUG_MARKER_SIZE_UNIT			[0.7,0.7]
 #define DEBUG_MARKER_SIZE_VEHICLE		[1.8,1.8]
