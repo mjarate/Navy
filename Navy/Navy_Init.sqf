@@ -54,6 +54,7 @@ Navy_Precompile_Functions =
 	PRECOMPILE("Navy\Navy_Waypoints.sqf");
 	PRECOMPILE("Navy\Navy_Units.sqf");
 	PRECOMPILE("Navy\Navy_Vehicles.sqf");
+	PRECOMPILE("Navy\Navy_Tests.sqf");
 	PRECOMPILE("Navy\Navy_Mission.sqf");
 	PRECOMPILE("Navy\Navy_Routines.sqf");
 };
