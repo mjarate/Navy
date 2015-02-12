@@ -38,6 +38,17 @@ Navy_Vehicle_SpawnFilledAirVehicle =
 	[_vehicleID,_cargo_group];
 };
 
+Navy_Vehicle_ReturnCargo =
+{
+	FUN_ARGS_1(_vehicleID);
+	DECLARE(_cargo) = [crew _vehicleID, {_vehicleID getCargoIndex _x >= 0}] call BIS_fnc_conditionalSelect;
+	_cargo;
+	DEBUG
+	{
+		[["Vehicle: %1 has %2 cargo units: %3",_vehicleID,(count _cargo),_cargo]] call Navy_Debug_HintRPT;
+	};
+};
+
 Navy_Vehicle_FillCargo =
 {
 	FUN_ARGS_2(_unit_template,_amount);
@@ -55,6 +66,41 @@ Navy_Vehicle_FillCargo =
 		[["Cargo Unit group created with array: %1",_cargo_unit_array]] call Navy_Debug_HintRPT;
 	};
 	_group;
+};
+
+Navy_Vehicle_CargoUnassign =
+{
+	FUN_ARGS_2(_cargo_group,_delay);
+	if (isNil "_delay") then
+	{
+		_delay = NAVY_DEFAULT_PARADROP_DELAY;
+	};
+	{
+		unassignVehicle _x;
+		sleep _delay;
+	} forEach units _cargo_group;
+	DEBUG
+	{
+		[["Cargo Unit Group: %1 has been unassigned from their vehicle",_cargo_group]] call Navy_Debug_HintRPT;
+	};
+};
+
+Navy_Vehicle_CargoAction =
+{
+	FUN_ARGS_3(_cargo_group,_action,_delay);
+	if (isNil "_delay") then
+	{
+		_delay = NAVY_DEFAULT_PARADROP_DELAY;
+	};
+	{
+		(_x) action [_action, vehicle _x];
+		//unassignVehicle _x;
+		sleep _delay;
+	} forEach units _cargo_group;
+	DEBUG
+	{
+		[["Cargo Unit Group: %1 have been assigned action: %2",_cargo_group,_action]] call Navy_Debug_HintRPT;
+	};
 };
 
 Navy_Vehicle_EjectCargo =

@@ -11,10 +11,19 @@ Navy_RunParadrop =
 		_end_waypoint_object,
 		_cargo_waypoint_object
 	] call Navy_Routine_Paradrop;
-	DEBUG
-	{
-		[["Paradrop routine with template %1 and classname %2 has finished executing.",_unit_template,_vehicle_classname]] call Navy_Debug_HintRPT;
-	};
+};
+
+Navy_RunHeliInsert =
+{
+	FUN_ARGS_7(_unit_template,_vehicle_classname,_cargo_amount,_spawn_position,_first_waypoint_object,_end_waypoint_object,_cargo_waypoint_object);
+	DECLARE(_vehicle_and_cargo_group) = [_unit_template,_vehicle_classname,_spawn_position,_cargo_amount,true] call Navy_Vehicle_SpawnFilledAirVehicle;
+	[
+		(_vehicle_and_cargo_group select 0),
+		(_vehicle_and_cargo_group select 1),
+		_first_waypoint_object,
+		_end_waypoint_object,
+		_cargo_waypoint_object
+	] call Navy_Routine_HeliInsert;
 };
 
 Navy_General_ReturnPosAndDir =
@@ -54,6 +63,22 @@ Navy_General_DistanceBelowLimit =
 	DEBUG
 	{
 		[["Distance: %1 Limit: %2 Below Limit: %3",(_object1 distance _object2),_limit,_below_limit]] call Navy_Debug_HintRPT;
+	};
+	_below_limit;
+};
+
+Navy_General_AltitudeBelowLimit =
+{
+	FUN_ARGS_2(_object,_limit);
+	DECLARE(_below_limit) = false;
+	if (isNil "_limit") then
+	{
+		_limit = NAVY_DEFAULT_LANDING_ALTITUDE;
+	};
+	_below_limit = [(ALTITUDE(_object)),_limit] call Navy_General_NumberBelowLimit;
+	DEBUG
+	{
+		[["Altitude: %1 Limit: %2 Below Limit: %3",ALTITUDE(_object),_limit,_below_limit]] call Navy_Debug_HintRPT;
 	};
 	_below_limit;
 };
