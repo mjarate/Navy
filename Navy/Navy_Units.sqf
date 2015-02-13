@@ -45,3 +45,12 @@ Navy_Units_SpawnCargoUnit =
 	};
 	_cargo_unit;
 };
+
+Navy_Units_AssignParachute =
+{
+	FUN_ARGS_1(_group);
+	{
+		removeBackpack _x;
+		_x addBackpackGlobal "B_Parachute";
+	} forEach units _group;
+};

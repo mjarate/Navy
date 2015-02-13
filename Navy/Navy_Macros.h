@@ -47,6 +47,9 @@
 #define NAVY_DEFAULT_CARGO_UNIT_RADIUS 	200
 #define NAVY_DEFAULT_FLIGHT_HEIGHT		150
 
+#define NAVY_FLIGHT_HEIGHT_INSERT		100
+#define NAVY_FLIGHT_HEIGHT_PARADROP		200
+
 #define DEBUG_HEADER			format ["%1-[NAVY]: ",time]
 #define DEBUG_RPT				true
 #define DEBUG_HINTS				true

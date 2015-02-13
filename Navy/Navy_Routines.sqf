@@ -8,6 +8,7 @@ Navy_Routine_HeliInsert =
 	// First: point at which the cargo units will land
 	// Second: Clean up
 	// Third: Cargo Units Waypoint
+	_vehicleID flyInHeight NAVY_FLIGHT_HEIGHT_INSERT;
 	DECLARE(_WP1) = [
 		(driver _vehicleID),
 		1,
@@ -28,7 +29,7 @@ Navy_Routine_HeliInsert =
 	waitUntil
 	{
 		sleep 0.5;
-		[_vehicleID,_first_waypoint_object,750] call Navy_General_DistanceBelowLimit; // Adjust distance according to testing
+		[_vehicleID,_first_waypoint_object,450] call Navy_General_DistanceBelowLimit; // Adjust distance according to testing
 	};
 	_vehicleID land "GET OUT";
 	//WAIT_DELAY(0.5, ([_vehicleID,10] call Navy_General_AltitudeBelowLimit););
@@ -46,8 +47,7 @@ Navy_Routine_HeliInsert =
 	//WAIT_DELAY(0.5, ([_vehicleID,0.1] call Navy_General_AltitudeBelowLimit););
 	_pilot disableAI "MOVE"; // Stops him from flying away
 	[_cargo_group,0.7] call Navy_Vehicle_CargoGetOut;
-	uiSleep 2;
-	_vehicleID flyInHeight 100; // helps a faster takeoff
+	sleep 2;
 	DECLARE(_WP2) = [
 		(driver _vehicleID),
 		2,
@@ -77,6 +77,8 @@ Navy_Routine_Paradrop =
 {
 	FUN_ARGS_5(_vehicleID,_cargo_group,_first_waypoint_object,_end_waypoint_object,_cargo_waypoint_object);
 	DECLARE(_pilot) = driver _vehicleID;
+	_vehicleID flyInHeight NAVY_FLIGHT_HEIGHT_PARADROP;
+	[_cargo_group] call Navy_Units_AssignParachute;
 	// First: point at which the cargo units will jump out
 	// Second: Clean up
 	// Third: Cargo Units Waypoint

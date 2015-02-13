@@ -129,9 +129,6 @@ Navy_Vehicle_EjectCargo =
 		_delay = NAVY_DEFAULT_PARADROP_DELAY;
 	};
 	{
-		removeBackpack _x;
-		_x addBackpackGlobal "B_Parachute";
-		//(_x) action ["EJECT", vehicle _x]; // This was breaking the helicopter's motion
 		moveOut _x;
 		unassignVehicle _x;
 		_x setVelocity [0,0,-5];
