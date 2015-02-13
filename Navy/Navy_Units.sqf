@@ -15,6 +15,8 @@ Navy_Units_SpawnDriver =
 	WAIT_DELAY(0.1,!isNil "_driver");
 	Navy_Units pushBack _driver;
 	_driver allowFleeing 0;
+	_driver disableAI "AUTOTARGET";
+	_group setBehaviour "CARELESS";
 	INC(Navy_Unit_Counter);
 	DEBUG
 	{

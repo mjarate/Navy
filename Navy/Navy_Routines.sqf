@@ -1,13 +1,13 @@
 #include "Navy_Macros.h"
 
+// First: point at which the cargo units will land
+// Second: Clean up
+// Third: Cargo Units Waypoint
 Navy_Routine_HeliInsert =
 {
 	FUN_ARGS_5(_vehicleID,_cargo_group,_first_waypoint_object,_end_waypoint_object,_cargo_waypoint_object);
 	DECLARE(_pilot) = driver _vehicleID;
 	PVT_4(_wait_handle,_WP1,_WP2,_WP3);
-	// First: point at which the cargo units will land
-	// Second: Clean up
-	// Third: Cargo Units Waypoint
 	_vehicleID flyInHeight NAVY_FLIGHT_HEIGHT_INSERT;
 	DECLARE(_WP1) = [
 		(driver _vehicleID),
@@ -15,7 +15,7 @@ Navy_Routine_HeliInsert =
 		(getPosATL _first_waypoint_object),
 		0,
 		"MOVE",
-		"AWARE",
+		"CARELESS",
 		"NORMAL",
 		"BLUE",
 		["",""]
@@ -39,15 +39,12 @@ Navy_Routine_HeliInsert =
 		[_vehicleID,10] call Navy_General_AltitudeBelowLimit;
 	};
 	[_vehicleID,["Door_L","Door_R"]] call Navy_Vehicle_Animation_OpenDoorArray;
-	waitUntil
-	{
-		sleep 0.5;
-		[_vehicleID,0.5] call Navy_General_AltitudeBelowLimit;
-	};
-	//WAIT_DELAY(0.5, ([_vehicleID,0.1] call Navy_General_AltitudeBelowLimit););
+	WAIT_DELAY(1,(isTouchingGround _vehicleID););
 	_pilot disableAI "MOVE"; // Stops him from flying away
 	[_cargo_group,0.7] call Navy_Vehicle_CargoGetOut;
+	WAIT_DELAY(1,(count (assignedCargo _vehicleID) == 0));
 	sleep 2;
+	_vehicleID land "NONE";
 	DECLARE(_WP2) = [
 		(driver _vehicleID),
 		2,
