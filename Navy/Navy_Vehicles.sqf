@@ -103,6 +103,24 @@ Navy_Vehicle_CargoAction =
 	};
 };
 
+Navy_Vehicle_CargoGetOut =
+{
+	FUN_ARGS_2(_cargo_group,_delay);
+	if (isNil "_delay") then
+	{
+		_delay = NAVY_DEFAULT_PARADROP_DELAY;
+	};
+	{
+		unassignVehicle _x;
+		(_x) action ["GETOUT", vehicle _x];
+		sleep _delay;
+	} forEach units _cargo_group;
+	DEBUG
+	{
+		[["Cargo Unit Group: %1 have been ordered to get out",_cargo_group]] call Navy_Debug_HintRPT;
+	};
+};
+
 Navy_Vehicle_EjectCargo =
 {
 	FUN_ARGS_2(_cargo_group,_delay);

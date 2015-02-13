@@ -8,17 +8,6 @@ Navy_Routine_HeliInsert =
 	// First: point at which the cargo units will land
 	// Second: Clean up
 	// Third: Cargo Units Waypoint
-	
-	// Give pilot waypoints
-	// Add distance check
-	// Order heli to land
-	// Add altitude check
-	// Order units to get out (unassign their vehicle. Ordering helicopter to land might not be needed)
-	// Delay a bit
-	// Give cargo units waypoints
-	// Give helicopter pilot waypoint to clean up
-	// Do cleanup after second waypoint
-
 	DECLARE(_WP1) = [
 		(driver _vehicleID),
 		1,
@@ -27,17 +16,6 @@ Navy_Routine_HeliInsert =
 		"MOVE",
 		"AWARE",
 		"NORMAL",
-		"BLUE",
-		["",""]
-	] call Navy_Waypoint_AddFullWaypoint;
-	DECLARE(_WP2) = [
-		(driver _vehicleID),
-		2,
-		(getposATL _end_waypoint_object),
-		0,
-		"MOVE",
-		"AWARE",
-		"FULL",
 		"BLUE",
 		["",""]
 	] call Navy_Waypoint_AddFullWaypoint;
@@ -50,7 +28,7 @@ Navy_Routine_HeliInsert =
 	waitUntil
 	{
 		sleep 0.5;
-		[_vehicleID,_first_waypoint_object,600] call Navy_General_DistanceBelowLimit; // Adjust distance according to testing
+		[_vehicleID,_first_waypoint_object,750] call Navy_General_DistanceBelowLimit; // Adjust distance according to testing
 	};
 	_vehicleID land "GET OUT";
 	//WAIT_DELAY(0.5, ([_vehicleID,10] call Navy_General_AltitudeBelowLimit););
@@ -66,11 +44,21 @@ Navy_Routine_HeliInsert =
 		[_vehicleID,0.5] call Navy_General_AltitudeBelowLimit;
 	};
 	//WAIT_DELAY(0.5, ([_vehicleID,0.1] call Navy_General_AltitudeBelowLimit););
-	_pilot disableAI "MOVE";
-	//_wait_handle = [_cargo_group,0.5] spawn Navy_Vehicle_CargoUnassign;
-	[_cargo_group,0] call Navy_Vehicle_CargoUnassign;
-	_wait_handle = [_cargo_group,"GetOut",0.8] spawn Navy_Vehicle_CargoAction;
-	WAIT_DELAY(1,scriptDone _wait_handle);
+	_pilot disableAI "MOVE"; // Stops him from flying away
+	[_cargo_group,0.7] call Navy_Vehicle_CargoGetOut;
+	uiSleep 2;
+	_vehicleID flyInHeight 100; // helps a faster takeoff
+	DECLARE(_WP2) = [
+		(driver _vehicleID),
+		2,
+		(getposATL _end_waypoint_object),
+		0,
+		"MOVE",
+		"AWARE",
+		"FULL",
+		"BLUE",
+		["",""]
+	] call Navy_Waypoint_AddFullWaypoint;
 	[_vehicleID,["Door_L","Door_R"]] call Navy_Vehicle_Animation_CloseDoorArray;
 	_pilot enableAI "MOVE"; 
 	waitUntil
