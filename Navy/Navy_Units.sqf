@@ -21,9 +21,32 @@ Navy_Units_SpawnDriver =
 	DEBUG
 	{
 		[["Driver %1 spawned in group %2 from unit template %3",_driver,_group,_unit_template]] call Navy_Debug_HintRPT;
-		//[_driver] spawn Navy_Debug_TrackUnit;
 	};
 	_driver;
+};
+
+Navy_Units_SpawnGunner =
+{
+	FUN_ARGS_1(_unit_template);
+	DECLARE(_group) = createGroup ([_unit_template] call adm_common_fnc_getUnitTemplateSide);
+	DECLARE(_gunner) =
+	[
+		Navy_SpawnLocation,
+		_group,
+		_unit_template,
+		CONFIG_CAMP_FIELD,
+		CONFIG_CREWMEN_FIELD
+	] call adm_patrol_fnc_placeMan;
+	WAIT_DELAY(0.1,!isNil "_gunner");
+	Navy_Units pushBack _gunner;
+	_gunner allowFleeing 0;
+	_group setBehaviour "COMBAT";
+	INC(Navy_Unit_Counter);
+	DEBUG
+	{
+		[["Gunner %1 spawned in group %2 from unit template %3",_gunner,_group,_unit_template]] call Navy_Debug_HintRPT;
+	};
+	_gunner;
 };
 
 Navy_Units_SpawnCargoUnit =

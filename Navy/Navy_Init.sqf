@@ -57,6 +57,7 @@ Navy_Precompile_Functions =
 	PRECOMPILE("Navy\Navy_Tests.sqf");
 	PRECOMPILE("Navy\Navy_Mission.sqf");
 	PRECOMPILE("Navy\Navy_Routines.sqf");
+	PRECOMPILE("Navy\Navy_Procedures.sqf");
 };
 
 Navy_Init =

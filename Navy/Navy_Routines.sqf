@@ -10,7 +10,7 @@ Navy_Routine_HeliInsert =
 	PVT_4(_wait_handle,_WP1,_WP2,_WP3);
 	_vehicleID flyInHeight NAVY_FLIGHT_HEIGHT_INSERT;
 	DECLARE(_WP1) = [
-		(driver _vehicleID),
+		_pilot,
 		1,
 		(getPosATL _first_waypoint_object),
 		0,
@@ -29,7 +29,7 @@ Navy_Routine_HeliInsert =
 	waitUntil
 	{
 		sleep 0.5;
-		[_vehicleID,_first_waypoint_object,450] call Navy_General_DistanceBelowLimit; // Adjust distance according to testing
+		[_vehicleID,_first_waypoint_object,350] call Navy_General_DistanceBelowLimit; // Adjust distance according to testing
 	};
 	_vehicleID land "GET OUT";
 	//WAIT_DELAY(0.5, ([_vehicleID,10] call Navy_General_AltitudeBelowLimit););
@@ -46,7 +46,7 @@ Navy_Routine_HeliInsert =
 	sleep 2;
 	_vehicleID land "NONE";
 	DECLARE(_WP2) = [
-		(driver _vehicleID),
+		_pilot,
 		2,
 		(getposATL _end_waypoint_object),
 		0,
@@ -66,7 +66,7 @@ Navy_Routine_HeliInsert =
 	[_vehicleID] call Navy_Vehicle_CleanUp;
 	DEBUG
 	{
-		[["Vehicle with ID: %1 has finished executing the heli insert routine",_vehicleID]] call Navy_Debug_HintRPT;
+		[["Vehicle: %1 has finished executing the heli insert routine",_vehicleID]] call Navy_Debug_HintRPT;
 	};
 };
 
@@ -80,7 +80,7 @@ Navy_Routine_Paradrop =
 	// Second: Clean up
 	// Third: Cargo Units Waypoint
 	DECLARE(_WP1) = [
-		(driver _vehicleID),
+		_pilot,
 		1,
 		(getPosATL _first_waypoint_object),
 		0,
@@ -91,7 +91,7 @@ Navy_Routine_Paradrop =
 		["",""]
 	] call Navy_Waypoint_AddFullWaypoint;
 	DECLARE(_WP2) = [
-		(driver _vehicleID),
+		_pilot,
 		2,
 		(getposATL _end_waypoint_object),
 		0,
@@ -119,6 +119,51 @@ Navy_Routine_Paradrop =
 	[_vehicleID] call Navy_Vehicle_CleanUp;
 	DEBUG
 	{
-		[["Vehicle with ID: %1 has finished executing the paradrop routine",_vehicleID]] call Navy_Debug_HintRPT;
+		[["Vehicle: %1 has finished executing the paradrop routine",_vehicleID]] call Navy_Debug_HintRPT;
+	};
+};
+
+Navy_Routine_CASPatrol =
+{
+	FUN_ARGS_4(_vehicleID,_first_waypoint_object,_second_waypoint_object,_third_waypoint_object);
+	DECLARE(_pilot) = driver _vehicleID;
+	_vehicleID flyInHeight NAVY_FLIGHT_HEIGHT_CASPATROL;
+	// All waypoints: SAD waypoints, third one sets the first one as the current to continue looping
+	DECLARE(_WP1) = [
+		_pilot,
+		1,
+		(getPosATL _first_waypoint_object),
+		0,
+		"SAD",
+		"COMBAT",
+		"NORMAL",
+		"RED",
+		["",""]
+	] call Navy_Waypoint_AddFullWaypoint;
+	DECLARE(_WP2) = [
+		_pilot,
+		2,
+		(getposATL _second_waypoint_object),
+		0,
+		"SAD",
+		"COMBAT",
+		"NORMAL",
+		"RED",
+		["",""]
+	] call Navy_Waypoint_AddFullWaypoint;
+	DECLARE(_WP3) = [
+		_pilot,
+		3,
+		(getposATL _third_waypoint_object),
+		0,
+		"SAD",
+		"COMBAT",
+		"NORMAL",
+		"RED",
+		["true","(group this) setCurrentWaypoint [group this,1]"]
+	] call Navy_Waypoint_AddFullWaypoint;
+	DEBUG
+	{
+		[["Vehicle: %1 has been given CAS Patrol waypoints",_vehicleID]] call Navy_Debug_HintRPT;
 	};
 };

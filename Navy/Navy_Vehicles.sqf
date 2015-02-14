@@ -15,25 +15,33 @@ Navy_Vehicle_SpawnAirVehicle =
 
 Navy_Vehicle_SpawnFilledAirVehicle =
 {
-	FUN_ARGS_4(_unit_template,_vehicle_classname,_spawn_position,_cargo_amount);
-	PVT_3(_driver,_vehicleID,_cargo_group);
+	FUN_ARGS_5(_unit_template,_gunners,_vehicle_classname,_spawn_position,_cargo_amount);
+	PVT_4(_driver,_gunner,_vehicleID,_cargo_group);
 	_driver = [_unit_template] call Navy_Units_SpawnDriver;
 	_vehicleID = [_vehicle_classname,_spawn_position] call Navy_Vehicle_SpawnAirVehicle;
 	_driver assignAsDriver _vehicleID;
 	_driver moveinDriver _vehicleID;
+	if (_gunners) then
+	{
+		DECLARE(_available_turrets) = allTurrets [_vehicleID,false];
+		{
+			_gunner = [_unit_template] call Navy_Units_SpawnGunner;
+			_gunner moveInTurret [_vehicleID,_x];
+			_gunner assignAsTurret [_vehicleID,_x];
+		} forEach count _available_turrets;
+	};
+	if (_cargo_amount > 0) then
+	{
+		_cargo_group = [_unit_template,_cargo_amount] call Navy_Vehicle_FillCargo;
+		{
+			_x assignAsCargo _vehicleID;
+			_x moveInCargo _vehicleID;
+		} forEach units _cargo_group;
+	};
 	DEBUG
 	{
 		[_vehicleID] spawn Navy_Debug_TrackVehicle;
-		[["Driver %1 placed in vehicle %2 at position %3 with form: %4",_driver,_vehicleID,_spawn_position,Navy_Vehicle_StartingForm]] call Navy_Debug_HintRPT;
-	};
-	_cargo_group = [_unit_template,_cargo_amount] call Navy_Vehicle_FillCargo;
-	{
-		_x assignAsCargo _vehicleID;
-		_x moveInCargo _vehicleID;
-	} forEach units _cargo_group;
-	DEBUG
-	{
-		[["Cargo unit group %1 has been placed in the vehicle %2",_cargo_group,_vehicleID]] call Navy_Debug_HintRPT;
+		[["Vehicle %1 with form %2 has been spawned at %3 containing %4",_vehicleID,Navy_Vehicle_StartingForm,_spawn_position,(crew _vehicleID)]] call Navy_Debug_HintRPT;
 	};
 	[_vehicleID,_cargo_group];
 };

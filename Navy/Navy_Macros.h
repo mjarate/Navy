@@ -49,6 +49,7 @@
 
 #define NAVY_FLIGHT_HEIGHT_INSERT		100
 #define NAVY_FLIGHT_HEIGHT_PARADROP		200
+#define NAVY_FLIGHT_HEIGHT_CASPATROL	250
 
 #define DEBUG_HEADER			format ["%1-[NAVY]: ",time]
 #define DEBUG_RPT				true
