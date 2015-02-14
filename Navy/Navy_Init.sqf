@@ -30,6 +30,8 @@ Navy_PreInit =
 
 Navy_Init_Variables =
 {
+	Navy_Spawn_Counter = 1;
+	Navy_Spawn_Markers = [];
 	Navy_Units = [];
 	Navy_Unit_Counter = 0;
 	Navy_Vehicles = [];
@@ -51,13 +53,14 @@ Navy_Precompile_Functions =
 		[] call Navy_Debug_Init;
 	};
 	PRECOMPILE("Navy\Navy_General.sqf");
-	PRECOMPILE("Navy\Navy_Waypoints.sqf");
+	PRECOMPILE("Navy\Navy_Spawns.sqf");
 	PRECOMPILE("Navy\Navy_Units.sqf");
 	PRECOMPILE("Navy\Navy_Vehicles.sqf");
-	PRECOMPILE("Navy\Navy_Tests.sqf");
-	PRECOMPILE("Navy\Navy_Mission.sqf");
+	PRECOMPILE("Navy\Navy_Waypoints.sqf");
 	PRECOMPILE("Navy\Navy_Routines.sqf");
 	PRECOMPILE("Navy\Navy_Procedures.sqf");
+	PRECOMPILE("Navy\Navy_Tests.sqf");
+	PRECOMPILE("Navy\Navy_Mission.sqf");
 };
 
 Navy_Init =

@@ -128,7 +128,7 @@ Navy_Routine_CASPatrol =
 	FUN_ARGS_4(_vehicleID,_first_waypoint_object,_second_waypoint_object,_third_waypoint_object);
 	DECLARE(_pilot) = driver _vehicleID;
 	_vehicleID flyInHeight NAVY_FLIGHT_HEIGHT_CASPATROL;
-	// All waypoints: SAD waypoints, third one sets the first one as the current to continue looping
+	// All waypoints: SAD waypoints, third one sets the first one as the current to enable waypoint looping
 	DECLARE(_WP1) = [
 		_pilot,
 		1,

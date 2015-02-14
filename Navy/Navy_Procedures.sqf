@@ -2,7 +2,8 @@
 
 Navy_RunParadrop =
 {
-	FUN_ARGS_7(_unit_template,_vehicle_classname,_cargo_amount,_spawn_position,_first_waypoint_object,_end_waypoint_object,_cargo_waypoint_object);
+	FUN_ARGS_7(_unit_template,_vehicle_classname,_cargo_amount,_spawn_trigger,_first_waypoint_object,_end_waypoint_object,_cargo_waypoint_object);
+	DECLARE(_spawn_position) = [_spawn_trigger,_vehicle_classname] call Navy_ChooseRandomTriggerPosition;
 	DECLARE(_vehicle_and_cargo_group) = [_unit_template,false,_vehicle_classname,_spawn_position,_cargo_amount,true] call Navy_Vehicle_SpawnFilledAirVehicle;
 	[
 		(_vehicle_and_cargo_group select 0),
@@ -15,7 +16,8 @@ Navy_RunParadrop =
 
 Navy_RunHeliInsert =
 {
-	FUN_ARGS_7(_unit_template,_vehicle_classname,_cargo_amount,_spawn_position,_first_waypoint_object,_end_waypoint_object,_cargo_waypoint_object);
+	FUN_ARGS_7(_unit_template,_vehicle_classname,_cargo_amount,_spawn_trigger,_first_waypoint_object,_end_waypoint_object,_cargo_waypoint_object);
+	DECLARE(_spawn_position) = [_spawn_trigger,_vehicle_classname] call Navy_ChooseRandomTriggerPosition;
 	DECLARE(_vehicle_and_cargo_group) = [_unit_template,true,_vehicle_classname,_spawn_position,_cargo_amount] call Navy_Vehicle_SpawnFilledAirVehicle;
 	[
 		(_vehicle_and_cargo_group select 0),
@@ -28,8 +30,8 @@ Navy_RunHeliInsert =
 
 Navy_RunCASPatrol =
 {
-	FUN_ARGS_6(_unit_template,_vehicle_classname,_spawn_position,_first_waypoint_object,_second_waypoint_object,_third_waypoint_object);
-	PVT_1(_vehicleID);
+	FUN_ARGS_6(_unit_template,_vehicle_classname,_spawn_trigger,_first_waypoint_object,_second_waypoint_object,_third_waypoint_object);
+	DECLARE(_spawn_position) = [_spawn_trigger,_vehicle_classname] call Navy_ChooseRandomTriggerPosition;
 	DECLARE(_vehicle_and_cargo_group) = [_unit_template,true,_vehicle_classname,_spawn_position,0] call Navy_Vehicle_SpawnFilledAirVehicle;
 	[
 		(_vehicle_and_cargo_group select 0),

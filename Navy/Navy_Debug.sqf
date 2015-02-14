@@ -122,7 +122,8 @@ Navy_Debug_TrackWithMarker =
 		//WAIT_DELAY(1,(_object == (vehicle _object)) || !alive _object);
 	};
 	DECLARE(_marker_name) = [_object,_vehicle] call Navy_Debug_InitMarker;
-	_marker_name setMarkerTextLocal str(_marker_name);
+	//_marker_name setMarkerTextLocal str(_marker_name);
+	_marker_name setMarkerTextLocal _marker_name;
 	while {alive _object} do
 	{
 		_pos_and_dir = [_object] call Navy_General_ReturnPosAndDir;
@@ -143,6 +144,23 @@ Navy_Debug_TrackUnit =
 {
 	FUN_ARGS_1(_unit);
 	[_unit,false] call Navy_Debug_TrackWithMarker;
+};
+
+Navy_Debug_SpawnMarker =
+{
+	FUN_ARGS_5(_position,_a,_b,_angle,_rectangle);
+	DECLARE(_marker_name) = format ["Navy_Spawn_%1",Navy_Spawn_Counter];
+	DECLARE(_marker_shape) = "ELLIPSE";
+	DECLARE(_marker_size) = [_a,_b];
+	if (_rectangle) then
+	{
+		_marker_shape = "RECTANGLE";
+	};
+	[_marker_name,_position,_marker_shape,"Empty","ColorBlue",_marker_size] call adm_common_fnc_createLocalMarker;
+	_marker_name setMarkerDirLocal _angle;
+	_marker_name setMarkerBrushLocal "Border";
+	Navy_Spawn_Markers pushBack _marker_name;
+	INC (Navy_Spawn_Counter);
 };
 
 Navy_Debug_HintCurrentNavyUnits =
