@@ -6,8 +6,8 @@ Navy_Vehicle_SpawnAirVehicle =
 	DECLARE(_vehicleID) = createVehicle [_classname,_spawn_position,[],0,Navy_Vehicle_StartingForm];
 	WAIT_DELAY(0.1,!isNil "_vehicleID");
 	_spawn_position = getposATL _spawn_position;
-	_vehicleID setposATL [(_spawn_position select 0),(_spawn_position select 1),NAVY_DEFAULT_FLIGHT_HEIGHT];
-	_vehicleID flyInHeight NAVY_DEFAULT_FLIGHT_HEIGHT;
+	_vehicleID setposATL [(_spawn_position select 0),(_spawn_position select 1),NAVY_FLIGHT_HEIGHT_DEFAULT];
+	_vehicleID flyInHeight NAVY_FLIGHT_HEIGHT_DEFAULT;
 	Navy_Vehicles pushBack _vehicleID;
 	INC(Navy_Vehicle_Counter);
 	_vehicleID;
@@ -28,7 +28,7 @@ Navy_Vehicle_SpawnFilledAirVehicle =
 			_gunner = [_unit_template] call Navy_Units_SpawnGunner;
 			_gunner moveInTurret [_vehicleID,_x];
 			_gunner assignAsTurret [_vehicleID,_x];
-		} forEach count _available_turrets;
+		} forEach _available_turrets;
 	};
 	if (_cargo_amount > 0) then
 	{
@@ -37,6 +37,10 @@ Navy_Vehicle_SpawnFilledAirVehicle =
 			_x assignAsCargo _vehicleID;
 			_x moveInCargo _vehicleID;
 		} forEach units _cargo_group;
+	}
+	else
+	{
+		_cargo_group = []; // Avoids RPT errors when the function returns an undefined array
 	};
 	DEBUG
 	{

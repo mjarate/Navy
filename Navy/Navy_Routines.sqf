@@ -103,7 +103,7 @@ Navy_Routine_Paradrop =
 	] call Navy_Waypoint_AddFullWaypoint;
 	[_vehicleID,["Door_L","Door_R"]] call Navy_Vehicle_Animation_OpenDoorArray;
 	WAIT_DELAY(0.5,(currentWaypoint (group _pilot)) == 2);
-	[_cargo_group,0.7] call Navy_Vehicle_EjectCargo;
+	[_cargo_group,NAVY_DEFAULT_PARADROP_DELAY] call Navy_Vehicle_EjectCargo;
 	DECLARE(_WP3) = [
 		(leader _cargo_group),
 		(getposATL _cargo_waypoint_object),
@@ -136,7 +136,7 @@ Navy_Routine_CASPatrol =
 		0,
 		"SAD",
 		"COMBAT",
-		"NORMAL",
+		"LIMITED",
 		"RED",
 		["",""]
 	] call Navy_Waypoint_AddFullWaypoint;
@@ -147,7 +147,7 @@ Navy_Routine_CASPatrol =
 		0,
 		"SAD",
 		"COMBAT",
-		"NORMAL",
+		"LIMITED",
 		"RED",
 		["",""]
 	] call Navy_Waypoint_AddFullWaypoint;
@@ -158,12 +158,13 @@ Navy_Routine_CASPatrol =
 		0,
 		"SAD",
 		"COMBAT",
-		"NORMAL",
+		"LIMITED",
 		"RED",
 		["true","(group this) setCurrentWaypoint [group this,1]"]
 	] call Navy_Waypoint_AddFullWaypoint;
 	DEBUG
 	{
 		[["Vehicle: %1 has been given CAS Patrol waypoints",_vehicleID]] call Navy_Debug_HintRPT;
+		//[_pilot] spawn Navy_Debug_TrackCurrentWaypoints;
 	};
 };
