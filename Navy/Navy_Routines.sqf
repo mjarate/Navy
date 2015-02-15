@@ -28,14 +28,13 @@ Navy_Routine_HeliInsert =
 	] call Navy_Waypoint_AddPatrolWaypoints;
 	waitUntil
 	{
-		sleep 0.5;
-		[_vehicleID,_first_waypoint_object,350] call Navy_General_DistanceBelowLimit; // Adjust distance according to testing
+		sleep 2;
+		[_vehicleID,_first_waypoint_object,NAVY_DEFAULT_INSERT_DISTANCE] call Navy_General_DistanceBelowLimit;
 	};
 	_vehicleID land "GET OUT";
-	//WAIT_DELAY(0.5, ([_vehicleID,10] call Navy_General_AltitudeBelowLimit););
 	waitUntil
 	{
-		sleep 0.5;
+		sleep 1;
 		[_vehicleID,10] call Navy_General_AltitudeBelowLimit;
 	};
 	[_vehicleID,["Door_L","Door_R"]] call Navy_Vehicle_Animation_OpenDoorArray;
@@ -44,30 +43,34 @@ Navy_Routine_HeliInsert =
 	[_cargo_group,0.7] call Navy_Vehicle_CargoGetOut;
 	WAIT_DELAY(1,(count (assignedCargo _vehicleID) == 0));
 	sleep 2;
-	_vehicleID land "NONE";
-	DECLARE(_WP2) = [
-		_pilot,
-		2,
-		(getposATL _end_waypoint_object),
-		0,
-		"MOVE",
-		"AWARE",
-		"FULL",
-		"BLUE",
-		["",""]
-	] call Navy_Waypoint_AddFullWaypoint;
-	[_vehicleID,["Door_L","Door_R"]] call Navy_Vehicle_Animation_CloseDoorArray;
-	_pilot enableAI "MOVE"; 
-	waitUntil
+	if (alive _pilot) then
 	{
-		sleep 2;
-		[_vehicleID,_end_waypoint_object,NAVY_DEFAULT_CLEANUP_DISTANCE] call Navy_General_DistanceBelowLimit;
+		_vehicleID land "NONE";
+		DECLARE(_WP2) = [
+			_pilot,
+			2,
+			(getposATL _end_waypoint_object),
+			0,
+			"MOVE",
+			"AWARE",
+			"FULL",
+			"BLUE",
+			["",""]
+		] call Navy_Waypoint_AddFullWaypoint;
+		[_vehicleID,["Door_L","Door_R"]] call Navy_Vehicle_Animation_CloseDoorArray;
+		_pilot enableAI "MOVE"; 
+		waitUntil
+		{
+			sleep 5;
+			[_vehicleID,_end_waypoint_object,NAVY_DEFAULT_CLEANUP_DISTANCE] call Navy_General_DistanceBelowLimit;
+		};
+		[_vehicleID] call Navy_Vehicle_CleanUp;
 	};
-	[_vehicleID] call Navy_Vehicle_CleanUp;
 	DEBUG
 	{
 		[["Vehicle: %1 has finished executing the heli insert routine",_vehicleID]] call Navy_Debug_HintRPT;
 	};
+	
 };
 
 Navy_Routine_Paradrop =
@@ -113,7 +116,7 @@ Navy_Routine_Paradrop =
 	[_vehicleID,["Door_L","Door_R"]] call Navy_Vehicle_Animation_CloseDoorArray;
 	waitUntil
 	{
-		sleep 2;
+		sleep 5;
 		[_vehicleID,_end_waypoint_object,NAVY_DEFAULT_CLEANUP_DISTANCE] call Navy_General_DistanceBelowLimit;
 	};
 	[_vehicleID] call Navy_Vehicle_CleanUp;

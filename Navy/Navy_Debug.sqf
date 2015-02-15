@@ -160,7 +160,7 @@ Navy_Debug_SpawnMarker =
 	_marker_name setMarkerDirLocal _angle;
 	_marker_name setMarkerBrushLocal "Border";
 	Navy_Spawn_Markers pushBack _marker_name;
-	INC (Navy_Spawn_Counter);
+	INC(Navy_Spawn_Counter);
 };
 
 Navy_Debug_HintCurrentNavyUnits =
