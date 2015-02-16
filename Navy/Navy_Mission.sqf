@@ -6,8 +6,7 @@ Navy_Timeline =
 {
 	
 	[navy_spawn_trigger_1,Navy_Wave_1] call Navy_RunMission;
-	sleep 10;
-	[navy_spawn_trigger_1,Navy_Wave_2] call Navy_RunMission;
+	//[navy_spawn_trigger_1,Navy_Wave_2] call Navy_RunMission;
 	
 	DEBUG
 	{

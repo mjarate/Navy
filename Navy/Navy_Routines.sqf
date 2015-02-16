@@ -7,8 +7,10 @@ Navy_Routine_HeliInsert =
 {
 	FUN_ARGS_5(_vehicleID,_cargo_group,_first_waypoint_object,_end_waypoint_object,_cargo_waypoint_object);
 	DECLARE(_pilot) = driver _vehicleID;
+	DECLARE(_flight_height) = [CONFIG_TYPE_NUMBER,"Routines","Heli_Insert","Flight_Height"] call Navy_Config_GetConfigValue;
 	PVT_4(_wait_handle,_WP1,_WP2,_WP3);
-	_vehicleID flyInHeight NAVY_FLIGHT_HEIGHT_INSERT;
+	_vehicleID setposATL [((getposATL _vehicleID) select 0),((getposATL _vehicleID) select 1),_flight_height];
+	_vehicleID flyInHeight _flight_height;
 	DECLARE(_WP1) = [
 		_pilot,
 		1,

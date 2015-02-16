@@ -5,8 +5,8 @@ Navy_Vehicle_SpawnAirVehicle =
 	FUN_ARGS_2(_classname,_spawn_position);
 	DECLARE(_vehicleID) = createVehicle [_classname,_spawn_position,[],0,Navy_Vehicle_StartingForm];
 	WAIT_DELAY(0.1,!isNil "_vehicleID");
-	_vehicleID setposATL [(_spawn_position select 0),(_spawn_position select 1),NAVY_FLIGHT_HEIGHT_DEFAULT];
-	_vehicleID flyInHeight NAVY_FLIGHT_HEIGHT_DEFAULT;
+	//_vehicleID setposATL [(_spawn_position select 0),(_spawn_position select 1),NAVY_FLIGHT_HEIGHT_DEFAULT];
+	//_vehicleID flyInHeight NAVY_FLIGHT_HEIGHT_DEFAULT;
 	Navy_Vehicles pushBack _vehicleID;
 	INC(Navy_Vehicle_Counter);
 	_vehicleID;

@@ -32,8 +32,12 @@
 
 #define CONFIG				 		missionConfigFile
 #define NAVY_CONFIG					CONFIG >> "Navy"
-#define NAVY_ROUTINES				NAVY_CONTAINER >> "Routines"
-#define NAVY_VEHICLES				NAVY_CONTAINER >> "Vehicles"
+#define NAVY_ROUTINES				NAVY_CONFIG >> "Routines"
+#define NAVY_VEHICLES				NAVY_CONFIG >> "Vehicles"
+
+#define CONFIG_TYPE_ARRAY	0
+#define CONFIG_TYPE_NUMBER	1
+#define CONFIG_TYPE_TEXT	2
 
 #define CONFIG_INFANTRY_FIELD	"infantry"
 #define CONFIG_CREWMEN_FIELD	"crewmen"
@@ -41,7 +45,7 @@
 #define CONFIG_PATROL_FIELD		"Patrol"
 #define CONFIG_CQC_FIELD		"CQC"
 
-#define NAVY_DRIVER_SKILL_LEVEL 		1
+#define NAVY_DRIVER_SKILL_LEVEL 		1 // code needs adding to driver
 #define NAVY_SPAWN_LOCATION_POS 		[10000,10000]
 #define NAVY_DEFAULT_SPAWN_FORM			'FLY'
 #define NAVY_DEFAULT_LANDING_DISTANCE	150
@@ -53,9 +57,12 @@
 #define NAVY_DEFAULT_CARGO_UNIT_RADIUS 	200
 
 #define NAVY_FLIGHT_HEIGHT_DEFAULT		150
+
+/*
 #define NAVY_FLIGHT_HEIGHT_INSERT		100
 #define NAVY_FLIGHT_HEIGHT_PARADROP		200
 #define NAVY_FLIGHT_HEIGHT_CASPATROL	250
+*/
 
 #define DEBUG_HEADER			format ["%1-[NAVY]: ",time]
 #define DEBUG_RPT				true
