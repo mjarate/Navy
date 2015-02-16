@@ -53,6 +53,7 @@ Navy_Precompile_Functions =
 		[] call Navy_Debug_Init;
 	};
 	PRECOMPILE("Navy\Navy_General.sqf");
+	PRECOMPILE("Navy\Navy_Config.sqf");
 	PRECOMPILE("Navy\Navy_Spawns.sqf");
 	PRECOMPILE("Navy\Navy_Units.sqf");
 	PRECOMPILE("Navy\Navy_Vehicles.sqf");

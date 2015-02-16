@@ -30,6 +30,11 @@
 #define SIDE_ARRAY				[BLU,OPF,IND,CIV]
 #define SIDE_ARRAY_STR			[BLU_STR,OPF_STR,IND_STR,CIV_STR]
 
+#define CONFIG				 		missionConfigFile
+#define NAVY_CONFIG					CONFIG >> "Navy"
+#define NAVY_ROUTINES				NAVY_CONTAINER >> "Routines"
+#define NAVY_VEHICLES				NAVY_CONTAINER >> "Vehicles"
+
 #define CONFIG_INFANTRY_FIELD	"infantry"
 #define CONFIG_CREWMEN_FIELD	"crewmen"
 #define CONFIG_CAMP_FIELD		"Camp"
