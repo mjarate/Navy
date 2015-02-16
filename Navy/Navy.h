@@ -1,1 +1,3 @@
-#include "Navy_Config.h"
+class Navy {
+    #include "Navy_Config.h"
+};
