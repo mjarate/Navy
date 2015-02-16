@@ -1,14 +1,21 @@
 class Routines {
 	class Default {
 		WP_Count = 3;
-		WP_Speeds[] = {};
-		WP_Types[] = {};
-		WP_Behaviours[] = {};
+		WP_Speed[] = {};
+		WP_Type[] = {};
+		WP_Behaviour[] = {};
 	};
 	
-	class SAD {
-		WP_Speeds[] = {"LIMITED","LIMITED","LIMITED"};
-		WP_Types[] = {"SAD","SAD","SAD"};
-		WP_Behaviours[] = {"AWARE","AWARE","AWARE"};
+	class LOITER {
+		WP_Count = 1;
+		WP_Speed[] = {"LIMITED"};
+		WP_Type[] = {"LOITER"};
+		WP_Behaviour[] = {"AWARE"};
+	};
+	
+	class SAD_Cycle {
+		WP_Speed[] = {"LIMITED","LIMITED","LIMITED"};
+		WP_Type[] = {"SAD","SAD","SAD"};
+		WP_Behaviour[] = {"AWARE","AWARE","AWARE"};
 	};
 };
