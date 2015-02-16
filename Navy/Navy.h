@@ -1,3 +1,4 @@
 class Navy {
-    #include "Navy_Config.h"
+    #include "Configuration\Navy_Config_Routines.h"
+    #include "Configuration\Navy_Config_Vehicles.h"
 };
