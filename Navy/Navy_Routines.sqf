@@ -90,38 +90,50 @@ Navy_Routine_HeliInsert =
 	
 };
 
+// First: point at which the cargo units will jump out
+// Second: Clean up
+// Third: Cargo Units Waypoint
 Navy_Routine_Paradrop =
 {
 	FUN_ARGS_5(_vehicleID,_cargo_group,_first_waypoint_object,_end_waypoint_object,_cargo_waypoint_object);
-	DECLARE(_pilot) = driver _vehicleID;
-	_vehicleID flyInHeight NAVY_FLIGHT_HEIGHT_PARADROP;
+	DECLARE(_flight_height) = [CONFIG_TYPE_NUMBER,"Routines","Paradrop","Flight_Height"] call Navy_Config_GetConfigValue;
+	DECLARE(_WP_Speeds) = [CONFIG_TYPE_ARRAY,"Routines","Heli_Insert","WP_Speed"] call Navy_Config_GetConfigValue;
+	DECLARE(_WP_Types) = [CONFIG_TYPE_ARRAY,"Routines","Heli_Insert","WP_Type"] call Navy_Config_GetConfigValue;
+	DECLARE(_WP_Behaviours) = [CONFIG_TYPE_ARRAY,"Routines","Heli_Insert","WP_Behaviour"] call Navy_Config_GetConfigValue;
+	DECLARE(_WP_CombatModes) = [CONFIG_TYPE_ARRAY,"Routines","Heli_Insert","WP_CombatMode"] call Navy_Config_GetConfigValue;
+	DECLARE(_WP_Statements) = [CONFIG_TYPE_ARRAY,"Routines","Heli_Insert","WP_Statements"] call Navy_Config_GetConfigValue;
+	DECLARE(_vehicle_anim) = [CONFIG_TYPE_ARRAY,"Vehicles",(typeOf _vehicleID),"Animation"] call Navy_Config_GetConfigValue;
+	
+	_vehicleID setposATL [((getposATL _vehicleID) select 0),((getposATL _vehicleID) select 1),_flight_height];
+	_vehicleID flyInHeight _flight_height;
 	[_cargo_group] call Navy_Units_AssignParachute;
-	// First: point at which the cargo units will jump out
-	// Second: Clean up
-	// Third: Cargo Units Waypoint
+	
 	DECLARE(_WP1) = [
-		_pilot,
+		(driver _vehicleID),
 		1,
 		(getPosATL _first_waypoint_object),
 		0,
-		"MOVE",
-		"AWARE",
-		"NORMAL",
-		"BLUE",
-		["",""]
+		(_WP_Types select 0),
+		(_WP_Behaviours select 0),
+		(_WP_Speeds select 0),
+		(_WP_CombatModes select 0),
+		(_WP_Statements select 0)
 	] call Navy_Waypoint_AddFullWaypoint;
 	DECLARE(_WP2) = [
-		_pilot,
+		(driver _vehicleID),
 		2,
 		(getposATL _end_waypoint_object),
 		0,
-		"MOVE",
-		"AWARE",
-		"NORMAL",
-		"BLUE",
-		["",""]
+		(_WP_Types select 1),
+		(_WP_Behaviours select 1),
+		(_WP_Speeds select 1),
+		(_WP_CombatModes select 1),
+		(_WP_Statements select 1)
 	] call Navy_Waypoint_AddFullWaypoint;
-	[_vehicleID,["Door_L","Door_R"]] call Navy_Vehicle_Animation_OpenDoorArray;
+	if ((count _vehicle_anim) > 0) then
+	{
+		[_vehicleID,_vehicle_anim] call Navy_Vehicle_Animation_OpenDoorArray;
+	};
 	WAIT_DELAY(0.5,(currentWaypoint (group _pilot)) == 2);
 	[_cargo_group,NAVY_DEFAULT_PARADROP_DELAY] call Navy_Vehicle_EjectCargo;
 	DECLARE(_WP3) = [
@@ -130,7 +142,10 @@ Navy_Routine_Paradrop =
 		NAVY_DEFAULT_CARGO_UNIT_RADIUS,
 		4
 	] call Navy_Waypoint_AddPatrolWaypoints;
-	[_vehicleID,["Door_L","Door_R"]] call Navy_Vehicle_Animation_CloseDoorArray;
+	if ((count _vehicle_anim) > 0) then
+	{
+		[_vehicleID,_vehicle_anim] call Navy_Vehicle_Animation_CloseDoorArray;
+	};
 	waitUntil
 	{
 		sleep 5;

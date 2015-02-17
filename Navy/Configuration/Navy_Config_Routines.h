@@ -34,9 +34,9 @@ class Routines {
 	
 	class Paradrop: Default {
 		Flight_Height = 200;
-		WP_Speed[] = {"LIMITED","LIMITED","LIMITED"};
-		WP_Type[] = {"SAD","SAD","SAD"};
-		WP_Behaviour[] = {"AWARE","AWARE","AWARE"};
+		WP_Speed[] = {"NORMAL","NORMAL"};
+		WP_Type[] = {"MOVE","MOVE"};
+		WP_Behaviour[] = {"AWARE","AWARE"};
 		WP_CombatMode[] = {"BLUE","BLUE"};
 	};
 };
