@@ -6,22 +6,31 @@
 Navy_Routine_HeliInsert =
 {
 	FUN_ARGS_5(_vehicleID,_cargo_group,_first_waypoint_object,_end_waypoint_object,_cargo_waypoint_object);
-	DECLARE(_pilot) = driver _vehicleID;
+	PVT_3(_WP1,_WP2,_WP3);
+	
 	DECLARE(_flight_height) = [CONFIG_TYPE_NUMBER,"Routines","Heli_Insert","Flight_Height"] call Navy_Config_GetConfigValue;
-	PVT_4(_wait_handle,_WP1,_WP2,_WP3);
+	DECLARE(_WP_Speeds) = [CONFIG_TYPE_ARRAY,"Routines","Heli_Insert","WP_Speed"] call Navy_Config_GetConfigValue;
+	DECLARE(_WP_Types) = [CONFIG_TYPE_ARRAY,"Routines","Heli_Insert","WP_Type"] call Navy_Config_GetConfigValue;
+	DECLARE(_WP_Behaviours) = [CONFIG_TYPE_ARRAY,"Routines","Heli_Insert","WP_Behaviour"] call Navy_Config_GetConfigValue;
+	DECLARE(_WP_CombatModes) = [CONFIG_TYPE_ARRAY,"Routines","Heli_Insert","WP_CombatMode"] call Navy_Config_GetConfigValue;
+	DECLARE(_WP_Statements) = [CONFIG_TYPE_ARRAY,"Routines","Heli_Insert","WP_Statements"] call Navy_Config_GetConfigValue;
+	DECLARE(_vehicle_anim) = [CONFIG_TYPE_ARRAY,"Vehicles",(typeOf _vehicleID),"Animation"] call Navy_Config_GetConfigValue;
+	
 	_vehicleID setposATL [((getposATL _vehicleID) select 0),((getposATL _vehicleID) select 1),_flight_height];
 	_vehicleID flyInHeight _flight_height;
+	
 	DECLARE(_WP1) = [
-		_pilot,
+		(driver _vehicleID),
 		1,
 		(getPosATL _first_waypoint_object),
 		0,
-		"MOVE",
-		"CARELESS",
-		"NORMAL",
-		"BLUE",
-		["",""]
+		(_WP_Types select 0),
+		(_WP_Behaviours select 0),
+		(_WP_Speeds select 0),
+		(_WP_CombatModes select 0),
+		(_WP_Statements select 0)
 	] call Navy_Waypoint_AddFullWaypoint;
+	
 	DECLARE(_WP3) = [
 		(leader _cargo_group),
 		(getposATL _cargo_waypoint_object),
@@ -39,28 +48,34 @@ Navy_Routine_HeliInsert =
 		sleep 1;
 		[_vehicleID,10] call Navy_General_AltitudeBelowLimit;
 	};
-	[_vehicleID,["Door_L","Door_R"]] call Navy_Vehicle_Animation_OpenDoorArray;
+	if ((count _vehicle_anim) > 0) then
+	{
+		[_vehicleID,_vehicle_anim] call Navy_Vehicle_Animation_OpenDoorArray;
+	};
 	WAIT_DELAY(1,(isTouchingGround _vehicleID););
-	_pilot disableAI "MOVE"; // Stops him from flying away
+	(driver _vehicleID) disableAI "MOVE"; // Stops him from flying away
 	[_cargo_group,0.7] call Navy_Vehicle_CargoGetOut;
 	WAIT_DELAY(1,(count (assignedCargo _vehicleID) == 0));
 	sleep 2;
-	if (alive _pilot) then
+	if (alive (driver _vehicleID)) then
 	{
 		_vehicleID land "NONE";
 		DECLARE(_WP2) = [
-			_pilot,
+			(driver _vehicleID),
 			2,
 			(getposATL _end_waypoint_object),
 			0,
-			"MOVE",
-			"AWARE",
-			"FULL",
-			"BLUE",
-			["",""]
+			(_WP_Types select 1),
+			(_WP_Behaviours select 1),
+			(_WP_Speeds select 1),
+			(_WP_CombatModes select 1),
+			(_WP_Statements select 1)
 		] call Navy_Waypoint_AddFullWaypoint;
-		[_vehicleID,["Door_L","Door_R"]] call Navy_Vehicle_Animation_CloseDoorArray;
-		_pilot enableAI "MOVE"; 
+		(driver _vehicleID) enableAI "MOVE";
+		if ((count _vehicle_anim) > 0) then
+		{
+			[_vehicleID,_vehicle_anim] call Navy_Vehicle_Animation_CloseDoorArray;
+		};
 		waitUntil
 		{
 			sleep 5;

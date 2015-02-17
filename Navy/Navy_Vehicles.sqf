@@ -5,8 +5,6 @@ Navy_Vehicle_SpawnAirVehicle =
 	FUN_ARGS_2(_classname,_spawn_position);
 	DECLARE(_vehicleID) = createVehicle [_classname,_spawn_position,[],0,Navy_Vehicle_StartingForm];
 	WAIT_DELAY(0.1,!isNil "_vehicleID");
-	//_vehicleID setposATL [(_spawn_position select 0),(_spawn_position select 1),NAVY_FLIGHT_HEIGHT_DEFAULT];
-	//_vehicleID flyInHeight NAVY_FLIGHT_HEIGHT_DEFAULT;
 	Navy_Vehicles pushBack _vehicleID;
 	INC(Navy_Vehicle_Counter);
 	_vehicleID;
@@ -20,6 +18,7 @@ Navy_Vehicle_SpawnFilledAirVehicle =
 	_vehicleID = [_vehicle_classname,_spawn_position] call Navy_Vehicle_SpawnAirVehicle;
 	_driver assignAsDriver _vehicleID;
 	_driver moveinDriver _vehicleID;
+	[_vehicleID] call Navy_Vehicle_RemoveSelectedWeapons;
 	if (_gunners) then
 	{
 		DECLARE(_available_turrets) = allTurrets [_vehicleID,false];
@@ -183,6 +182,28 @@ Navy_Vehicle_Animation_CloseDoorArray =
 	{
 		[_vehicleID,_x] call Navy_Vehicle_Animation_CloseDoor;
 	} forEach _door_array;
+};
+
+Navy_Vehicle_RemoveWeapon =
+{
+	FUN_ARGS_3(_vehicleID,_turret_path,_weapon_name);
+	_vehicleID removeWeaponTurret [_weapon_name,_turret_path];
+	DEBUG
+	{
+		[["Vehicle: %1 has had weapon: %2 removed from turret path: %3",_vehicleID,_weapon_name,_turret_path]] call Navy_Debug_HintRPT;
+	};
+};
+
+Navy_Vehicle_RemoveSelectedWeapons =
+{
+	FUN_ARGS_1(_vehicleID);
+	PVT_1(_i);
+	DECLARE(_ordnance) = DECLARE(_WP_Speeds) = [CONFIG_TYPE_ARRAY,"Vehicles",(typeOf _vehicleID),"Ordnance"] call Navy_Config_GetConfigValue;
+	DECLARE(_amount) = (count _ordnance)/2;
+	for "_i" from 1 to _amount do
+	{
+		[_vehicleID,(_ordnance select (_i - 1)),(_ordnance select _i)] call Navy_Vehicle_RemoveWeapon;
+	};
 };
 
 Navy_Vehicle_CleanUp =
