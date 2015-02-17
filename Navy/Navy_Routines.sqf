@@ -161,41 +161,48 @@ Navy_Routine_Paradrop =
 Navy_Routine_CASPatrol =
 {
 	FUN_ARGS_4(_vehicleID,_first_waypoint_object,_second_waypoint_object,_third_waypoint_object);
-	DECLARE(_pilot) = driver _vehicleID;
-	_vehicleID flyInHeight NAVY_FLIGHT_HEIGHT_CASPATROL;
-	// All waypoints: SAD waypoints, third one sets the first one as the current to enable waypoint looping
+	DECLARE(_flight_height) = [CONFIG_TYPE_NUMBER,"Routines","CAS_Patrol","Flight_Height"] call Navy_Config_GetConfigValue;
+	DECLARE(_WP_Types) = [CONFIG_TYPE_ARRAY,"Routines","CAS_Patrol","WP_Type"] call Navy_Config_GetConfigValue;
+	DECLARE(_WP_Behaviours) = [CONFIG_TYPE_ARRAY,"Routines","CAS_Patrol","WP_Behaviour"] call Navy_Config_GetConfigValue;
+	DECLARE(_WP_Speeds) = [CONFIG_TYPE_ARRAY,"Routines","CAS_Patrol","WP_Speed"] call Navy_Config_GetConfigValue;
+	DECLARE(_WP_CombatModes) = [CONFIG_TYPE_ARRAY,"Routines","CAS_Patrol","WP_CombatMode"] call Navy_Config_GetConfigValue;
+	DECLARE(_WP_Statements) = [CONFIG_TYPE_ARRAY,"Routines","CAS_Patrol","WP_Statements"] call Navy_Config_GetConfigValue;
+	
+	_vehicleID setposATL [((getposATL _vehicleID) select 0),((getposATL _vehicleID) select 1),_flight_height];
+	_vehicleID flyInHeight _flight_height;
+
 	DECLARE(_WP1) = [
-		_pilot,
+		(driver _vehicleID),
 		1,
 		(getPosATL _first_waypoint_object),
 		0,
-		"SAD",
-		"COMBAT",
-		"LIMITED",
-		"RED",
-		["",""]
+		(_WP_Types select 0),
+		(_WP_Behaviours select 0),
+		(_WP_Speeds select 0),
+		(_WP_CombatModes select 0),
+		(_WP_Statements select 0)
 	] call Navy_Waypoint_AddFullWaypoint;
 	DECLARE(_WP2) = [
-		_pilot,
+		(driver _vehicleID),
 		2,
 		(getposATL _second_waypoint_object),
 		0,
-		"SAD",
-		"COMBAT",
-		"LIMITED",
-		"RED",
-		["",""]
+		(_WP_Types select 1),
+		(_WP_Behaviours select 1),
+		(_WP_Speeds select 1),
+		(_WP_CombatModes select 1),
+		(_WP_Statements select 1)
 	] call Navy_Waypoint_AddFullWaypoint;
 	DECLARE(_WP3) = [
-		_pilot,
+		(driver _vehicleID),
 		3,
 		(getposATL _third_waypoint_object),
 		0,
-		"SAD",
-		"COMBAT",
-		"LIMITED",
-		"RED",
-		["true","(group this) setCurrentWaypoint [group this,1]"]
+		(_WP_Types select 2),
+		(_WP_Behaviours select 2),
+		(_WP_Speeds select 2),
+		(_WP_CombatModes select 2),
+		(_WP_Statements select 2)
 	] call Navy_Waypoint_AddFullWaypoint;
 	DEBUG
 	{

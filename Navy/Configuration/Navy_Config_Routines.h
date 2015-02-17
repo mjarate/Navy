@@ -16,12 +16,13 @@ class Routines {
 		WP_CombatMode[] = {"RED"};
 	};
 	
-	class SAD_Cycle: Default {
+	class CAS_Patrol: Default {
 		Flight_Height = 250;
 		WP_Speed[] = {"LIMITED","LIMITED","LIMITED"};
 		WP_Type[] = {"SAD","SAD","SAD"};
 		WP_Behaviour[] = {"AWARE","AWARE","AWARE"};
 		WP_CombatMode[] = {"RED","RED","RED"};
+		WP_Statements[] = {{},{},{"true","(group this) setCurrentWaypoint [group this,1]"}};
 	};
 	
 	class Heli_Insert: Default {
