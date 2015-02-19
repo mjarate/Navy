@@ -35,6 +35,29 @@ class Vehicles {
 		Ordnance[] = {};
 	};
 	
+	class B_Heli_Light_01_F:  Rotary {
+		Name = "MH-9 Hummingbird";
+		//Animation[] = {"DoorL_Front_Open","DoorR_Front_Open","DoorL_Back_Open","DoorR_Back_Open"};
+		Slingload = 1;
+		Slingload_Limit = 500;
+	};
+	
+	class B_Heli_Light_01_armed_F: B_Heli_Light_01_F {
+		Name = "AH-9 Pawnee";
+		Ordnance[] = {{-1},"missiles_DAR"};
+	};
+	
+	class B_Heli_Transport_03_F: Rotary {
+		Name = "CH-67 Huron";
+		Slingload = 1;
+		Slingload_Limit = 10000;
+		Animation[] = {"Door_R_source","Door_L_source","Door_rear_source"};
+	};
+	
+	class B_Heli_Transport_03_unarmed_F: B_Heli_Transport_03_F {
+		Name = "CH-67 Huron (Black)";
+	};
+	
 	// EAST: https://community.bistudio.com/wiki/Arma_3_CfgVehicles_EAST
 	// Covered Mi-290 Taru
 	class O_Heli_Transport_04_covered_F: Rotary {
