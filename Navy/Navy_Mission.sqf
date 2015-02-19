@@ -24,7 +24,7 @@ Navy_Wave_1 =
 Navy_Wave_2 =
 {
 	FUN_ARGS_1(_spawn_trigger);
-	[UNIT_TEMPLATE,"B_Plane_CAS_01_F",_spawn_trigger,heli_insert_item,cleanup_item,attack_item] spawn Navy_RunCASPatrol;
+	[UNIT_TEMPLATE,"B_Heli_Attack_01_F",_spawn_trigger,heli_insert_item,cleanup_item,attack_item] spawn Navy_RunCASPatrol;
 };
 
 Navy_RunMission =

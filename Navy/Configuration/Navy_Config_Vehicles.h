@@ -32,7 +32,7 @@ class Vehicles {
 
 	class B_Heli_Attack_01_F: Rotary {
 		Name = "AH-99 Blackfoot";
-		Ordnance[] = {};
+		Ordnance[] = {{0},"missiles_DAGR",{0},"missiles_ASRAAM"};
 	};
 	
 	class B_Heli_Light_01_F:  Rotary {
@@ -59,7 +59,18 @@ class Vehicles {
 	};
 	
 	// EAST: https://community.bistudio.com/wiki/Arma_3_CfgVehicles_EAST
-	// Covered Mi-290 Taru
+	
+	class O_Heli_Light_02_unarmed_F: Rotary {
+		Name = "PO-30 Orca (Black)";
+		Slingload = 1;
+		Slingload_Limit = 500;
+	};
+	
+	class O_Heli_Light_02_F: O_Heli_Light_02_unarmed_F {
+		Name = "PO-30 Orca";
+		Ordnance[] = {{-1},"missiles_DAGR"};
+	};
+	
 	class O_Heli_Transport_04_covered_F: Rotary {
 		Name = "Mi-290 Taru (Covered)";
 		Animation[] = {"Door_4_source","Door_5_source","Door_6_source"};
