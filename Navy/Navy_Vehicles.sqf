@@ -13,7 +13,7 @@ Navy_Vehicle_SpawnAirVehicle =
 Navy_Vehicle_SpawnFilledAirVehicle =
 {
 	FUN_ARGS_5(_unit_template,_gunners,_vehicle_classname,_spawn_position,_cargo_amount);
-	PVT_4(_driver,_gunner,_vehicleID,_cargo_group);
+	PVT_5(_driver,_gunner,_vehicleID,_vehicle_type,_cargo_group);
 	_driver = [_unit_template] call Navy_Units_SpawnDriver;
 	_vehicleID = [_vehicle_classname,_spawn_position] call Navy_Vehicle_SpawnAirVehicle;
 	_driver assignAsDriver _vehicleID;
@@ -40,12 +40,25 @@ Navy_Vehicle_SpawnFilledAirVehicle =
 	{
 		_cargo_group = []; // Avoids RPT errors when the function returns an undefined array
 	};
+	_vehicle_type = [CONFIG_TYPE_STRING,"Vehicles",(typeOf _vehicleID),"Type"] call Navy_Config_GetConfigValue;
+	if (_vehicle_type isEqualTo "FIXED") then
+	{
+		//_vehicleID setVelocity NAVY_FIXED_WING_STARTING_VELOCITY;
+		[_vehicleID,NAVY_FIXED_WING_STARTING_VELOCITY,2] spawn Navy_Vehicle_DelayedVelocityChange;
+	};
 	DEBUG
 	{
 		[_vehicleID] spawn Navy_Debug_TrackVehicle;
-		[["Vehicle %1 with form %2 has been spawned at %3 containing %4",_vehicleID,Navy_Vehicle_StartingForm,_spawn_position,(crew _vehicleID)]] call Navy_Debug_HintRPT;
+		[["Vehicle %1 with type %2 with form %3 has been spawned at %4 containing %5",_vehicleID,_vehicle_type,Navy_Vehicle_StartingForm,_spawn_position,(crew _vehicleID)]] call Navy_Debug_HintRPT;
 	};
 	[_vehicleID,_cargo_group];
+};
+
+Navy_Vehicle_DelayedVelocityChange =
+{
+	FUN_ARGS_3(_vehicleID,_velocity_array,_delay);
+	sleep _delay;
+	_vehicleID setVelocity _velocity_array;
 };
 
 Navy_Vehicle_ReturnCargo =

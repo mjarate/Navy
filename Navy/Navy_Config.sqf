@@ -11,7 +11,7 @@ Navy_Config_GetConfigValue =
 		{
 			case CONFIG_TYPE_ARRAY: 	{_return = [(NAVY_ROUTINES >> _name >> _field)] call Navy_Config_GetArray;};
 			case CONFIG_TYPE_NUMBER: 	{_return = [(NAVY_ROUTINES >> _name >> _field)] call Navy_Config_GetNumber;};
-			case CONFIG_TYPE_TEXT: 		{_return = [(NAVY_ROUTINES >> _name >> _field)] call Navy_Config_GetText;};
+			case CONFIG_TYPE_STRING: 	{_return = [(NAVY_ROUTINES >> _name >> _field)] call Navy_Config_GetText;};
 			//default:				{};
 		};
 	}
@@ -21,7 +21,7 @@ Navy_Config_GetConfigValue =
 		{
 			case CONFIG_TYPE_ARRAY: 	{_return = [(NAVY_VEHICLES >> _name >> _field)] call Navy_Config_GetArray;};
 			case CONFIG_TYPE_NUMBER: 	{_return = [(NAVY_VEHICLES >> _name >> _field)] call Navy_Config_GetNumber;};
-			case CONFIG_TYPE_TEXT: 		{_return = [(NAVY_VEHICLES >> _name >> _field)] call Navy_Config_GetText;};
+			case CONFIG_TYPE_STRING: 	{_return = [(NAVY_VEHICLES >> _name >> _field)] call Navy_Config_GetText;};
 			//default:				{};
 		};
 	};
