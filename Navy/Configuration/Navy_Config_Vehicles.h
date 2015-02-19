@@ -1,3 +1,6 @@
+// WEST: https://community.bistudio.com/wiki/Arma_3_CfgVehicles_WEST
+// EAST: https://community.bistudio.com/wiki/Arma_3_CfgVehicles_EAST
+
 class Vehicles {
 	class Default {
 		Name = ""; // Informal vehicle's name, used for logging
@@ -17,8 +20,8 @@ class Vehicles {
 	};
 	
 	// Rotary Aircraft
-	// WEST: https://community.bistudio.com/wiki/Arma_3_CfgVehicles_WEST
-
+	// WEST
+	
 	class B_Heli_Transport_01_F: Rotary {
 		Name = "Black Ghosthawk";
 		Animation[] = {"Door_L","Door_R"}; // "CargoRamp_Open" appears to make no difference
@@ -58,7 +61,7 @@ class Vehicles {
 		Name = "CH-67 Huron (Black)";
 	};
 	
-	// EAST: https://community.bistudio.com/wiki/Arma_3_CfgVehicles_EAST
+	// EAST
 	
 	class O_Heli_Light_02_unarmed_F: Rotary {
 		Name = "PO-30 Orca (Black)";
@@ -71,16 +74,69 @@ class Vehicles {
 		Ordnance[] = {{-1},"missiles_DAGR"};
 	};
 	
+	class O_Heli_Light_02_v2_F: O_Heli_Light_02_F {
+		Name = "PO-30 Orca (Black & White)";
+		Ordnance[] = {{-1},"missiles_DAR"};
+		Slingload_Limit = 2000;
+	};
+	
+	class O_Heli_Attack_02_F: Rotary {
+		Name = "Mi-48 Kajman";
+		Ordnance[] = {{-1},"missiles_SCALPEL",{-1},"rockets_Skyfire"}; // Turret paths require confirmation
+		Animation[] = {"door_L","door_R","door_L_pop","door_R_pop"};
+	};
+	
+	class O_Heli_Attack_02_black_F: O_Heli_Attack_02_F {
+		Name = "Mi-48 Kajman (Black)";
+	};
+	
+	class O_Heli_Transport_04_F: Rotary {
+		Name = "Mi-290 Taru";
+		Animation[] = {"Door_1_source","Door_2_source","Door_3_source"};
+		Slingload = 1;
+		Slingload_Limit = 12000;
+	};
+	
+	class O_Heli_Transport_04_ammo_F: Rotary {
+		Name = "Mi-290 Taru (Ammo)";
+		Animation[] = {"Door_1_source","Door_2_source","Door_3_source"};
+	};
+	
+	class O_Heli_Transport_04_bench_F: Rotary {
+		Name = "Mi-290 Taru (Bench)";
+		// Animation[] = {"Door_1_source","Door_2_source","Door_3_source"};
+	};
+	
+	class O_Heli_Transport_04_fuel_F: O_Heli_Transport_04_ammo_F {
+		Name = "Mi-290 Taru (Fuel)";
+	};
+	
+	class O_Heli_Transport_04_medevac_F: Rotary {
+		Name = "Mi-290 Taru (Medevac)";
+		Animation[] = {"Door_1_source","Door_2_source","Door_3_source","Door_4_source","Door_6_source"};
+	};
+	
+	class O_Heli_Transport_04_repair_F: O_Heli_Transport_04_ammo_F {
+		Name = "Mi-290 Taru (Repair)";
+	};
+	
 	class O_Heli_Transport_04_covered_F: Rotary {
 		Name = "Mi-290 Taru (Covered)";
 		Animation[] = {"Door_4_source","Door_5_source","Door_6_source"};
 	};
 	
 	// Fixed Wing Aircraft
-	// WEST: https://community.bistudio.com/wiki/Arma_3_CfgVehicles_WEST
+	// WEST
 
 	class B_Plane_CAS_01_F: Fixed {
 		Name = " A-164 Wipeout";
 		Ordnance[] = {{-1},"Bomb_04_Plane_CAS_01_F"};
 	};
+	
+	// EAST
+	
+	 class O_Plane_CAS_02_F: Fixed {
+		Name = "To-199 Neophron (CAS)";
+		Ordnance[] = {{-1},"Bomb_03_Plane_CAS_02_F"};
+	 };
 };
