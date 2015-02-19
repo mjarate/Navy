@@ -14,6 +14,7 @@ Navy_Units_SpawnDriver =
 	] call adm_patrol_fnc_placeMan;
 	WAIT_DELAY(0.1,!isNil "_driver");
 	Navy_Units pushBack _driver;
+	_driver setSkill NAVY_DRIVER_SKILL_LEVEL;
 	_driver allowFleeing 0;
 	_driver disableAI "AUTOTARGET";
 	_group setBehaviour "CARELESS";

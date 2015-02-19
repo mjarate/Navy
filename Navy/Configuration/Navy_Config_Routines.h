@@ -5,7 +5,7 @@ class Routines {
 		WP_Type[] = {};
 		WP_Behaviour[] = {};
 		WP_CombatMode[] = {};
-		WP_Statements[] = {};
+		WP_Statements[] = {{"",""},{"",""},{"",""}};
 	};
 	
 	class LOITER: Default {
@@ -22,7 +22,7 @@ class Routines {
 		WP_Type[] = {"SAD","SAD","SAD"};
 		WP_Behaviour[] = {"AWARE","AWARE","AWARE"};
 		WP_CombatMode[] = {"RED","RED","RED"};
-		WP_Statements[] = {{},{},{"true","(group this) setCurrentWaypoint [group this,1]"}};
+		WP_Statements[] = {{"",""},{"",""},{"true","(group this) setCurrentWaypoint [group this,1]"}};
 	};
 	
 	class Heli_Insert: Default {

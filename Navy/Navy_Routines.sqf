@@ -46,7 +46,7 @@ Navy_Routine_HeliInsert =
 	waitUntil
 	{
 		sleep 1;
-		[_vehicleID,10] call Navy_General_AltitudeBelowLimit;
+		[_vehicleID,NAVY_ALTITUDE_FOR_ANIMATION] call Navy_General_AltitudeBelowLimit;
 	};
 	if ((count _vehicle_anim) > 0) then
 	{

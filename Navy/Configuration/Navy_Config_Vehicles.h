@@ -35,6 +35,13 @@ class Vehicles {
 		Ordnance[] = {};
 	};
 	
+	// EAST: https://community.bistudio.com/wiki/Arma_3_CfgVehicles_EAST
+	// Covered Mi-290 Taru
+	class O_Heli_Transport_04_covered_F: Rotary {
+		Name = "Mi-290 Taru (Covered)";
+		Animation[] = {"Door_4_source","Door_5_source","Door_6_source"};
+	};
+	
 	// Fixed Wing Aircraft
 	// WEST: https://community.bistudio.com/wiki/Arma_3_CfgVehicles_WEST
 
