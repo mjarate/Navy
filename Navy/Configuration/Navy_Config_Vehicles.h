@@ -125,6 +125,27 @@ class Vehicles {
 		Animation[] = {"Door_4_source","Door_5_source","Door_6_source"};
 	};
 	
+	// IND
+	
+	class I_Heli_Transport_02_F: Rotary {
+		Name = "CH-49 Mohawk";
+		Animation[] = {"CargoRamp_Open","Door_Back_L","Door_Back_R"};
+		Slingload = 1;
+		Slingload_Limit = 4000;
+	};
+	
+	class I_Heli_light_03_F: I_Heli_Transport_02_F {
+		Name = "WY-55 Hellcat";
+		Ordnance[] = {{-1},"missiles_DAR"};
+		Slingload_Limit = 2000;
+	};
+	
+	class I_Heli_light_03_unarmed_F: Rotary {
+		Name = "WY-55 Hellcat (Green)";
+		Slingload = 1;
+		Slingload_Limit = 2000;
+	};
+	
 	// Fixed Wing Aircraft
 	// WEST
 
@@ -138,5 +159,16 @@ class Vehicles {
 	 class O_Plane_CAS_02_F: Fixed {
 		Name = "To-199 Neophron (CAS)";
 		Ordnance[] = {{-1},"Bomb_03_Plane_CAS_02_F"};
+	 };
+	 
+	 // IND
+	 
+	 class I_Plane_Fighter_03_CAS_F: Fixed {
+		Name = "A-143 Buzzard (CAS)";
+		Ordnance[] = {{-1},"GBU12BombLauncher"};
+	 };
+	 
+	 class I_Plane_Fighter_03_AA_F: Fixed {
+		 Name = "A-143 Buzzard (AA)";
 	 };
 };
