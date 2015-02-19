@@ -146,6 +146,15 @@ class Vehicles {
 		Slingload_Limit = 2000;
 	};
 	
+	// CIV
+	
+	class C_Heli_Light_01_civil_F: Rotary {
+		Name = "M-900";
+		Slingload = 1;
+		Slingload_Limit = 500;
+		Animation[] = {"DoorL_Front_Open","DoorR_Front_Open","DoorL_Back_Open","DoorR_Back_Open"};
+	};
+	
 	// Fixed Wing Aircraft
 	// WEST
 
