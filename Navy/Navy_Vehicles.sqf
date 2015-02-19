@@ -198,7 +198,7 @@ Navy_Vehicle_RemoveSelectedWeapons =
 {
 	FUN_ARGS_1(_vehicleID);
 	PVT_1(_i);
-	DECLARE(_ordnance) = DECLARE(_WP_Speeds) = [CONFIG_TYPE_ARRAY,"Vehicles",(typeOf _vehicleID),"Ordnance"] call Navy_Config_GetConfigValue;
+	DECLARE(_ordnance) = [CONFIG_TYPE_ARRAY,"Vehicles",(typeOf _vehicleID),"Ordnance"] call Navy_Config_GetConfigValue;
 	DECLARE(_amount) = (count _ordnance)/2;
 	for "_i" from 1 to _amount do
 	{
