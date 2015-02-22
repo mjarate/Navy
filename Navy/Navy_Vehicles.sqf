@@ -213,10 +213,13 @@ Navy_Vehicle_RemoveSelectedWeapons =
 	PVT_1(_i);
 	DECLARE(_ordnance) = [CONFIG_TYPE_ARRAY,"Vehicles",(typeOf _vehicleID),"Ordnance"] call Navy_Config_GetConfigValue;
 	DECLARE(_amount) = (count _ordnance);
-	_amount = _amount / 2;
-	for "_i" from 0 to _amount step 2 do
+	if (_amount > 0) then
 	{
-		[_vehicleID,(_ordnance select _i),(_ordnance select (_i + 1))] call Navy_Vehicle_RemoveWeapon;
+		_amount = _amount / 2;
+		for "_i" from 0 to _amount step 2 do
+		{
+			[_vehicleID,(_ordnance select _i),(_ordnance select (_i + 1))] call Navy_Vehicle_RemoveWeapon;
+		};
 	};
 };
 
