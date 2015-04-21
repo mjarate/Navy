@@ -24,13 +24,16 @@ Navy_Waypoint_AddFullWaypoint =
 
 Navy_Waypoint_AddPatrolWaypoints =
 {
-	FUN_ARGS_4(_unit,_position,_radius,_amount);
-	PVT_4(_i,_WP,_random_x,_random_y);
+	FUN_ARGS_5(_unit,_position,_radius,_amount,_water_allowed);
+	PVT_3(_i,_WP,_WP_position);
+	if (isNil "_water_allowed") then
+	{
+		_water_allowed = false;
+	};
 	for "_i" from 1 to (_amount - 1) step 1 do 
 	{
-		_random_x = (_position select 0) + random _radius;
-		_random_y = (_position select 1) + random _radius;
-		_WP = [_unit,_i,[_random_x,_random_y],0,"SAD","AWARE","FULL","RED",["",""]] call Navy_Waypoint_AddFullWaypoint;
+		_WP_position = [[_radius,_radius,0,false],_position,(typeOf _unit),_water_allowed] call adm_common_fnc_getRandomEmptyPositionInArea;
+		_WP = [_unit,_i,_WP_position,0,"SAD","AWARE","FULL","RED",["",""]] call Navy_Waypoint_AddFullWaypoint;
 	};
 	_WP setWaypointStatements ["true","(group this) setCurrentWaypoint [group this,1]"];
 	DEBUG

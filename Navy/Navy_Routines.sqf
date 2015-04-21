@@ -40,13 +40,13 @@ Navy_Routine_HeliInsert =
 	waitUntil
 	{
 		sleep 2;
-		[_vehicleID,_first_waypoint_object,NAVY_DEFAULT_INSERT_DISTANCE] call Navy_General_DistanceBelowLimit;
+		[_vehicleID,_first_waypoint_object,NAVY_DEFAULT_INSERT_DISTANCE] call Navy_CheckDistanceBelowLimit;
 	};
 	_vehicleID land "GET OUT";
 	waitUntil
 	{
 		sleep 1;
-		[_vehicleID,NAVY_ALTITUDE_FOR_ANIMATION] call Navy_General_AltitudeBelowLimit;
+		[_vehicleID,NAVY_ALTITUDE_FOR_ANIMATION] call Navy_CheckAltitudeBelowLimit;
 	};
 	if ((count _vehicle_anim) > 0) then
 	{
@@ -79,7 +79,7 @@ Navy_Routine_HeliInsert =
 		waitUntil
 		{
 			sleep 5;
-			[_vehicleID,_end_waypoint_object,NAVY_DEFAULT_CLEANUP_DISTANCE] call Navy_General_DistanceBelowLimit;
+			[_vehicleID,_end_waypoint_object,NAVY_DEFAULT_CLEANUP_DISTANCE] call Navy_CheckDistanceBelowLimit;
 		};
 		[_vehicleID] call Navy_Vehicle_CleanUp;
 	};
@@ -134,7 +134,7 @@ Navy_Routine_Paradrop =
 	{
 		[_vehicleID,_vehicle_anim] call Navy_Vehicle_Animation_OpenDoorArray;
 	};
-	WAIT_DELAY(0.5,(currentWaypoint (group _pilot)) == 2);
+	WAIT_DELAY(0.5,(currentWaypoint (group (driver _vehicleID))) == 2);
 	[_cargo_group,NAVY_DEFAULT_PARADROP_DELAY] call Navy_Vehicle_EjectCargo;
 	DECLARE(_WP3) = [
 		(leader _cargo_group),
@@ -149,7 +149,7 @@ Navy_Routine_Paradrop =
 	waitUntil
 	{
 		sleep 5;
-		[_vehicleID,_end_waypoint_object,NAVY_DEFAULT_CLEANUP_DISTANCE] call Navy_General_DistanceBelowLimit;
+		[_vehicleID,_end_waypoint_object,NAVY_DEFAULT_CLEANUP_DISTANCE] call Navy_CheckDistanceBelowLimit;
 	};
 	[_vehicleID] call Navy_Vehicle_CleanUp;
 	DEBUG

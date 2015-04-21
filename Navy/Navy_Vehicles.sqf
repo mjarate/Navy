@@ -5,8 +5,11 @@ Navy_Vehicle_SpawnAirVehicle =
 	FUN_ARGS_2(_classname,_spawn_position);
 	DECLARE(_vehicleID) = createVehicle [_classname,_spawn_position,[],0,Navy_Vehicle_StartingForm];
 	WAIT_DELAY(0.1,!isNil "_vehicleID");
-	Navy_Vehicles pushBack _vehicleID;
-	INC(Navy_Vehicle_Counter);
+	DEBUG
+	{
+		Navy_Vehicles pushBack _vehicleID;
+		INC(Navy_Vehicle_Counter);
+	};
 	_vehicleID;
 };
 
@@ -61,32 +64,19 @@ Navy_Vehicle_DelayedVelocityChange =
 	_vehicleID setVelocity _velocity_array;
 };
 
-Navy_Vehicle_ReturnCargo =
-{
-	FUN_ARGS_1(_vehicleID);
-	DECLARE(_cargo) = [crew _vehicleID, {_vehicleID getCargoIndex _x >= 0}] call BIS_fnc_conditionalSelect;
-	_cargo;
-	DEBUG
-	{
-		[["Vehicle: %1 has %2 cargo units: %3",_vehicleID,(count _cargo),_cargo]] call Navy_Debug_HintRPT;
-	};
-};
-
 Navy_Vehicle_FillCargo =
 {
 	FUN_ARGS_2(_unit_template,_amount);
 	DECLARE(_group) = createGroup ([_unit_template] call adm_common_fnc_getUnitTemplateSide);
-	DECLARE(_cargo_unit_array) = [];
 	PVT_2(_i,_cargo_unit);
 	for "_i" from 1 to _amount do
 	{
 		_cargo_unit = [_unit_template,_group] call Navy_Units_SpawnCargoUnit;
-		_cargo_unit_array pushBack _cargo_unit;
 	};
-	Navy_GroundUnit_Groups pushBack _cargo_unit_array;
 	DEBUG
 	{
-		[["Cargo Unit group created with array: %1",_cargo_unit_array]] call Navy_Debug_HintRPT;
+		Navy_Cargo_Unit_Groups pushBack _group;
+		[["Cargo Unit group created: %1",_group]] call Navy_Debug_HintRPT;
 	};
 	_group;
 };
@@ -117,7 +107,6 @@ Navy_Vehicle_CargoAction =
 	};
 	{
 		(_x) action [_action, vehicle _x];
-		//unassignVehicle _x;
 		sleep _delay;
 	} forEach units _cargo_group;
 	DEBUG
@@ -220,6 +209,13 @@ Navy_Vehicle_RemoveSelectedWeapons =
 		{
 			[_vehicleID,(_ordnance select _i),(_ordnance select (_i + 1))] call Navy_Vehicle_RemoveWeapon;
 		};
+	}
+	else
+	{
+		DEBUG
+		{
+			[["Vehicle: %1 did not have any weapons removed",_vehicleID]] call Navy_Debug_HintRPT;
+		};
 	};
 };
 
@@ -228,7 +224,7 @@ Navy_Vehicle_CleanUp =
 	FUN_ARGS_1(_vehicleID);
 	DEBUG
 	{
-		[["Vehicle %1 and crew %2 are being deleted",_vehicleID,(crew _vehicleID)]] call Navy_Debug_HintRPT;
+		[["Vehicle %1 with crew %2 are being deleted",_vehicleID,(crew _vehicleID)]] call Navy_Debug_HintRPT;
 		DECLARE(_waypoints) = waypoints _vehicleID; // Required to remove debug markers
 		PVT_1(_i);
 		for "_i" from 1 to (count _waypoints) do // waypoint 0 does not have a debug marker attached

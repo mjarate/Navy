@@ -59,6 +59,19 @@ Navy_Debug_SideChat =
 	};
 };
 
+Navy_Debug_ReturnConfigType =
+{
+	FUN_ARGS_1(_type);
+	DECLARE(_string) = "";
+	switch (_type) do
+	{
+		case CONFIG_TYPE_ARRAY: 	{_string = "ARRAY";};
+		case CONFIG_TYPE_NUMBER: 	{_string = "NUMBER";};
+		case CONFIG_TYPE_STRING: 	{_string = "STRING";};
+	};
+	_string;
+};
+
 Navy_Debug_DebugMarker =
 {
 	FUN_ARGS_4(_name_str,_position,_size,_text);
@@ -126,7 +139,7 @@ Navy_Debug_TrackWithMarker =
 	_marker_name setMarkerTextLocal _marker_name;
 	while {alive _object} do
 	{
-		_pos_and_dir = [_object] call Navy_General_ReturnPosAndDir;
+		_pos_and_dir = [_object] call Navy_ReturnPosAndDir;
 		_marker_name setMarkerPosLocal (_pos_and_dir select 0);
 		_marker_name setMarkerDirLocal (_pos_and_dir select 1);
 		sleep _delay;
@@ -146,28 +159,31 @@ Navy_Debug_TrackUnit =
 	[_unit,false] call Navy_Debug_TrackWithMarker;
 };
 
-Navy_Debug_SpawnMarker =
+Navy_Debug_SpawnZoneMarker =
 {
-	FUN_ARGS_5(_position,_a,_b,_angle,_rectangle);
+	FUN_ARGS_1(_trigger);
+	DECLARE(_area) = triggerArea _trigger; // [a, b, angle, rectangle]
+	DECLARE(_position) = getPosATL _trigger; // [x,y,z]
 	DECLARE(_marker_name) = format ["Navy_Spawn_%1",Navy_Spawn_Counter];
 	DECLARE(_marker_shape) = "ELLIPSE";
-	DECLARE(_marker_size) = [_a,_b];
-	if (_rectangle) then
+	DECLARE(_marker_size) = [(_area select 0),(_area select 1)];
+	if ((_area select 3)) then
 	{
 		_marker_shape = "RECTANGLE";
 	};
 	[_marker_name,_position,_marker_shape,"Empty","ColorBlue",_marker_size] call adm_common_fnc_createLocalMarker;
-	_marker_name setMarkerDirLocal _angle;
+	_marker_name setMarkerDirLocal (_area select 2);
 	_marker_name setMarkerBrushLocal "Border";
 	Navy_Spawn_Markers pushBack _marker_name;
 	INC(Navy_Spawn_Counter);
+	[["Spawn Trigger created at position %1 with a: %2 b: %3 angle: %4 rectangle: %5",_position,(_area select 0),(_area select 1),(_area select 2),(_area select 3),(_area select 4)]] call Navy_Debug_HintRPT;
 };
 
 Navy_Debug_HintCurrentNavyUnits =
 {
 	while {true} do
 	{
-		hintSilent format ["TIME: %1\nNavy Units:\n%2\nNavy Vehicles:\n%3\nNavy Cargo Groups:\n%4",time,Navy_Units,Navy_Vehicles,Navy_GroundUnit_Groups];
+		hintSilent format ["TIME: %1\nNavy Units:\n%2\nNavy Vehicles:\n%3\nNavy Cargo Groups:\n%4",time,Navy_Units,Navy_Vehicles,Navy_Cargo_Unit_Groups];
 		sleep 0.2;
 	};
 };

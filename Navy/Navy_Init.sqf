@@ -11,17 +11,15 @@ Navy_PreInit =
 	{
 		WAIT(hull3_isInitialized);
 	};
-	// Wait for Admiral AI Suite to finish initialising
-	WAIT_DELAY(0.5,adm_isInitialized);
-	// Make sure the admiral API command for running on HC is available
-	WAIT_DELAY(0.5,!isNil "adm_api_fnc_executeIfAdmiralMachine");
+	WAIT_DELAY(0.5,adm_isInitialized); // Wait for Admiral AI Suite to finish initialising
+	//WAIT_DELAY(0.5,!isNil "adm_api_fnc_executeIfAdmiralMachine"); // Make sure the admiral API command for running on HC is available // Command is only available in Admiral 0.8
 	if (Navy_RunOnHC) then
 	{
-		[[],Navy_Init] spawn adm_api_fnc_executeIfAdmiralMachine;
+		//[[],Navy_Init] spawn adm_api_fnc_executeIfAdmiralMachine; // Command is only available in Admiral 0.8
 	}
 	else
 	{
-		RUN_ON_SERVER
+		if (isServer) then
 		{
 			[] spawn Navy_Init;
 		};
@@ -30,18 +28,17 @@ Navy_PreInit =
 
 Navy_Init_Variables =
 {
-	Navy_Spawn_Counter = 1;
-	Navy_Spawn_Markers = [];
-	Navy_Units = [];
-	Navy_Unit_Counter = 0;
-	Navy_Vehicles = [];
-	Navy_Vehicle_Counter = 0;
-	Navy_GroundUnit_Groups = [];
-};
-
-Navy_Init_CreateSpawnLocation =
-{
-	Navy_SpawnLocation = "HeliHEmpty" createVehicleLocal NAVY_SPAWN_LOCATION_POS;
+	Navy_Spawn_Position = NAVY_DEFAULT_SPAWN_POSITION;
+	DEBUG
+	{
+		Navy_Units = [];
+		Navy_Unit_Counter = 0;
+		Navy_Vehicles = [];
+		Navy_Vehicle_Counter = 0;
+		Navy_Spawn_Counter = 1;
+		Navy_Spawn_Markers = [];
+		Navy_Cargo_Unit_Groups = [];
+	};
 };
 
 Navy_Precompile_Functions =
@@ -54,13 +51,11 @@ Navy_Precompile_Functions =
 	};
 	PRECOMPILE("Navy\Navy_General.sqf");
 	PRECOMPILE("Navy\Navy_Config.sqf");
-	PRECOMPILE("Navy\Navy_Spawns.sqf");
 	PRECOMPILE("Navy\Navy_Units.sqf");
 	PRECOMPILE("Navy\Navy_Vehicles.sqf");
 	PRECOMPILE("Navy\Navy_Waypoints.sqf");
 	PRECOMPILE("Navy\Navy_Routines.sqf");
 	PRECOMPILE("Navy\Navy_Procedures.sqf");
-	PRECOMPILE("Navy\Navy_Tests.sqf");
 	PRECOMPILE("Navy\Navy_Mission.sqf");
 };
 
@@ -69,7 +64,6 @@ Navy_Init =
 	Navy_Initialised = false;
 	publicVariable "Navy_Initialised";
 	[] call Navy_Init_Variables;
-	[] call Navy_Init_CreateSpawnLocation;
 	// Turn Debug off in multiplayer settings
 	if (isMultiplayer && !DEBUG_MULTIPLAYER) then
 	{
@@ -79,6 +73,6 @@ Navy_Init =
 	[] call Navy_Precompile_Functions;
 	Navy_Initialised = true;
 	publicVariable "Navy_Initialised";
-	[["Navy Version %1 has successfully initliased.",NAVY_VERSION]] call Navy_General_Log;
+	[["Navy Version %1 has successfully initliased.",NAVY_VERSION_STR]] call Navy_Log;
 	[] spawn Navy_Timeline;
 };

@@ -3,13 +3,14 @@
 #ifndef NAVY_MACROS_H
 #define NAVY_MACROS_H
 
-#define NAVY_VERSION			0.5
+#define NAVY_VERSION			0.6.1
+#define NAVY_VERSION_STR		'0.6.1'
+#define NAVY_VERSION_ARRAY		[0,6,1]
 
 #define PRECOMPILE(SCRIPT) 			call compile preProcessFileLineNumbers SCRIPT 
 #define WAIT(CODE) 					waitUntil {CODE}
 #define WAIT_DELAY(DELAY,CODE)		waitUntil {sleep DELAY; CODE}
 #define DEBUG						if (Navy_Debug) then
-#define RUN_ON_SERVER				if (isServer) then
 #define ALTITUDE(OBJECT)			((getposATL OBJECT) select 2)
 #define SET_ALTITUDE(ARRAY,NUM)		ARRAY set [2,NUM]
 #define HC_NAMES					adm_hc_defaultNames
@@ -39,17 +40,18 @@
 #define CONFIG_TYPE_NUMBER	1
 #define CONFIG_TYPE_STRING	2
 
-#define CONFIG_INFANTRY_FIELD	"infantry"
-#define CONFIG_CREWMEN_FIELD	"crewmen"
-#define CONFIG_CAMP_FIELD		"Camp"
-#define CONFIG_PATROL_FIELD		"Patrol"
-#define CONFIG_CQC_FIELD		"CQC"
+#define ADM_CONFIG_INFANTRY_FIELD	"infantry"
+#define ADM_CONFIG_CREWMEN_FIELD	"crewmen"
+#define ADM_CONFIG_CAMP_FIELD		"Camp"
+#define ADM_CONFIG_PATROL_FIELD		"Patrol"
+#define ADM_CONFIG_CQC_FIELD		"CQC"
 
 #define NAVY_DRIVER_SKILL_LEVEL 			1
-#define NAVY_SPAWN_LOCATION_POS 			[10000,10000]
+
 #define NAVY_ALTITUDE_FOR_ANIMATION			12
 #define NAVY_FIXED_WING_STARTING_VELOCITY 	[0,300,50]
 
+#define NAVY_DEFAULT_SPAWN_POSITION 	[10000,10000]
 #define NAVY_DEFAULT_SPAWN_FORM			'FLY'
 #define NAVY_DEFAULT_LANDING_DISTANCE	150
 #define NAVY_DEFAULT_LANDING_ALTITUDE	150
@@ -57,7 +59,7 @@
 #define NAVY_DEFAULT_PARADROP_DISTANCE	400
 #define NAVY_DEFAULT_CLEANUP_DISTANCE	600
 #define NAVY_DEFAULT_INSERT_DISTANCE	350
-#define NAVY_DEFAULT_CARGO_UNIT_RADIUS 	200
+#define NAVY_DEFAULT_CARGO_UNIT_RADIUS 	300
 
 #define NAVY_FLIGHT_HEIGHT_DEFAULT		150
 
