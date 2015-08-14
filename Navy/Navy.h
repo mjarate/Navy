@@ -1,7 +1,4 @@
-#include "ark_macros.h"
-
-// ark_scripts
-// Contains config values to be used in the future.
+#include "navy_macros.h"
 
 // For Modules
 class CfgFactionClasses {
@@ -12,7 +9,7 @@ class CfgFactionClasses {
 };
 
 class CfgVehicles {
-    #include "navy_modules.hpp"
+    #include "navy_modules.h"
 };
 
 class Navy {

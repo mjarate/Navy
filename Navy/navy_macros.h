@@ -1,18 +1,17 @@
-#ifndef ARK_MACROS_H
-#define ARK_MACROS_H
+#ifndef NAVY_MACROS_H
+#define NAVY_MACROS_H
 
-#define ARK_SCRIPTS_VERSION             "0.1.0.0" // major.minor.build.revision
+#define NAVY_SCRIPTS_VERSION             "0.1.0.0"  // major.minor.build.revision
 
 #define CONCAT_ADDON_PATH(FILE)         x\ark\addons\navy\FILE
 #define ADDON_PATH(FILE)                #CONCAT_ADDON_PATH(FILE)
 
-#define CONCAT_ADM_PATH(FILE)          x\ark\addons\admiral\FILE
-#define ADM_PATH(FILE)                 #CONCAT_ADM_PATH(FILE)
+#define CONCAT_ADM_PATH(FILE)           x\ark\addons\admiral\FILE
+#define ADM_PATH(FILE)                  #CONCAT_ADM_PATH(FILE)
 
 #define NAVY_BASE_CONFIG                "Navy"
 #define NAVY_MISSION_CONFIG_FILE        missionConfigFile >> NAVY_BASE_CONFIG
 #define NAVY_CONFIG_FILE                configFile >> NAVY_BASE_CONFIG
-#define NAVY_SCRIPTS_CONFIG_FILE        configFile >> NAVY_BASE_CONFIG >> "Scripts"
 
 #define CONFIG_TYPE_BOOL                0
 #define CONFIG_TYPE_NUMBER              1
@@ -21,7 +20,7 @@
 
 #define IF_IS_SERVER                    if !isServer exitWith {}
 
-#define DEBUG  if (ark_scripts_debugEnabled) then
+#define DEBUG  if (navy_debugEnabled) then
 
 #define NAVY_SCRIPTS_DEBUG_FORMAT        "%1-[NAVY]-[%2]: %3" // %1: time, %2: debug level,%3 formatted message
 #define DEBUG_INFO          "INFO"
@@ -271,4 +270,4 @@
         _range; \
     }
 
-#endif //ARK_MACROS_H
+#endif  //NAVY_MACROS_H

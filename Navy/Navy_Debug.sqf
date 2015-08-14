@@ -1,7 +1,4 @@
-#include "ark_macros.h"
-
-// navy_debug
-// Contains debug functions
+#include "navy_macros.h"
 
 navy_debug_fnc_logToServer = {
     FUN_ARGS_2(_message,_level);
@@ -14,12 +11,12 @@ navy_debug_fnc_logToServer = {
 navy_debug_fnc_log = {
     FUN_ARGS_2(_message,_level);
 
-    hint format [NAVY_SCRIPTS_DEBUG_FORMAT, time, _level, format _message];
-    diag_log format [NAVY_SCRIPTS_DEBUG_FORMAT, time, _level, format _message];
+    hint format [NAVY_DEBUG_FORMAT, time, _level, format _message];
+    diag_log format [NAVY_DEBUG_FORMAT, time, _level, format _message];
 };
 
 navy_debug_fnc_rptlog = {
     FUN_ARGS_2(_message,_level);
 
-    diag_log format [NAVY_SCRIPTS_DEBUG_FORMAT, time, _level, format _message];
+    diag_log format [NAVY_DEBUG_FORMAT, time, _level, format _message];
 };

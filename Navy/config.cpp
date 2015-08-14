@@ -1,4 +1,4 @@
-#include "ark_macros.h"
+#include "navy_macros.h"
 
 class CfgPatches {
     class Navy {
@@ -18,11 +18,3 @@ class Extended_PreInit_EventHandlers {
 };
 
 #include "navy.h"
-
-/*
-class Extended_PostInit_EventHandlers {
-    class Navy {
-        init = "[] call compile preProcessFileLineNumbers 'x\ark\addons\navy\navy_postinit.sqf';";
-    };
-};
-*/
