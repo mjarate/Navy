@@ -19,10 +19,10 @@
 #define CONFIG_TYPE_ARRAY               3
 
 #define IF_IS_SERVER                    if !isServer exitWith {}
-
+#define PRECOMPILE(path)                call compile preProcessFileLineNumbers PATH
 #define DEBUG  if (navy_debugEnabled) then
 
-#define NAVY_SCRIPTS_DEBUG_FORMAT        "%1-[NAVY]-[%2]: %3" // %1: time, %2: debug level,%3 formatted message
+#define NAVY_DEBUG_FORMAT        "%1-[NAVY]-[%2]: %3" // %1: time, %2: debug level,%3 formatted message
 #define DEBUG_INFO          "INFO"
 #define DEBUG_WARN          "WARN"
 #define DEBUG_ERROR         "ERROR"

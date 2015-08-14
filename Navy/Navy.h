@@ -13,5 +13,9 @@ class CfgVehicles {
 };
 
 class Navy {
-    
+    class Settings {
+        isEnabled = 0;
+        debugEnabled = 1;
+    };
+
 };

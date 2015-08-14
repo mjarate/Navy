@@ -11,10 +11,11 @@ class CfgPatches {
     };
 };
 
+#include "navy.h"
+
 class Extended_PreInit_EventHandlers {
     class Navy {
         init = "[] call compile preProcessFileLineNumbers 'x\ark\addons\navy\navy_preinit.sqf';";
     };
 };
 
-#include "navy.h"
