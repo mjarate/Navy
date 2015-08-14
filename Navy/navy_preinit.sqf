@@ -10,6 +10,7 @@ navy_logToServer = true;
 
 if (navy_isEnabled) then {
     [["Navy is enabled. Initialising Navy now."], DEBUG_INFO] call navy_debug_fnc_logToServer;
+    call compile preprocessFileLineNumbers ADDON_PATH(navy_spawning.sqf);
     navy_isInitialised = true;
 } else {
     [["Navy is disabled in the mission config file."], DEBUG_INFO] call navy_debug_fnc_logToServer;

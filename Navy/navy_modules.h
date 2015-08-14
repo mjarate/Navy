@@ -23,7 +23,7 @@ class Navy_Module: Module_F {
 
 class Navy_Paradrop: Navy_Module {
     scope = 2;
-    condition = "navy_isEnabled";  // add config check
+    condition = "navy_isEnabled";
     displayName = "Paradrop";
     function = "navy_module_paradrop";
     class ModuleDescription {
