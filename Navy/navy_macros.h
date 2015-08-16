@@ -13,6 +13,8 @@
 #define NAVY_MISSION_CONFIG_FILE        missionConfigFile >> NAVY_BASE_CONFIG
 #define NAVY_CONFIG_FILE                configFile >> NAVY_BASE_CONFIG
 #define NAVY_DEFAULT_ALTITUDE           400
+#define NAVY_SPAWN_POSITION             [10000, 10000, 0]
+#define NAVY_PILOT_SKILL_ARRAY          [["courage", 1], ["general", 1]]
 
 #define CONFIG_TYPE_BOOL                0
 #define CONFIG_TYPE_NUMBER              1

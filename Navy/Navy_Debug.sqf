@@ -27,5 +27,6 @@ navy_debug_unitTests = {
     IF_IS_SERVER;
     [["Starting Unit tests"], DEBUG_INFO] call navy_debug_fnc_log;
     [["Spawning a helicopter at the debug trigger: %1 with area: %2", _trigger, triggerArea _trigger], DEBUG_INFO] call navy_debug_fnc_log;
-    ["B_Heli_Transport_03_black_F", _trigger] call navy_spawn_fnc_spawnAirVehicle;
+    DECLARE(_testVehicle) = ["B_Heli_Transport_03_black_F", _trigger] call navy_spawn_fnc_airVehicle;
+    ["B_Helipilot_F", WEST, _testVehicle] call navy_spawn_fnc_pilot;
 };
