@@ -12,6 +12,7 @@
 #define NAVY_BASE_CONFIG                "Navy"
 #define NAVY_MISSION_CONFIG_FILE        missionConfigFile >> NAVY_BASE_CONFIG
 #define NAVY_CONFIG_FILE                configFile >> NAVY_BASE_CONFIG
+#define NAVY_DEFAULT_ALTITUDE           400
 
 #define CONFIG_TYPE_BOOL                0
 #define CONFIG_TYPE_NUMBER              1
@@ -19,7 +20,7 @@
 #define CONFIG_TYPE_ARRAY               3
 
 #define IF_IS_SERVER                    if !isServer exitWith {}
-#define DEBUG  if (navy_debugEnabled) then
+#define DEBUG                           if (navy_debugEnabled) then
 
 #define NAVY_DEBUG_FORMAT        "%1-[NAVY]-[%2]: %3" // %1: time, %2: debug level,%3 formatted message
 #define DEBUG_INFO          "INFO"
