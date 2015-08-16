@@ -8,7 +8,7 @@ class Module_F: Logic {
 class Navy_Module: Module_F {
     scope = 1;
     displayName = "Navy Module";
-    icon = ADDON_PATH(resources\navy.paa);
+    icon = ADDON_PATH(resources\heli.paa);
     category = "Navy";
     function = "";
     functionPriority = 1;
