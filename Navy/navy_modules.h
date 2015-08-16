@@ -29,4 +29,12 @@ class Navy_Paradrop: Navy_Module {
     class ModuleDescription {
         description = "Spawns a unit paradrop";
     };
+     class Arguments {
+        class Vehicle_Classname {
+            displayName = "Vehicle Classname";
+            description = "The classname of the helicopter that will be spawned";
+            typeName = "STRING";
+            defaultValue = "B_Heli_Transport_03_black_F";
+        };
+    };
 };
