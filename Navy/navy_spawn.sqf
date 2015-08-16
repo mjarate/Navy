@@ -22,6 +22,8 @@ navy_spawn_fnc_pilot = {
 
     DECLARE(_pilotGroup) = createGroup _pilotSide;
     DECLARE(_pilot) = [NAVY_SPAWN_POSITION, _pilotGroup, [_pilotClassname], NAVY_PILOT_SKILL_ARRAY] call adm_common_fnc_placeMan;
+    _pilot disableAI "AUTOTARGET";
+    _pilot setBehaviour "CARELESS";
     _pilot moveInDriver _vehicle;
 
     DEBUG {
