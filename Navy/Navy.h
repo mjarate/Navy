@@ -17,5 +17,6 @@ class Navy {
         isEnabled = 0;
         debugEnabled = 1;
     };
-
+    #include "navy_routines.h"
+    #include "navy_vehicles.h"
 };
