@@ -30,6 +30,12 @@ class Navy_Paradrop: Navy_Module {
         description = "Spawns a unit paradrop";
     };
      class Arguments {
+        class Vehicle_Faction {
+            displayName = "Vehicle Faction";
+            description = "The side of the helicopter and the units";
+            typeName = "STRING";
+            defaultValue = "WEST";
+        };
         class Vehicle_Classname {
             displayName = "Vehicle Classname";
             description = "The classname of the helicopter that will be spawned";

@@ -24,17 +24,11 @@ navy_module_paradrop = {
     };
 
     DECLARE(_vehicleClassname) = _logic getVariable "Vehicle_Classname";
+    DECLARE(_vehicleFaction) = _logic getVariable "Vehicle_Faction";
     DEBUG {
-            [["Module: %1 initialised with objects: %2 units: %3, waypoints: %4 and classname: %5", _logic, _syncronisedObjects, _units, _waypoints, _vehicleClassname], DEBUG_INFO] call navy_debug_fnc_log;
+        [["Module: %1 initialised with objects: %2 units: %3, waypoints: %4 and classname: %5", _logic, _syncronisedObjects, _units, _waypoints, _vehicleClassname], DEBUG_INFO] call navy_debug_fnc_log;
     };
     {
-        _x spawn {
-            waitUntil {
-                sleep 2;
-                adm_isInitialized;
-            };
-            hint "Admiral has finished initialising!";
-            [_this] call navy_debug_unitTests;
-        };
+        [_x] call navy_method_fnc_paradrop;
     } forEach _syncronisedObjects;
 };
