@@ -11,6 +11,32 @@ navy_main_fnc_getPilotClassname = {
     _pilotClassname;
 };
 
+navy_main_fnc_addWaypoint = {
+    FUN_ARGS_3(_unit,_routine,_number);
+
+    DECLARE(_index) = _number - 1;
+    DECLARE(_waypointPositions) = [];
+    {
+        _waypointPositions pushBack (getPosATL _x);
+    } forEach _waypoints;
+    DECLARE(_speedArray) = [NAVY_CONFIG_ROUTINES, _routine, "waypoint_speed"] call navy_config_fnc_getArray;
+    DECLARE(_typeArray) = [NAVY_CONFIG_ROUTINES, _routine, "waypoint_type"] call navy_config_fnc_getArray;
+    DECLARE(_behaviourArray) = [NAVY_CONFIG_ROUTINES, _routine, "waypoint_behaviour"] call navy_config_fnc_getArray;
+    DECLARE(_modeArray) = [NAVY_CONFIG_ROUTINES, _routine, "waypoint_combatmode"] call navy_config_fnc_getArray;
+    DECLARE(_statementArray) = [NAVY_CONFIG_ROUTINES, _routine, "waypoint_statements"] call navy_config_fnc_getArray;
+    DECLARE(_waypoint) = (group _unit) addWaypoint [(group _unit), _number];
+    _waypoint setWaypointSpeed (_speedArray select _index);
+    _waypoint setWaypointType (_typeArray select _index);
+    _waypoint setWaypointBehaviour (_behaviourArray select _index);
+    _waypoint setWaypointCombatMode (_modeArray select _index);
+    _waypoint setWaypointStatements (_statementArray select _index);
+
+    DEBUG {
+        [["Unit: %1 given waypoint: %2 %3 %4 %5 as number: %6", _unit, (_speedArray select _index), (_typeArray select _index), (_behaviourArray select _index), (_modeArray select _index), _number], DEBUG_INFO] call navy_debug_fnc_log;
+    };
+    _waypoint;
+};
+
 navy_module_paradrop = {
     FUN_ARGS_3(_logic,_units,_activated);
 

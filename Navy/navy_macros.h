@@ -12,6 +12,8 @@
 #define NAVY_BASE_CONFIG                "Navy"
 #define NAVY_MISSION_CONFIG_FILE        missionConfigFile >> NAVY_BASE_CONFIG
 #define NAVY_CONFIG_FILE                configFile >> NAVY_BASE_CONFIG
+#define NAVY_CONFIG_ROUTINES            NAVY_CONFIG_FILE >> "Routines"
+#define NAVY_CONFIG_VEHICLES            NAVY_CONFIG_FILE >> "Vehicles"
 
 #define NAVY_DEFAULT_ALTITUDE           400
 #define NAVY_SPAWN_POSITION             [10000, 10000, 0]
