@@ -7,6 +7,7 @@ class Module_F: Logic {
 
 class Navy_Module: Module_F {
     scope = 1;
+    condition = "navy_isEnabled";
     displayName = "Navy Module";
     icon = ADDON_PATH(resources\heli.paa);
     category = "Navy";
@@ -23,7 +24,6 @@ class Navy_Module: Module_F {
 
 class Navy_Paradrop: Navy_Module {
     scope = 2;
-    condition = "navy_isEnabled";
     displayName = "Paradrop";
     function = "navy_module_paradrop";
     class ModuleDescription {

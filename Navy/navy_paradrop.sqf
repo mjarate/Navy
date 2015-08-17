@@ -1,9 +1,14 @@
+//#include "..\navy_macros.h" // TODO: Change to this after 1.50 goes live, and put routines back in their folder!
 #include "navy_macros.h"
 
 navy_method_fnc_paradrop = {
     FUN_ARGS_4(_trigger,_vehicleClassname,_unitTemplate,_waypoints);
 
-    PVT_(_side,_pilotClassname,_vehicle,_pilot);
+    PVT_4(_side,_pilotClassname,_vehicle,_pilot);
+    waitUntil {
+        sleep 2;
+        adm_isInitialized;
+    };
     _side = [_unitTemplate] call adm_common_fnc_getUnitTemplateSide;
     _pilotClassname = [_side] call navy_main_fnc_getPilotClassname;
     _vehicle = [_vehicleClassname, _trigger] call navy_spawn_fnc_airVehicle;
