@@ -21,7 +21,7 @@ navy_debug_fnc_rpt = {
     diag_log format [NAVY_DEBUG_FORMAT, time, _level, format _message];
 };
 
-navy_debug_unitTests = {
+navy_debug_unitTest = {
     FUN_ARGS_1(_trigger);
 
     IF_IS_SERVER;
