@@ -5,8 +5,8 @@ navy_method_fnc_paradrop = {
     FUN_ARGS_4(_trigger,_vehicleClassname,_unitTemplate,_waypoints);
 
     DECLARE(_reqWaypointCount) = [NAVY_CONFIG_ROUTINES, "Paradrop", "waypoint_count"] call navy_config_fnc_getNumber;
-    if !(count _waypoints == _minWaypointCount) exitWith {
-        [["Waypoint count given: %1 not equal to amount required: %2", count _waypoints, _reqWaypointCount], DEBUG_INFO] call navy_debug_fnc_logToServer;
+    if !(count _waypoints == _reqWaypointCount) exitWith {
+        [["Waypoint count given: %1 not equal to amount required: %2", count _waypoints, _reqWaypointCount], DEBUG_INFO] call navy_debug_fnc_log;
     };
     PVT_4(_side,_pilotClassname,_vehicle,_pilot);
     waitUntil {
@@ -22,5 +22,5 @@ navy_method_fnc_paradrop = {
     DEBUG {
         [["Spawning helicopter: %1 on side: %2 with pilot: %3 in trigger: %4", _vehicleClassname, _side, _pilotClassname, _trigger], DEBUG_INFO] call navy_debug_fnc_log;
     };
-    [_pilot, "Paradrop", 0] call navy_main_fnc_addWaypoint;
+    [_pilot, "Paradrop", 1] call navy_main_fnc_addWaypoint;
 };

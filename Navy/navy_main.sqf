@@ -17,13 +17,14 @@ navy_main_fnc_addWaypoint = {
     DECLARE(_index) = _number - 1;
     DECLARE(_waypointPositions) = [];
     {
-        _waypointPositions pushBack (getPosATL _x);
+        _waypointPositions pushBack (getWPPos _x);
     } forEach _waypoints;
     DECLARE(_speedArray) = [NAVY_CONFIG_ROUTINES, _routine, "waypoint_speed"] call navy_config_fnc_getArray;
     DECLARE(_typeArray) = [NAVY_CONFIG_ROUTINES, _routine, "waypoint_type"] call navy_config_fnc_getArray;
     DECLARE(_behaviourArray) = [NAVY_CONFIG_ROUTINES, _routine, "waypoint_behaviour"] call navy_config_fnc_getArray;
     DECLARE(_modeArray) = [NAVY_CONFIG_ROUTINES, _routine, "waypoint_combatmode"] call navy_config_fnc_getArray;
     DECLARE(_statementArray) = [NAVY_CONFIG_ROUTINES, _routine, "waypoint_statements"] call navy_config_fnc_getArray;
+    //[["Speed: %1 Type: %2 Beh: %3 Mode: %4 State: %5", _speedArray, _typeArray, _behaviourArray, _modeArray, _statementArray], DEBUG_INFO] call navy_debug_fnc_log;
     DECLARE(_waypoint) = (group _unit) addWaypoint [(group _unit), _number];
     _waypoint setWaypointSpeed (_speedArray select _index);
     _waypoint setWaypointType (_typeArray select _index);
