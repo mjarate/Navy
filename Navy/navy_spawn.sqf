@@ -28,6 +28,26 @@ navy_spawn_fnc_pilot = {
 
     DEBUG {
         [["Spawned pilot: %1 and placed inside vehicle: %2", _pilot, _vehicle], DEBUG_INFO] call navy_debug_fnc_log
+        [_pilot] call navy_debug_trackUnit;
     };
+
     _pilot;
+};
+
+navy_spawn_fnc_cargoUnits = {
+    FUN_ARGS_4(_unitClassnames,_unitSide,_amount,_vehicle);
+
+    PVT_1(_unit);
+    DECLARE(_vehicleCargoLimit) = [NAVY_CONFIG_FILE, "Vehicles", (typeOf _vehicle)] call navy_config_fnc_getNumber;
+    if (_vehicleCargoLimit > _amount) then {
+        _amount = _vehicleCargoLimit;
+        DEBUG {
+            [["Cargo amount requested: %1 is above the limit: %2 for vehicle: %3. Reverting to limit", _amount, _vehicleCargoLimit, _vehicle], DEBUG_WARN] call navy_debug_fnc_log
+        };
+    };
+    DECLARE(_unitGroup) = createGroup _unitSide;
+    for "_i" from 1 to _amount step 1 do {
+        [_unit] call adm_common_fnc_initUnit;
+        _unit = [NAVY_SPAWN_POSITION, _unitGroup, _unitClassnames, 0] call adm_common_fnc_placeMan;
+    }; 
 };

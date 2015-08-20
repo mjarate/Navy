@@ -31,6 +31,18 @@ navy_debug_unitTest = {
     ["B_Helipilot_F", WEST, _testVehicle] call navy_spawn_fnc_pilot;
 };
 
+navy_debug_trackUnit = {
+    FUN_ARGS_1(_unit);
+
+    DECLARE(_type) = if (_unit isKindOf "Man") then {DEBUG_MARKER_UNIT;} else {DEBUG_MARKER_VEHICLE;};
+    _trackingMarker = [str(_unit), (getposATL _unit), _type] call navy_debug_placeMarker;
+    while (alive _unit) do {
+        _trackingMarker setMarkerPosLocal getposATL _unit;
+        _trackingMarker setMarkerDirLocal getDir _unit;
+        sleep 0.5;
+    };
+};
+
 navy_debug_placeMarker = {
     FUN_ARGS_3(_name,_position,_typeIndex);
 

@@ -7,12 +7,12 @@ class Vehicles {
         type = "";
         animations[] = {};
         ordnance[] = {}; // Only the ordnance's WEAPON that you wish removed
-        slingload = 0;
-        slingload_limit = 0;
     };
 
     class Rotary: Default {
         type = "ROTARY";
+        slingload = 0;
+        slingload_limit = 0;
     };
 
     class Fixed: Default {
