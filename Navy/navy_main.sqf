@@ -19,14 +19,14 @@ navy_main_fnc_checkLogic = {
     DECLARE(_syncronisedObjects) = synchronizedObjects _trigger;
     DECLARE(_syncronisedLogics) = [];
     {
-        [str(_x), (getposATL _x), DEBUG_MARKER_LOCATION] call navy_debug_placeMarker;
+        // [str(_x), (getposATL _x), DEBUG_MARKER_LOCATION] call navy_debug_placeMarker;
         if (typeOf _x isEqualTo "Logic") then {
             _syncronisedLogics pushBack _x;
         };
     } forEach _syncronisedObjects;
     [["Trigger: %1 Logics: %2", _trigger, _syncronisedLogics], DEBUG_INFO] call navy_debug_fnc_log;
     if (count _syncronisedLogics > 1) then {
-        [["More than one path logic was found for: %1!", _trigger], DEBUG_INFO] call navy_debug_fnc_log;
+        [["More than one path logic was found for: %1! Only one can be used per trigger and module!", _trigger], DEBUG_INFO] call navy_debug_fnc_log;
     } else {
         _logic = _syncronisedLogics select 0;
     };

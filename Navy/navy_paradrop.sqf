@@ -34,5 +34,4 @@ navy_method_fnc_paradrop = {
         [["Vehicle: %1 is initiating paradrop", _vehicle], DEBUG_INFO] call navy_debug_fnc_log;
     };
 
-    
 };
