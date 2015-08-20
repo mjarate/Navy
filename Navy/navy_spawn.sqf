@@ -27,7 +27,7 @@ navy_spawn_fnc_pilot = {
     _pilot moveInDriver _vehicle;
 
     DEBUG {
-        [["Spawned pilot: %1 and placed inside vehicle: %2", _pilot, _vehicle], DEBUG_INFO] call navy_debug_fnc_log
+        [["Spawned pilot: %1 and placed inside vehicle: %2", _pilot, _vehicle], DEBUG_INFO] call navy_debug_fnc_log;
         [_pilot] call navy_debug_trackUnit;
     };
 
@@ -42,7 +42,7 @@ navy_spawn_fnc_cargoUnits = {
     if (_vehicleCargoLimit > _amount) then {
         _amount = _vehicleCargoLimit;
         DEBUG {
-            [["Cargo amount requested: %1 is above the limit: %2 for vehicle: %3. Reverting to limit", _amount, _vehicleCargoLimit, _vehicle], DEBUG_WARN] call navy_debug_fnc_log
+            [["Cargo amount requested: %1 is above the limit: %2 for vehicle: %3. Reverting to limit", _amount, _vehicleCargoLimit, _vehicle], DEBUG_WARN] call navy_debug_fnc_log;
         };
     };
     DECLARE(_unitGroup) = createGroup _unitSide;

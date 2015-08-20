@@ -36,7 +36,7 @@
 #define DEBUG_INFO                      "INFO"
 #define DEBUG_WARN                      "WARN"
 #define DEBUG_ERROR                     "ERROR"
-#define DEBUG_MARKER_ARGS_ARRAY         [[_name, _position, "ICON", "mil_dot_noShadow", "colorBrown"], [_name, _position, "ICON", "hd_pickup", "colorRed"], [_name, _position, "ICON", "mil_triangle_noShadow", "colorBlue"], [_name, _position, "ICON", "mil_triangle_noShadow", "colorGreen", [0.6, 0.6]]]
+#define DEBUG_MARKER_ARGS_ARRAY         [[_name, _position, "ICON", "mil_dot_noShadow", "colorBrown"], [_name, _position, "ICON", "hd_pickup", "colorRed"], [_name, _position, "ICON", "mil_triangle_noShadow", "colorBlue"], [_name, _position, "ICON", "mil_triangle_noShadow", "colorGreen"]]
 #define DEBUG_MARKER_LOCATION           0
 #define DEBUG_MARKER_WAYPOINT           1
 #define DEBUG_MARKER_VEHICLE            2
