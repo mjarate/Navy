@@ -8,8 +8,10 @@ navy_spawn_fnc_airVehicle = {
         [["No trigger was provided to try and spawn the vehicle with classname: %1", _vehicleClassname], DEBUG_ERROR] call navy_debug_fnc_logToServer;
     };
     _spawnPosition = [(triggerArea _trigger), (getposATL _trigger), true] call adm_api_fnc_getRandomPositionInArea;
-    _spawnPosition set [2, NAVY_DEFAULT_ALTITUDE];
+    SET_ALTITUDE(_spawnPosition,NAVY_DEFAULT_ALTITUDE);
     _vehicle = createVehicle [_vehicleClassname, _spawnPosition, [], 0, "FLY"];
+    _vehicle setPosATL _spawnPosition;
+    _vehicle flyInHeight NAVY_DEFAULT_ALTITUDE;  // TODO: Set this in the config
     DEBUG {
         [["Spawned vehicle: %1 at position: %2", _vehicle, _spawnPosition], DEBUG_INFO] call navy_debug_fnc_log
     };
@@ -70,4 +72,6 @@ navy_spawn_fnc_cargoUnits = {
             [_x] spawn navy_debug_trackUnit;
         } forEach _cargoUnits;
     };
+
+    _cargoUnits;
 };
