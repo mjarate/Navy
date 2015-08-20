@@ -18,10 +18,9 @@ class Extended_PreInit_EventHandlers {
         init = "[] call compile preProcessFileLineNumbers 'x\ark\addons\navy\navy_preinit.sqf';";
     };
 };
-/*
+
 class Extended_PostInit_EventHandlers {
     class Navy {
-        init = "[] call compile preProcessFileLineNumbers 'x\ark\addons\navy\navy_postinit.sqf';";
+        init = "[] spawn compile preProcessFileLineNumbers 'x\ark\addons\navy\navy_postinit.sqf';";
     };
 };
-*/

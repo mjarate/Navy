@@ -13,7 +13,7 @@ navy_method_fnc_paradrop = {
     waitUntil {
         sleep 2;
         adm_isInitialized;
-    };
+    };  // check moved to postinit, remove this soon.
     _side = [_unitTemplate] call adm_common_fnc_getUnitTemplateSide;
     _pilotClassname = [_side] call navy_main_fnc_getPilotClassname;
     _vehicle = [_vehicleClassname, _trigger] call navy_spawn_fnc_airVehicle;

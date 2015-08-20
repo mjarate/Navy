@@ -70,6 +70,10 @@ navy_main_fnc_addWaypoint = {
 navy_module_paradrop = {
     FUN_ARGS_3(_module,_units,_activated);
 
+    waitUntil {
+        sleep 2;
+        navy_isInitialised;
+    };
     if !(_activated) exitWith {
         DEBUG {
             [["Module: %1 was not activated!", _module], DEBUG_ERROR] call navy_debug_fnc_log;
