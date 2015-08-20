@@ -8,9 +8,7 @@ navy_init_module_paradrop = {
     };
     waitUntil {
         sleep 2;
-        diag_log format ["NAVY temp debug: module %1 waiting for navy init", _module];
         navy_isInitialised;
     };
-    diag_log format ["NAVY temp debug: module %1 starting now", _module];
-    [_module, _units, _activated] call navy_module_paradrop;
+    [_module, _units] call navy_module_paradrop;
 };
