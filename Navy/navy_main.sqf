@@ -11,13 +11,29 @@ navy_main_fnc_getPilotClassname = {
     _pilotClassname;
 };
 
-navy_main_fnc_addWaypoint = {
-    FUN_ARGS_3(_unit,_routine,_number);
+navy_main_fnc_findLogic = {
+    FUN_ARGS_1(_trigger);
 
-    DECLARE(_index) = _number - 1;
+    PVT_1(_closestLogic);
+    DECLARE(_closestDistance) = 30;
+    {
+        if ((_x distance (getposATL _trigger)) < _closestDistance) then {
+            _closestLogic = _x;
+            _closestDistance = (_x distance _trigger);
+        };
+    } forEach allMissionObjects "Logic";
+
+    _closestLogic;
+};
+
+navy_main_fnc_addWaypoint = {
+    FUN_ARGS_4(_unit,_waypoints,_routine,_number);
+
+    [["Waypoints passed: %1", _waypoints], DEBUG_INFO] call navy_debug_fnc_log;
     DECLARE(_waypointPositions) = [];
     {
         _waypointPositions pushBack (getWPPos _x);
+        [["Waypoint: %1 Position: %2", _x, (getWPPos _x)], DEBUG_INFO] call navy_debug_fnc_log;
     } forEach _waypoints;
     DECLARE(_speedArray) = [NAVY_CONFIG_ROUTINES, _routine, "waypoint_speed"] call navy_config_fnc_getArray;
     DECLARE(_typeArray) = [NAVY_CONFIG_ROUTINES, _routine, "waypoint_type"] call navy_config_fnc_getArray;
@@ -26,47 +42,56 @@ navy_main_fnc_addWaypoint = {
     DECLARE(_statementArray) = [NAVY_CONFIG_ROUTINES, _routine, "waypoint_statements"] call navy_config_fnc_getArray;
     //[["Speed: %1 Type: %2 Beh: %3 Mode: %4 State: %5", _speedArray, _typeArray, _behaviourArray, _modeArray, _statementArray], DEBUG_INFO] call navy_debug_fnc_log;
     DECLARE(_waypoint) = (group _unit) addWaypoint [(group _unit), _number];
-    _waypoint setWaypointSpeed (_speedArray select _index);
-    _waypoint setWaypointType (_typeArray select _index);
-    _waypoint setWaypointBehaviour (_behaviourArray select _index);
-    _waypoint setWaypointCombatMode (_modeArray select _index);
-    _waypoint setWaypointStatements (_statementArray select _index);
+    _waypoint setWPPos (_waypointPositions select _number);
+    _waypoint setWaypointSpeed (_speedArray select _number);
+    _waypoint setWaypointType (_typeArray select _number);
+    _waypoint setWaypointBehaviour (_behaviourArray select _number);
+    _waypoint setWaypointCombatMode (_modeArray select _number);
+    _waypoint setWaypointStatements (_statementArray select _number);
 
     DEBUG {
-        [["Unit: %1 given waypoint: %2 %3 %4 %5 as number: %6", _unit, (_speedArray select _index), (_typeArray select _index), (_behaviourArray select _index), (_modeArray select _index), _number], DEBUG_INFO] call navy_debug_fnc_log;
+        [["Unit: %1 given waypoint: %2 %3 %4 %5 as number: %6 at position: %7", _unit, (_speedArray select _number), (_typeArray select _number), (_behaviourArray select _number), (_modeArray select _number), _number, (_waypointPositions select _number)], DEBUG_INFO] call navy_debug_fnc_log;
     };
+
     _waypoint;
 };
 
 navy_module_paradrop = {
-    FUN_ARGS_3(_logic,_units,_activated);
+    FUN_ARGS_3(_module,_units,_activated);
 
-    DECLARE(_syncronisedObjects) = synchronizedObjects _logic;
-    DECLARE(_waypoints) = waypoints _logic;
     if !(_activated) exitWith {
         DEBUG {
-            [["Logic: %1 was not activated!", _logic], DEBUG_ERROR] call navy_debug_fnc_log;
+            [["Module: %1 was not activated!", _module], DEBUG_ERROR] call navy_debug_fnc_log;
         };
     };
-
+    DECLARE(_syncronisedObjects) = synchronizedObjects _module;
     if (count _syncronisedObjects == 0) exitWith {
         DEBUG {
-            [["Logic: %1 had no synchronised objects!", _logic], DEBUG_ERROR] call navy_debug_fnc_log;
+            [["Logic: %1 had no synchronised objects!", _module], DEBUG_ERROR] call navy_debug_fnc_log;
         };
     };
-    
+    if (count _syncronisedObjects > 1) exitWith {
+        DEBUG {
+            [["More than one trigger was synchronised to the module: %1, only one can be synched!", _module], DEBUG_ERROR] call navy_debug_fnc_log;
+        };
+    };
+    DECLARE(_trigger) = _syncronisedObjects select 0;
+    DECLARE(_navyLogic) = [_trigger] call navy_main_fnc_findLogic;
+    if (isNil "_navyLogic") exitWith {
+        DEBUG {
+            [["No logic found for module: %1 with trigger: %2", _module, _trigger], DEBUG_INFO] call navy_debug_fnc_log;
+        };
+    };
+    DECLARE(_waypoints) = waypoints _navyLogic;
     if (count _waypoints == 0) exitWith {
         DEBUG {
-            [["Logic: %1 had no waypoints attached!", _logic], DEBUG_ERROR] call navy_debug_fnc_log;
+            [["Logic: %1 had no waypoints attached!", _navyLogic], DEBUG_ERROR] call navy_debug_fnc_log;
         };
     };
-
-    DECLARE(_vehicleClassname) = _logic getVariable "Vehicle_Classname";
-    DECLARE(_unitTemplate) = _logic getVariable "Unit_Template";
+    DECLARE(_vehicleClassname) = _module getVariable "Vehicle_Classname";
+    DECLARE(_unitTemplate) = _module getVariable "Unit_Template";
     DEBUG {
-        [["Module: %1 initialised with objects: %2 unit template: %3, waypoints: %4 classname: %5", _logic, _syncronisedObjects, _unitTemplate, _waypoints, _vehicleClassname], DEBUG_INFO] call navy_debug_fnc_log;
+        [["Module: %1 initialised with synchronised objects: %2 unit template: %3, classname: %4 taking waypoints: %5 from logic: %6", _module, _syncronisedObjects, _unitTemplate, _vehicleClassname, _waypoints, _navyLogic], DEBUG_INFO] call navy_debug_fnc_log;
     };
-    {
-        [_x, _vehicleClassname, _unitTemplate, _waypoints] spawn navy_method_fnc_paradrop;
-    } forEach _syncronisedObjects;
+    [_trigger, _vehicleClassname, _unitTemplate, _waypoints] spawn navy_method_fnc_paradrop;
 };

@@ -15,10 +15,14 @@
 #define NAVY_CONFIG_ROUTINES            NAVY_CONFIG_FILE >> "Routines"
 #define NAVY_CONFIG_VEHICLES            NAVY_CONFIG_FILE >> "Vehicles"
 
+#define ALTITUDE(OBJECT)                ((getposATL OBJECT) select 2)
+#define SET_ALTITUDE(ARRAY,NUM)         ARRAY set [2,NUM]
+
 #define NAVY_DEFAULT_ALTITUDE           400
 #define NAVY_SPAWN_POSITION             [10000, 10000, 0]
 #define NAVY_PILOT_SKILL_ARRAY          [["courage", 1], ["general", 1]]
 #define NAVY_PILOT_CLASSNAMES           [[west, "B_Helipilot_F"], [east, "O_helipilot_F"], [resistance, "I_helipilot_F"], [civilian, "C_man_pilot_F"]]
+#define NAVY_PARADROP_DISTANCE          400
 
 #define CONFIG_TYPE_BOOL                0
 #define CONFIG_TYPE_NUMBER              1
