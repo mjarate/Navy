@@ -15,12 +15,13 @@ navy_main_fnc_findLogic = {
     FUN_ARGS_1(_trigger);
 
     DECLARE(_closestLogic) = nil;
+        /*
     {
         if ([(getposATL _x), (triggerArea _trigger), (getposATL _trigger)] call adm_api_fnc_isPositionInArea) exitWith {
             _closestLogic = _x;
         };
     } forEach allMissionObjects "Logic";
-    /*
+    */
     DECLARE(_closestDistance) = 30;
     {
         if ((_x distance (getposATL _trigger)) < _closestDistance) then {
@@ -28,7 +29,7 @@ navy_main_fnc_findLogic = {
             _closestDistance = (_x distance _trigger);
         };
     } forEach allMissionObjects "Logic";
-    */
+
     if (isNil "_closestLogic") exitWith {
         DEBUG {
             [["No logic found for trigger: %1", _trigger], DEBUG_INFO] call navy_debug_fnc_log;
@@ -68,17 +69,8 @@ navy_main_fnc_addWaypoint = {
 };
 
 navy_module_paradrop = {
-    FUN_ARGS_3(_module,_units,_activated);
+    FUN_ARGS_2(_module,_units);
 
-    waitUntil {
-        sleep 2;
-        navy_isInitialised;
-    };
-    if !(_activated) exitWith {
-        DEBUG {
-            [["Module: %1 was not activated!", _module], DEBUG_ERROR] call navy_debug_fnc_log;
-        };
-    };
     DECLARE(_syncronisedObjects) = synchronizedObjects _module;
     if (count _syncronisedObjects == 0) exitWith {
         DEBUG {

@@ -10,10 +10,6 @@ navy_method_fnc_paradrop = {
         [["Waypoint count given: %1 not equal to amount required: %2", count _waypoints, _reqWaypointCount], DEBUG_INFO] call navy_debug_fnc_log;
     };
     PVT_4(_side,_pilotClassname,_vehicle,_pilot);
-    waitUntil {
-        sleep 2;
-        adm_isInitialized;
-    };  // check moved to postinit, remove this soon.
     _side = [_unitTemplate] call adm_common_fnc_getUnitTemplateSide;
     _pilotClassname = [_side] call navy_main_fnc_getPilotClassname;
     _vehicle = [_vehicleClassname, _trigger] call navy_spawn_fnc_airVehicle;
