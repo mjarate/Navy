@@ -32,10 +32,13 @@
 #define IF_IS_SERVER                    if !isServer exitWith {}
 #define DEBUG                           if (navy_debugEnabled) then
 
-#define NAVY_DEBUG_FORMAT        "%1-[NAVY]-[%2]: %3" // %1: time, %2: debug level,%3 formatted message
-#define DEBUG_INFO          "INFO"
-#define DEBUG_WARN          "WARN"
-#define DEBUG_ERROR         "ERROR"
+#define NAVY_DEBUG_FORMAT               "%1-[NAVY]-[%2]: %3" // %1: time, %2: debug level,%3 formatted message
+#define DEBUG_INFO                      "INFO"
+#define DEBUG_WARN                      "WARN"
+#define DEBUG_ERROR                     "ERROR"
+#define DEBUG_MARKER_ARGS_ARRAY         [[_name, _position, "ICON", "mil_dot_noShadow", "colorRed"], [_name, _position, "ICON", "hd_pickup", "colorBlue"]]
+#define DEBUG_MARKER_WAYPOINT           0
+#define DEBUG_MARKER_LOCATION           1
 
 // WARNING
 // Macros are sensitive for "," (comma), "(", ")" (parenthese) and " " (space).

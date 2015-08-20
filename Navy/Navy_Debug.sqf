@@ -30,3 +30,10 @@ navy_debug_unitTest = {
     DECLARE(_testVehicle) = ["B_Heli_Transport_03_black_F", _trigger] call navy_spawn_fnc_airVehicle;
     ["B_Helipilot_F", WEST, _testVehicle] call navy_spawn_fnc_pilot;
 };
+
+navy_debug_placeMarker = {
+    FUN_ARGS_3(_name,_position,_typeIndex);
+
+    DECLARE(_arguments) = DEBUG_MARKER_ARGS_ARRAY select _typeIndex;
+    _arguments call adm_common_fnc_createLocalMarker;
+};
