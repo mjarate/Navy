@@ -35,8 +35,11 @@ navy_spawn_fnc_pilot = {
 };
 
 navy_spawn_fnc_cargoUnits = {
-    FUN_ARGS_5(_unitClassnames,_unitSide,_amount,_vehicle,_paradrop);
+    FUN_ARGS_5(_unitClassnames,_unitSide,_amount,_vehicle,_addParachute);
 
+    if (isNil "_addParachute") then {
+        _addParachute = false;
+    };
     PVT_1(_unit);
     DECLARE(_cargoUnits) = [];
     DECLARE(_vehicleCargoLimit) = [NAVY_CONFIG_FILE, "Vehicles", (typeOf _vehicle)] call navy_config_fnc_getNumber;
@@ -54,9 +57,15 @@ navy_spawn_fnc_cargoUnits = {
         _unit moveInCargo _vehicle;
         _cargoUnits pushBack _unit;
     };
+    if (_addParachute) then {
+        {
+            removeBackpack _x;
+            _x addBackpackGlobal "B_Parachute";
+        } forEach _cargoUnits;
+    };
 
     DEBUG {
-        [["Cargo units: %1 placed in vehicle cargo: %2", _cargoUnits, _vehicle], DEBUG_INFO] call navy_debug_fnc_log;
+        [["Cargo units: %1 placed in vehicle cargo: %2 with parachutes: %3", _cargoUnits, _vehicle, _addParachute], DEBUG_INFO] call navy_debug_fnc_log;
         {
             [_x] spawn navy_debug_trackUnit;
         } forEach _cargoUnits;

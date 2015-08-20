@@ -15,7 +15,7 @@ navy_method_fnc_paradrop = {
     _vehicle = [_vehicleClassname, _trigger] call navy_spawn_fnc_airVehicle;
     _pilot = [_pilotClassname, _side, _vehicle] call navy_spawn_fnc_pilot;
     _cargoClassnames = [_unitTemplate, "infantry"] call adm_common_fnc_getUnitTemplateArray;
-    [_cargoClassnames, _side, _cargoAmount, _vehicle] call navy_spawn_fnc_cargoUnits;
+    [_cargoClassnames, _side, _cargoAmount, _vehicle, true] call navy_spawn_fnc_cargoUnits;
 
     DEBUG {
         [["Spawning helicopter: %1 on side: %2 with pilot: %3 in trigger: %4", _vehicleClassname, _side, _pilotClassname, _trigger], DEBUG_INFO] call navy_debug_fnc_log;
