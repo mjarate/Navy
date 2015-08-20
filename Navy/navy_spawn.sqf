@@ -28,7 +28,7 @@ navy_spawn_fnc_pilot = {
 
     DEBUG {
         [["Spawned pilot: %1 and placed inside vehicle: %2", _pilot, _vehicle], DEBUG_INFO] call navy_debug_fnc_log;
-        [_pilot] call navy_debug_trackUnit;
+        [_pilot] spawn navy_debug_trackUnit;
     };
 
     _pilot;
