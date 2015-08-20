@@ -11,4 +11,6 @@ navy_init_module_paradrop = {
         navy_isInitialised;
     };
     [_module, _units] call navy_module_paradrop;
+
+    true;
 };

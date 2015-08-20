@@ -8,6 +8,7 @@ navy_main_fnc_getPilotClassname = {
             _pilotClassname = _x select 1;
         };
     } forEach NAVY_PILOT_CLASSNAMES;
+
     _pilotClassname;
 };
 
@@ -22,9 +23,11 @@ navy_main_fnc_findLogic = {
         };
     } forEach allMissionObjects "Logic";
     */
-    DECLARE(_closestDistance) = 30;
+    DECLARE(_closestDistance) = 50;
     {
-        if ((_x distance (getposATL _trigger)) < _closestDistance) then {
+        [str(_x), (getposASL _x), DEBUG_MARKER_LOCATION] call navy_debug_placeMarker;
+        [["Logic: %1 Distance: %2", _x, (_x distance getposASL _trigger)], DEBUG_INFO] call navy_debug_fnc_log;
+        if ((_x distance (getposASL _trigger)) < _closestDistance) then {
             _closestLogic = _x;
             _closestDistance = (_x distance _trigger);
         };
@@ -35,6 +38,7 @@ navy_main_fnc_findLogic = {
             [["No logic found for trigger: %1", _trigger], DEBUG_INFO] call navy_debug_fnc_log;
         };
     };
+
     _closestLogic;
 };
 
@@ -79,7 +83,7 @@ navy_module_paradrop = {
     };
     if (count _syncronisedObjects > 1) exitWith {
         DEBUG {
-            [["More than one trigger was synchronised to the module: %1, only one can be synched!", _module], DEBUG_ERROR] call navy_debug_fnc_log;
+            [["More than one trigger was synchronised to the module: %1, only one can be synced!", _module], DEBUG_ERROR] call navy_debug_fnc_log;
         };
     };
     DECLARE(_trigger) = _syncronisedObjects select 0;
@@ -101,4 +105,6 @@ navy_module_paradrop = {
         [["Module: %1 initialised with synchronised objects: %2 unit template: %3, classname: %4 taking waypoints: %5 from logic: %6", _module, _syncronisedObjects, _unitTemplate, _vehicleClassname, _waypoints, _navyLogic], DEBUG_INFO] call navy_debug_fnc_log;
     };
     [_trigger, _vehicleClassname, _unitTemplate, _waypoints] spawn navy_method_fnc_paradrop;
+
+    true;
 };
