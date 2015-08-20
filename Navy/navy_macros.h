@@ -36,9 +36,9 @@
 #define DEBUG_INFO                      "INFO"
 #define DEBUG_WARN                      "WARN"
 #define DEBUG_ERROR                     "ERROR"
-#define DEBUG_MARKER_ARGS_ARRAY         [[_name, _position, "ICON", "mil_dot_noShadow", "colorRed"], [_name, _position, "ICON", "hd_pickup", "colorBlue"]]
-#define DEBUG_MARKER_WAYPOINT           0
-#define DEBUG_MARKER_LOCATION           1
+#define DEBUG_MARKER_ARGS_ARRAY         [[_name, _position, "ICON", "mil_dot_noShadow", "colorBrown"], [_name, _position, "ICON", "hd_pickup", "colorRed"]]
+#define DEBUG_MARKER_LOCATION           0
+#define DEBUG_MARKER_WAYPOINT           1
 
 // WARNING
 // Macros are sensitive for "," (comma), "(", ")" (parenthese) and " " (space).

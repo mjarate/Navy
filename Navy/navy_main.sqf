@@ -12,34 +12,31 @@ navy_main_fnc_getPilotClassname = {
     _pilotClassname;
 };
 
-navy_main_fnc_findLogic = {
+navy_main_fnc_checkLogic = {
     FUN_ARGS_1(_trigger);
 
-    DECLARE(_closestLogic) = nil;
-        /*
+    DECLARE(_logic) = nil;
+    DECLARE(_syncronisedObjects) = synchronizedObjects _trigger;
+    DECLARE(_syncronisedLogics) = [];
     {
-        if ([(getposATL _x), (triggerArea _trigger), (getposATL _trigger)] call adm_api_fnc_isPositionInArea) exitWith {
-            _closestLogic = _x;
+        [str(_x), (getposATL _x), DEBUG_MARKER_LOCATION] call navy_debug_placeMarker;
+        if (typeOf _x isEqualTo "Logic") then {
+            _syncronisedLogics pushBack _x;
         };
-    } forEach allMissionObjects "Logic";
-    */
-    DECLARE(_closestDistance) = 50;
-    {
-        [str(_x), (getposASL _x), DEBUG_MARKER_LOCATION] call navy_debug_placeMarker;
-        [["Logic: %1 Distance: %2", _x, (_x distance getposASL _trigger)], DEBUG_INFO] call navy_debug_fnc_log;
-        if ((_x distance (getposASL _trigger)) < _closestDistance) then {
-            _closestLogic = _x;
-            _closestDistance = (_x distance _trigger);
-        };
-    } forEach allMissionObjects "Logic";
-
-    if (isNil "_closestLogic") exitWith {
+    } forEach _syncronisedObjects;
+    [["Trigger: %1 Logics: %2", _trigger, _syncronisedLogics], DEBUG_INFO] call navy_debug_fnc_log;
+    if (count _syncronisedLogics > 1) then {
+        [["More than one path logic was found for: %1!", _trigger], DEBUG_INFO] call navy_debug_fnc_log;
+    } else {
+        _logic = _syncronisedLogics select 0;
+    };
+    if (isNil "_logic") exitWith {
         DEBUG {
             [["No logic found for trigger: %1", _trigger], DEBUG_INFO] call navy_debug_fnc_log;
         };
     };
 
-    _closestLogic;
+    _logic;
 };
 
 navy_main_fnc_addWaypoint = {
@@ -87,7 +84,7 @@ navy_module_paradrop = {
         };
     };
     DECLARE(_trigger) = _syncronisedObjects select 0;
-    DECLARE(_navyLogic) = [_trigger] call navy_main_fnc_findLogic;
+    DECLARE(_navyLogic) = [_trigger] call navy_main_fnc_checkLogic;
     if (isNil "_navyLogic") exitWith {
         DEBUG {
             [["No logic found for module: %1 with trigger: %2", _module, _trigger], DEBUG_INFO] call navy_debug_fnc_log;
