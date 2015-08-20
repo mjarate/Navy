@@ -42,11 +42,11 @@ navy_main_fnc_checkLogic = {
 navy_main_fnc_addWaypoint = {
     FUN_ARGS_4(_unit,_waypoints,_routine,_number);
 
-    [["Waypoints passed: %1", _waypoints], DEBUG_INFO] call navy_debug_fnc_log;
+    //[["Waypoints passed: %1", _waypoints], DEBUG_INFO] call navy_debug_fnc_log;
     DECLARE(_waypointPositions) = [];
     {
         _waypointPositions pushBack (getWPPos _x);
-        [["Waypoint: %1 Position: %2", _x, (getWPPos _x)], DEBUG_INFO] call navy_debug_fnc_log;
+        //[["Waypoint: %1 Position: %2", _x, (getWPPos _x)], DEBUG_INFO] call navy_debug_fnc_log;
     } forEach _waypoints;
     DECLARE(_speedArray) = [NAVY_CONFIG_ROUTINES, _routine, "waypoint_speed"] call navy_config_fnc_getArray;
     DECLARE(_typeArray) = [NAVY_CONFIG_ROUTINES, _routine, "waypoint_type"] call navy_config_fnc_getArray;
@@ -98,10 +98,11 @@ navy_module_paradrop = {
     };
     DECLARE(_vehicleClassname) = _module getVariable "Vehicle_Classname";
     DECLARE(_unitTemplate) = _module getVariable "Unit_Template";
+    DECLARE(_cargoAmount) = _module getVariable "Cargo_Amount";
     DEBUG {
-        [["Module: %1 initialised with synchronised objects: %2 unit template: %3, classname: %4 taking waypoints: %5 from logic: %6", _module, _syncronisedObjects, _unitTemplate, _vehicleClassname, _waypoints, _navyLogic], DEBUG_INFO] call navy_debug_fnc_log;
+        [["Module: %1 initialised with synchronised objects: %2 unit template: %3, classname: %4 taking waypoints: %5 from logic: %6 with cargo amount: %7", _module, _syncronisedObjects, _unitTemplate, _vehicleClassname, _waypoints, _navyLogic, _cargoAmount], DEBUG_INFO] call navy_debug_fnc_log;
     };
-    [_trigger, _vehicleClassname, _unitTemplate, _waypoints] spawn navy_method_fnc_paradrop;
+    [_trigger, _vehicleClassname, _unitTemplate, _cargoAmount, _waypoints] spawn navy_method_fnc_paradrop;
 
     true;
 };

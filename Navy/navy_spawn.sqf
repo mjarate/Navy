@@ -35,10 +35,12 @@ navy_spawn_fnc_pilot = {
 };
 
 navy_spawn_fnc_cargoUnits = {
-    FUN_ARGS_4(_unitClassnames,_unitSide,_amount,_vehicle);
+    FUN_ARGS_5(_unitClassnames,_unitSide,_amount,_vehicle,_paradrop);
 
     PVT_1(_unit);
+    DECLARE(_cargoUnits) = [];
     DECLARE(_vehicleCargoLimit) = [NAVY_CONFIG_FILE, "Vehicles", (typeOf _vehicle)] call navy_config_fnc_getNumber;
+    DECLARE(_skillArray) = ["Camp"] call adm_common_fnc_getZoneTemplateSkillValues;
     if (_vehicleCargoLimit > _amount) then {
         _amount = _vehicleCargoLimit;
         DEBUG {
@@ -47,7 +49,16 @@ navy_spawn_fnc_cargoUnits = {
     };
     DECLARE(_unitGroup) = createGroup _unitSide;
     for "_i" from 1 to _amount step 1 do {
-        [_unit] call adm_common_fnc_initUnit;
-        _unit = [NAVY_SPAWN_POSITION, _unitGroup, _unitClassnames, 0] call adm_common_fnc_placeMan;
-    }; 
+        _unit = [NAVY_SPAWN_POSITION, _unitGroup, _unitClassnames, _skillArray] call adm_common_fnc_placeMan;
+        // TODO: put zone template as option field in the module
+        _unit moveInCargo _vehicle;
+        _cargoUnits pushBack _unit;
+    };
+
+    DEBUG {
+        [["Cargo units: %1 placed in vehicle cargo: %2", _cargoUnits, _vehicle], DEBUG_INFO] call navy_debug_fnc_log;
+        {
+            [_x] spawn navy_debug_trackUnit;
+        } forEach _cargoUnits;
+    };
 };
