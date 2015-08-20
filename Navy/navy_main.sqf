@@ -14,7 +14,13 @@ navy_main_fnc_getPilotClassname = {
 navy_main_fnc_findLogic = {
     FUN_ARGS_1(_trigger);
 
-    PVT_1(_closestLogic);
+    DECLARE(_closestLogic) = nil;
+    {
+        if ([(getposATL _x), (triggerArea _trigger), (getposATL _trigger)] call adm_api_fnc_isPositionInArea) exitWith {
+            _closestLogic = _x;
+        };
+    } forEach allMissionObjects "Logic";
+    /*
     DECLARE(_closestDistance) = 30;
     {
         if ((_x distance (getposATL _trigger)) < _closestDistance) then {
@@ -22,7 +28,12 @@ navy_main_fnc_findLogic = {
             _closestDistance = (_x distance _trigger);
         };
     } forEach allMissionObjects "Logic";
-
+    */
+    if (isNil "_closestLogic") exitWith {
+        DEBUG {
+            [["No logic found for trigger: %1", _trigger], DEBUG_INFO] call navy_debug_fnc_log;
+        };
+    };
     _closestLogic;
 };
 
