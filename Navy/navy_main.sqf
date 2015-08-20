@@ -39,6 +39,13 @@ navy_main_fnc_checkLogic = {
     _logic;
 };
 
+navy_main_fnc_animateDoors = {
+    FUN_ARGS_3(_vehicle,_doorArray,_openOrClose);
+    {
+        _vehicle animateDoor [_x, _openOrClose, false];
+    } forEach _doorArray;
+};
+
 navy_main_fnc_addWaypoint = {
     FUN_ARGS_4(_unit,_waypoints,_routine,_number);
 
