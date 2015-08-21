@@ -49,6 +49,24 @@ navy_main_fnc_animateDoors = {
     };
 };
 
+navy_main_fnc_cleanupVehicle = {
+    FUN_ARGS_2(_vehicle,_waypointCount);
+
+    DEC(_waypointCount);  // count is increased in method
+    DEBUG {
+        [["Vehicle: %1 is being deleted with: %2 waypoint markers", _vehicle, _waypointCount], DEBUG_INFO] call navy_debug_fnc_log;
+        // remove waypoing debug markers, format ["%1_%2", (vehicle _unit), _number]
+        for "_i" from 1 to _waypointCount do {
+            deleteMarkerLocal format ["%1_%2", _vehicle, _i];
+        };
+    };
+    {
+        deleteVehicle _x;
+    } forEach crew _vehicle;
+    deleteVehicle _vehicle;
+
+};
+
 navy_main_fnc_addWaypoint = {
     FUN_ARGS_4(_unit,_waypoints,_routine,_number);
 
@@ -74,6 +92,12 @@ navy_main_fnc_addWaypoint = {
 
     DEBUG {
         [["Unit: %1 given waypoint: %2 %3 %4 %5 as number: %6 at position: %7", _unit, (_speedArray select _number), (_typeArray select _number), (_behaviourArray select _number), (_modeArray select _number), _number, (_waypointPositions select _number)], DEBUG_INFO] call navy_debug_fnc_log;
+        DECLARE(_waypointMarker) = [
+            format ["%1_%2", (vehicle _unit), _number],
+            getWPPos _waypoint,
+            DEBUG_MARKER_WAYPOINT
+        ] call navy_debug_placeMarker;
+        _waypointMarker setMarkerTextLocal format ["Waypoint %1 for %2", _number, _unit];
     };
 
     _waypoint;

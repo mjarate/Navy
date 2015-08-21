@@ -32,6 +32,7 @@ navy_debug_trackUnit = {
         _trackingMarker setMarkerDirLocal getDir _unit;
         sleep 0.5;
     };
+    deleteMarker _trackingMarker;
 };
 
 navy_debug_placeMarker = {

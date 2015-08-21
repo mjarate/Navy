@@ -18,11 +18,12 @@
 #define ALTITUDE(OBJECT)                ((getposATL OBJECT) select 2)
 #define SET_ALTITUDE(ARRAY,NUM)         ARRAY set [2,NUM]
 
-#define NAVY_DEFAULT_ALTITUDE           300
+#define NAVY_DEFAULT_ALTITUDE           200
 #define NAVY_SPAWN_POSITION             [10000, 10000, 0]
 #define NAVY_PILOT_SKILL_ARRAY          [["courage", 1], ["general", 1]]
 #define NAVY_PILOT_CLASSNAMES           [[west, "B_Helipilot_F"], [east, "O_helipilot_F"], [resistance, "I_helipilot_F"], [civilian, "C_man_pilot_F"]]
 #define NAVY_PARADROP_DISTANCE          500  // TODO: adjust this for set altitude
+#define NAVY_DELETE_DISTANCE            (400 + NAVY_DEFAULT_ALTITUDE)
 #define NAVY_CLOSE_DOOR                 0
 #define NAVY_OPEN_DOOR                  1
 
@@ -38,7 +39,7 @@
 #define DEBUG_INFO                      "INFO"
 #define DEBUG_WARN                      "WARN"
 #define DEBUG_ERROR                     "ERROR"
-#define DEBUG_MARKER_ARGS_ARRAY         [[_name, _position, "ICON", "mil_dot_noShadow", "colorBrown"], [_name, _position, "ICON", "hd_pickup", "colorRed"], [_name, _position, "ICON", "mil_triangle_noShadow", "colorBlue"], [_name, _position, "ICON", "mil_triangle_noShadow", "colorGreen"]]
+#define DEBUG_MARKER_ARGS_ARRAY         [[_name, _position, "ICON", "mil_dot_noShadow", "colorBrown"], [_name, _position, "ICON", "hd_pickup", "colorRed"], [_name, _position, "ICON", "mil_triangle_noShadow", "colorGreen"], [_name, _position, "ICON", "mil_triangle_noShadow", "colorBlue"]]
 #define DEBUG_MARKER_LOCATION           0
 #define DEBUG_MARKER_WAYPOINT           1
 #define DEBUG_MARKER_VEHICLE            2

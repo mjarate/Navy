@@ -44,4 +44,12 @@ navy_method_fnc_paradrop = {
         sleep 0.6;
     } forEach _cargoUnits;
     [_vehicle, NAVY_CLOSE_DOOR] call navy_main_fnc_animateDoors;
+    waitUntil {
+        sleep 2;
+        DEBUG {
+            [["Vehicle: %1 Distance from cleanup point: %2 Limit: %3", _vehicle, (_vehicle distance (getWPPos _deleteWP)), NAVY_DELETE_DISTANCE], DEBUG_INFO] call navy_debug_fnc_log;
+        };
+        (_vehicle distance (getWPPos _deleteWP)) < NAVY_DELETE_DISTANCE;
+    };
+    [_vehicle, _reqWaypointCount] call navy_main_fnc_cleanupVehicle;
 };
