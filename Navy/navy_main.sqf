@@ -40,10 +40,13 @@ navy_main_fnc_checkLogic = {
 };
 
 navy_main_fnc_animateDoors = {
-    FUN_ARGS_3(_vehicle,_doorArray,_openOrClose);
-    {
-        _vehicle animateDoor [_x, _openOrClose, false];
-    } forEach _doorArray;
+    FUN_ARGS_2(_vehicle,_openOrClose);
+    _doorArray = [NAVY_CONFIG_VEHICLES, (typeOf _vehicle), "animations"] call navy_config_fnc_getArray;
+    if (count _doorArray > 0) then {
+        {
+            _vehicle animateDoor [_x, _openOrClose, false];
+        } forEach _doorArray;
+    };
 };
 
 navy_main_fnc_addWaypoint = {
