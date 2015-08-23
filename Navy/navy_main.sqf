@@ -42,6 +42,9 @@ navy_main_fnc_checkLogic = {
 navy_main_fnc_animateDoors = {
     FUN_ARGS_2(_vehicle,_openOrClose);
     _doorArray = [NAVY_CONFIG_VEHICLES, (typeOf _vehicle), "animations"] call navy_config_fnc_getArray;
+    DEBUG {
+        [["Vehicle: %1 is opening: %2 this door array: %3", _vehicle, (_openOrClose == 1),_doorArray], DEBUG_INFO] call navy_debug_fnc_log;
+    };
     if (count _doorArray > 0) then {
         {
             _vehicle animateDoor [_x, _openOrClose, false];
