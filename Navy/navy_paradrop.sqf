@@ -4,6 +4,8 @@
 navy_method_fnc_paradrop = {
     FUN_ARGS_5(_trigger,_vehicleClassname,_unitTemplate,_cargoAmount,_waypoints);
 
+    DECLARE(_paradropDistance) = [NAVY_CONFIG_FILE, "Settings", "paradropDistance"] call navy_config_fnc_getNumber;
+    DECLARE(_cleanupDistance) = [NAVY_CONFIG_FILE, "Settings", "cleanupDistance"] call navy_config_fnc_getNumber;
     DECLARE(_reqWaypointCount) = [NAVY_CONFIG_ROUTINES, "Paradrop", "waypoint_count"] call navy_config_fnc_getNumber;
     INC(_reqWaypointCount);  // taking into account waypoint 0 on the logic's position
     if !(count _waypoints == _reqWaypointCount) exitWith {
@@ -28,9 +30,9 @@ navy_method_fnc_paradrop = {
     waitUntil {
         sleep 2;
         DEBUG {
-            [["Vehicle: %1 Distance from paradrop point: %2 Limit: %3", _vehicle, (_vehicle distance (getWPPos _paradropWP)), NAVY_PARADROP_DISTANCE], DEBUG_INFO] call navy_debug_fnc_log;
+            [["Vehicle: %1 Distance from paradrop point: %2 Limit: %3", _vehicle, (_vehicle distance (getWPPos _paradropWP)), _paradropDistance], DEBUG_INFO] call navy_debug_fnc_log;
         };
-        (_vehicle distance (getWPPos _paradropWP)) < NAVY_PARADROP_DISTANCE;
+        (_vehicle distance (getWPPos _paradropWP)) < _paradropDistance;
     };
 
     DEBUG {
@@ -47,9 +49,9 @@ navy_method_fnc_paradrop = {
     waitUntil {
         sleep 2;
         DEBUG {
-            [["Vehicle: %1 Distance from cleanup point: %2 Limit: %3", _vehicle, (_vehicle distance (getWPPos _deleteWP)), NAVY_DELETE_DISTANCE], DEBUG_INFO] call navy_debug_fnc_log;
+            [["Vehicle: %1 Distance from cleanup point: %2 Limit: %3", _vehicle, (_vehicle distance (getWPPos _deleteWP)), _cleanupDistance], DEBUG_INFO] call navy_debug_fnc_log;
         };
-        (_vehicle distance (getWPPos _deleteWP)) < NAVY_DELETE_DISTANCE;
+        (_vehicle distance (getWPPos _deleteWP)) < _cleanupDistance;
     };
     [_vehicle, _reqWaypointCount] call navy_main_fnc_cleanupVehicle;
 };

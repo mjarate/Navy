@@ -1,7 +1,7 @@
 #ifndef NAVY_MACROS_H
 #define NAVY_MACROS_H
 
-#define NAVY_VERSION_STR             "0.1.1.0"
+#define NAVY_VERSION_STR             "0.1.2.0"
 
 #define CONCAT_ADDON_PATH(FILE)         x\ark\addons\navy\FILE
 #define ADDON_PATH(FILE)                #CONCAT_ADDON_PATH(FILE)
@@ -18,12 +18,9 @@
 #define ALTITUDE(OBJECT)                ((getposATL OBJECT) select 2)
 #define SET_ALTITUDE(ARRAY,NUM)         ARRAY set [2,NUM]
 
-#define NAVY_DEFAULT_ALTITUDE           200
 #define NAVY_SPAWN_POSITION             [10000, 10000, 0]
 #define NAVY_PILOT_SKILL_ARRAY          [["courage", 1], ["general", 1]]
 #define NAVY_PILOT_CLASSNAMES           [[west, "B_Helipilot_F"], [east, "O_helipilot_F"], [resistance, "I_helipilot_F"], [civilian, "C_man_pilot_F"]]
-#define NAVY_PARADROP_DISTANCE          500  // TODO: adjust this for set altitude
-#define NAVY_DELETE_DISTANCE            (400 + NAVY_DEFAULT_ALTITUDE)
 #define NAVY_CLOSE_DOOR                 0
 #define NAVY_OPEN_DOOR                  1
 

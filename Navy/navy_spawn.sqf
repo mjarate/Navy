@@ -3,15 +3,16 @@
 navy_spawn_fnc_airVehicle = {
     FUN_ARGS_2(_vehicleClassname,_trigger);
 
+    DECLARE(_flightAltitude) = [NAVY_CONFIG_FILE, "Settings", "flightAltitude"] call navy_config_fnc_getNumber;
     PVT_2(_spawnPosition,_vehicle);
     if (isNil "_trigger") exitWith {
         [["No trigger was provided to try and spawn the vehicle with classname: %1", _vehicleClassname], DEBUG_ERROR] call navy_debug_fnc_logToServer;
     };
     _spawnPosition = [(triggerArea _trigger), (getposATL _trigger), true] call adm_api_fnc_getRandomPositionInArea;
-    SET_ALTITUDE(_spawnPosition,NAVY_DEFAULT_ALTITUDE);
+    SET_ALTITUDE(_spawnPosition,_flightAltitude);
     _vehicle = createVehicle [_vehicleClassname, _spawnPosition, [], 0, "FLY"];
     _vehicle setPosATL _spawnPosition;
-    _vehicle flyInHeight NAVY_DEFAULT_ALTITUDE;  // TODO: Set this in the config
+    _vehicle flyInHeight _flightAltitude;  // TODO: Set this in the config
     DEBUG {
         [["Spawned vehicle: %1 at position: %2", _vehicle, _spawnPosition], DEBUG_INFO] call navy_debug_fnc_log
     };
@@ -46,10 +47,10 @@ navy_spawn_fnc_cargoUnits = {
     DECLARE(_cargoUnits) = [];
     DECLARE(_vehicleCargoLimit) = [NAVY_CONFIG_VEHICLES, (typeOf _vehicle), "cargo_limit"] call navy_config_fnc_getNumber;
     DECLARE(_skillArray) = ["Camp"] call adm_common_fnc_getZoneTemplateSkillValues;
-    if (_vehicleCargoLimit > _amount) then {
-        _amount = _vehicleCargoLimit;
+    if (_amount > _vehicleCargoLimit) then {
         DEBUG {
             [["Cargo amount requested: %1 is above the limit: %2 for vehicle: %3. Reverting to limit", _amount, _vehicleCargoLimit, _vehicle], DEBUG_WARN] call navy_debug_fnc_log;
+            _amount = _vehicleCargoLimit;
         };
     };
     DECLARE(_unitGroup) = createGroup _unitSide;

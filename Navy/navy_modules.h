@@ -51,7 +51,7 @@ class Navy_Paradrop: Navy_Module {
             displayName = "Cargo Unit Amount";
             description = "The amount of cargo units that will be placed inside the helicopter";
             typeName = "NUMBER";
-            defaultValue = 6;
+            defaultValue = 10;
         };
     };
 };
