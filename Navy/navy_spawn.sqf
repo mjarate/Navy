@@ -44,7 +44,7 @@ navy_spawn_fnc_cargoUnits = {
     };
     PVT_1(_unit);
     DECLARE(_cargoUnits) = [];
-    DECLARE(_vehicleCargoLimit) = [NAVY_CONFIG_FILE, "Vehicles", (typeOf _vehicle)] call navy_config_fnc_getNumber;
+    DECLARE(_vehicleCargoLimit) = [NAVY_CONFIG_VEHICLES, (typeOf _vehicle), "cargo_limit"] call navy_config_fnc_getNumber;
     DECLARE(_skillArray) = ["Camp"] call adm_common_fnc_getZoneTemplateSkillValues;
     if (_vehicleCargoLimit > _amount) then {
         _amount = _vehicleCargoLimit;
