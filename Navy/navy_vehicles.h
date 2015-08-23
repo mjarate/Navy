@@ -5,6 +5,7 @@ class Vehicles {
     class Default {
         name = ""; // Informal vehicle's name, used for logging
         type = "";
+        cargo_limit = 0;
         animations[] = {};
         ordnance[] = {}; // Only the ordnance's WEAPON that you wish removed
     };
@@ -27,6 +28,7 @@ class Vehicles {
         animations[] = {"Door_L","Door_R"}; // "CargoRamp_Open" appears to make no difference
         slingload = 1;
         slingload_limit = 4000;
+        cargo_limit = 8;
     };
 
     class B_Heli_Transport_01_camo_F: B_Heli_Transport_01_F {
@@ -43,23 +45,30 @@ class Vehicles {
         //animations[] = {"DoorL_Front_Open","DoorR_Front_Open","DoorL_Back_Open","DoorR_Back_Open"};
         slingload = 1;
         slingload_limit = 500;
+        cargo_limit = 6;
     };
 
     class B_Heli_Light_01_armed_F: B_Heli_Light_01_F {
         name = "AH-9 Pawnee";
         ordnance[] = {{-1},"missiles_DAR"};
+        cargo_limit = 0;
     };
 
     class B_Heli_Transport_03_F: Rotary {
         name = "CH-67 Huron";
         slingload = 1;
         slingload_limit = 10000;
+        cargo_limit = 16;
         animations[] = {"Door_R_source","Door_L_source","Door_rear_source"};
     };
 
     class B_Heli_Transport_03_unarmed_F: B_Heli_Transport_03_F {
         name = "CH-67 Huron (Black)";
     };
+    
+    class B_Heli_Transport_03_black_F: B_Heli_Transport_03_unarmed_F {};
+
+    class B_Heli_Transport_03_unarmed_green_F: B_Heli_Transport_03_F {};
 
 // EAST
 
