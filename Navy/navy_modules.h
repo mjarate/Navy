@@ -13,7 +13,7 @@ class Navy_Module: Module_F {
     category = "Navy";
     function = "";
     functionPriority = 1;
-    isTriggerActivated = 0;
+    isTriggerActivated = 1;
     isGlobal = 0;
     isDisposable = 0;
     vehicleClass = "Modules";
