@@ -24,7 +24,7 @@ navy_main_fnc_checkLogic = {
             _syncronisedLogics pushBack _x;
         };
     } forEach _syncronisedObjects;
-    [["Trigger: %1 Logics: %2", _trigger, _syncronisedLogics], DEBUG_INFO] call navy_debug_fnc_log;
+    // [["Trigger: %1 Logics: %2", _trigger, _syncronisedLogics], DEBUG_INFO] call navy_debug_fnc_log;
     if (count _syncronisedLogics > 1) then {
         [["More than one path logic was found for: %1! Only one can be used per trigger and module!", _trigger], DEBUG_INFO] call navy_debug_fnc_log;
     } else {
