@@ -26,9 +26,11 @@ navy_spawn_fnc_pilot = {
 
     DECLARE(_pilotGroup) = createGroup _pilotSide;
     DECLARE(_pilot) = [NAVY_SPAWN_POSITION, _pilotGroup, [_pilotClassname], NAVY_PILOT_SKILL_ARRAY] call adm_common_fnc_placeMan;
-    _pilot disableAI "AUTOTARGET";
-    _pilot setBehaviour "CARELESS";
     _pilot moveInDriver _vehicle;
+    {
+        _pilot disableAI _x;
+    } forEach NAVY_PILOT_DISABLE_AI_ARRAY;
+    _pilot setBehaviour "CARELESS";
 
     DEBUG {
         [["Spawned pilot: %1 and placed inside vehicle: %2", _pilot, _vehicle], DEBUG_INFO] call navy_debug_fnc_log;

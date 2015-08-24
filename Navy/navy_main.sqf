@@ -76,6 +76,17 @@ navy_main_assignPatrolWaypoints = {
     DECLARE(_radius) = [NAVY_CONFIG_FILE, "Settings", "patrolRadius"] call navy_config_fnc_getNumber;
     _trigger setTriggerArea [_radius, _radius, 0, false];
     [_group, "SoldierWB", (triggerArea _trigger), _position, ["COMBAT", "AWARE"], _wpAmount] call adm_camp_fnc_createPatrolWaypoints;
+
+    DEBUG {
+        {
+            DECLARE(_waypointMarker) = [
+                format ["%1_%2", _group, _forEachIndex],
+                getWPPos _x,
+                DEBUG_MARKER_UNIT_WAYPOINT
+            ] call navy_debug_placeMarker;
+            _waypointMarker setMarkerTextLocal format ["Waypoint %1 for %2", _forEachIndex, _x];
+        } forEach waypoints _group;
+    };
 };
 
 navy_main_fnc_addWaypoint = {
