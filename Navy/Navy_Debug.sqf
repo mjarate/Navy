@@ -4,7 +4,7 @@ navy_debug_fnc_logToServer = {
     FUN_ARGS_2(_message,_level);
 
     IF_IS_SERVER;
-    if (!navy_debugEnabled || !navy_logToServer) exitWith {};
+    if !(navy_logToServer) exitWith {};
     [_message, _level] call navy_debug_fnc_rpt;
 };
 
