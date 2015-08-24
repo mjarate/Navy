@@ -20,6 +20,8 @@ navy_method_fnc_paradrop = {
     _cargoClassnames = [_unitTemplate, "infantry"] call adm_common_fnc_getUnitTemplateArray;
     _cargoGroup = [_cargoClassnames, _side, _cargoAmount, _vehicle, true] call navy_spawn_fnc_cargoUnits;
     [_vehicle, NAVY_OPEN_DOOR] call navy_main_fnc_animateDoors;
+    DECLARE(_routineFlightHeight) = [NAVY_CONFIG_FILE, "Routines", "flight_height"] call navy_config_fnc_getNumber;
+    _vehicle flyInHeight _routineFlightHeight;
 
     DEBUG {
         [["Spawning helicopter: %1 on side: %2 with pilot: %3 in trigger: %4", _vehicleClassname, _side, _pilotClassname, _trigger], DEBUG_INFO] call navy_debug_fnc_log;
