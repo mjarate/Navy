@@ -84,8 +84,6 @@ class Vehicles {
         ordnance[] = {{-1},"missiles_DAGR"};
     };
 
-    class O_Heli_Light_02_v2_F: O_Heli_Light_02_F {};
-
     class O_Heli_Light_02_v2_F: O_Heli_Light_02_F {
         name = "PO-30 Orca (Black & White)";
         ordnance[] = {{-1},"missiles_DAR"};
