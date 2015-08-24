@@ -19,6 +19,7 @@ class Navy {
         paradropDistance = 500;
         flightAltitude = 200;
         cleanupDistance = 600;
+        patrolRadius = 500;
     };
     #include "navy_routines.h"
     #include "navy_vehicles.h"

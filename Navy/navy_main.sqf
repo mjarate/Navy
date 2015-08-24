@@ -70,6 +70,15 @@ navy_main_fnc_cleanupVehicle = {
 
 };
 
+navy_main_assignPatrolWaypoints = {
+    FUN_ARGS_3(_group,_position,_wpAmount);
+
+    DECLARE(_trigger) = createTrigger ["EmptyDetector", _position, false];
+    DECLARE(_radius) = [NAVY_CONFIG_FILE, "Settings", "patrolRadius"] call navy_config_fnc_getNumber;
+    _trigger setTriggerArea [_radius, _radius, 0, false];
+    [_group, "SoldierWB", (triggerArea _trigger), _position, ["COMBAT", "AWARE"], _wpAmount] call adm_camp_fnc_createPatrolWaypoints;
+};
+
 navy_main_fnc_addWaypoint = {
     FUN_ARGS_4(_unit,_waypoints,_routine,_number);
 
