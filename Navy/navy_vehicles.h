@@ -76,12 +76,15 @@ class Vehicles {
         name = "PO-30 Orca (Black)";
         slingload = 1;
         slingload_limit = 500;
+        cargo_limit = 8;
     };
 
     class O_Heli_Light_02_F: O_Heli_Light_02_unarmed_F {
         name = "PO-30 Orca";
         ordnance[] = {{-1},"missiles_DAGR"};
     };
+
+    class O_Heli_Light_02_v2_F: O_Heli_Light_02_F {};
 
     class O_Heli_Light_02_v2_F: O_Heli_Light_02_F {
         name = "PO-30 Orca (Black & White)";
@@ -92,6 +95,7 @@ class Vehicles {
     class O_Heli_Attack_02_F: Rotary {
         name = "Mi-48 Kajman";
         ordnance[] = {{-1},"missiles_SCALPEL",{-1},"rockets_Skyfire"}; // Turret paths require confirmation
+        cargo_limit = 8;
         animations[] = {"door_L","door_R","door_L_pop","door_R_pop"};
     };
 
@@ -113,7 +117,8 @@ class Vehicles {
 
     class O_Heli_Transport_04_bench_F: Rotary {
         name = "Mi-290 Taru (Bench)";
-        // animations[] = {"Door_1_source","Door_2_source","Door_3_source"};
+        cargo_limit = 8;
+        animations[] = {};
     };
 
     class O_Heli_Transport_04_fuel_F: O_Heli_Transport_04_ammo_F {
@@ -131,6 +136,7 @@ class Vehicles {
 
     class O_Heli_Transport_04_covered_F: Rotary {
         name = "Mi-290 Taru (Covered)";
+        cargo_limit = 16;
         animations[] = {"Door_4_source","Door_5_source","Door_6_source"};
     };
 
@@ -138,6 +144,7 @@ class Vehicles {
 
     class I_Heli_Transport_02_F: Rotary {
         name = "CH-49 Mohawk";
+        cargo_limit = 16;
         animations[] = {"CargoRamp_Open","Door_Back_L","Door_Back_R"};
         slingload = 1;
         slingload_limit = 4000;
@@ -145,6 +152,7 @@ class Vehicles {
 
     class I_Heli_light_03_F: I_Heli_Transport_02_F {
         name = "WY-55 Hellcat";
+        cargo_limit = 6;
         ordnance[] = {{-1},"missiles_DAR"};
         slingload_limit = 2000;
     };
@@ -159,6 +167,7 @@ class Vehicles {
 
     class C_Heli_Light_01_civil_F: Rotary {
         name = "M-900";
+        cargo_limit = 2;
         slingload = 1;
         slingload_limit = 500;
         animations[] = {"DoorL_Front_Open","DoorR_Front_Open","DoorL_Back_Open","DoorR_Back_Open"};
