@@ -67,7 +67,6 @@ navy_main_fnc_cleanupVehicle = {
         deleteVehicle _x;
     } forEach crew _vehicle;
     deleteVehicle _vehicle;
-
 };
 
 navy_main_assignPatrolWaypoints = {
