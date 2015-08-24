@@ -63,3 +63,44 @@ class Navy_Paradrop: Navy_Module {
         };
     };
 };
+
+class Navy_HeliInsert: Navy_Module {
+    scope = 2;
+    displayName = "Heli Insert";
+    icon = ADDON_PATH(resources\paradrop.paa);
+    function = "navy_init_fnc_initFromModule";
+
+    class ModuleDescription {
+        description = "Spawns a helicopter which will land the cargo units at the given location";
+    };
+
+    class Arguments {
+        class Unit_Template {
+            displayName = "Vehicle Unit Template";
+            description = "The admiral unit template that navy will spawn units for";
+            typeName = "STRING";
+            defaultValue = "NATO_WOODLAND";
+        };
+
+        class Vehicle_Classname {
+            displayName = "Vehicle Classname";
+            description = "The classname of the helicopter that will be spawned";
+            typeName = "STRING";
+            defaultValue = "B_Heli_Transport_03_black_F";
+        };
+
+        class Cargo_Amount {
+            displayName = "Cargo Unit Amount";
+            description = "The amount of cargo units that will be placed inside the helicopter";
+            typeName = "NUMBER";
+            defaultValue = 10;
+        };
+
+        class Routine_Function {
+            displayName = "Routine Function";
+            description = "The function called by this module. Do not change this unless you know what it does";
+            typeName = "STRING";
+            defaultValue = "navy_method_fnc_heliinsert";
+        };
+    };
+};
