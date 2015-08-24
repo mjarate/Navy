@@ -27,7 +27,7 @@ class Navy_Paradrop: Navy_Module {
     scope = 2;
     displayName = "Paradrop";
     icon = ADDON_PATH(resources\paradrop.paa);
-    function = "navy_init_module_paradrop";
+    function = "navy_init_fnc_initFromModule";
 
     class ModuleDescription {
         description = "Spawns a unit paradrop";
@@ -53,6 +53,13 @@ class Navy_Paradrop: Navy_Module {
             description = "The amount of cargo units that will be placed inside the helicopter";
             typeName = "NUMBER";
             defaultValue = 10;
+        };
+
+        class Routine_Function {
+            displayName = "Routine Function";
+            description = "The function called by this module. Do not change this unless you know what it does";
+            typeName = "STRING";
+            defaultValue = "navy_method_fnc_paradrop";
         };
     };
 };

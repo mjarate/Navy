@@ -16,14 +16,14 @@ navy_main_fnc_checkLogic = {
     FUN_ARGS_1(_trigger);
 
     DECLARE(_logic) = nil;
-    DECLARE(_syncronisedObjects) = synchronizedObjects _trigger;
+    DECLARE(_synchronisedObjects) = synchronizedObjects _trigger;
     DECLARE(_syncronisedLogics) = [];
     {
         // [str(_x), (getposATL _x), DEBUG_MARKER_LOCATION] call navy_debug_placeMarker;
         if (typeOf _x isEqualTo "Logic") then {
             _syncronisedLogics pushBack _x;
         };
-    } forEach _syncronisedObjects;
+    } forEach _synchronisedObjects;
     // [["Trigger: %1 Logics: %2", _trigger, _syncronisedLogics], DEBUG_INFO] call navy_debug_fnc_log;
     if (count _syncronisedLogics > 1) then {
         [["More than one path logic was found for: %1! Only one can be used per trigger and module!", _trigger], DEBUG_INFO] call navy_debug_fnc_log;
@@ -75,6 +75,9 @@ navy_main_assignPatrolWaypoints = {
     DECLARE(_trigger) = createTrigger ["EmptyDetector", _position, false];
     DECLARE(_radius) = [NAVY_CONFIG_FILE, "Settings", "patrolRadius"] call navy_config_fnc_getNumber;
     _trigger setTriggerArea [_radius, _radius, 0, false];
+    while {(count (waypoints _group)) > 0} do {
+        deleteWaypoint ((waypoints _group) select 0);
+    };
     [_group, "SoldierWB", (triggerArea _trigger), _position, ["COMBAT", "AWARE"], _wpAmount] call adm_camp_fnc_createPatrolWaypoints;
 
     DEBUG {
@@ -125,21 +128,21 @@ navy_main_fnc_addWaypoint = {
     _waypoint;
 };
 
-navy_module_paradrop = {
+navy_main_fnc_initFromModule = {
     FUN_ARGS_2(_module,_units);
 
-    DECLARE(_syncronisedObjects) = synchronizedObjects _module;
-    if (count _syncronisedObjects == 0) exitWith {
+    DECLARE(_synchronisedObjects) = synchronizedObjects _module;
+    if (count _synchronisedObjects == 0) exitWith {
         DEBUG {
             [["Logic: %1 had no synchronised objects!", _module], DEBUG_ERROR] call navy_debug_fnc_log;
         };
     };
-    if (count _syncronisedObjects > 1) exitWith {
+    if (count _synchronisedObjects > 1) exitWith {
         DEBUG {
             [["More than one trigger was synchronised to the module: %1, only one can be synced!", _module], DEBUG_ERROR] call navy_debug_fnc_log;
         };
     };
-    DECLARE(_trigger) = _syncronisedObjects select 0;
+    DECLARE(_trigger) = _synchronisedObjects select 0;
     DECLARE(_navyLogic) = [_trigger] call navy_main_fnc_checkLogic;
     if (isNil "_navyLogic") exitWith {
         DEBUG {
@@ -152,15 +155,16 @@ navy_module_paradrop = {
             [["Logic: %1 had no waypoints attached!", _navyLogic], DEBUG_ERROR] call navy_debug_fnc_log;
         };
     };
+    DECLARE(_routineFunction) = _module getVariable "Routine_Function";
     DECLARE(_vehicleClassname) = _module getVariable "Vehicle_Classname";
     DECLARE(_unitTemplate) = _module getVariable "Unit_Template";
     DECLARE(_cargoAmount) = _module getVariable "Cargo_Amount";
 
     DEBUG {
-        [["Module: %1 initialised with synchronised objects: %2 unit template: %3, classname: %4 taking waypoints: %5 from logic: %6 with cargo amount: %7", _module, _syncronisedObjects, _unitTemplate, _vehicleClassname, _waypoints, _navyLogic, _cargoAmount], DEBUG_INFO] call navy_debug_fnc_log;
+        [["Module: %1 for routine function: %2 initialised with synchronised objects: %3 unit template: %4, classname: %5 taking waypoints: %6 from logic: %7 with cargo amount: %8", _module, _routineFunction, _synchronisedObjects, _unitTemplate, _vehicleClassname, _waypoints, _navyLogic, _cargoAmount], DEBUG_INFO] call navy_debug_fnc_log;
     };
 
-    [_trigger, _vehicleClassname, _unitTemplate, _cargoAmount, _waypoints] spawn navy_method_fnc_paradrop;
+    [_trigger, _vehicleClassname, _unitTemplate, _cargoAmount, _waypoints] spawn (call compile _routineFunction);
 
     true;
 };
