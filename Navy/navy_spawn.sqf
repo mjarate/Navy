@@ -41,12 +41,22 @@ navy_spawn_fnc_pilot = {
 navy_spawn_fnc_cargoUnits = {
     FUN_ARGS_5(_unitClassnames,_unitSide,_amount,_vehicle,_addParachute);
 
+    if (_amount == 0) then {
+        DEBUG {
+            [["Attempted to fill vehicle: %1 with no cargo units", _vehicle], DEBUG_WARN] call navy_debug_fnc_log;
+        };
+    };
     if (isNil "_addParachute") then {
         _addParachute = false;
     };
     PVT_1(_unit);
     DECLARE(_cargoUnits) = [];
     DECLARE(_vehicleCargoLimit) = [NAVY_CONFIG_VEHICLES, (typeOf _vehicle), "cargo_limit"] call navy_config_fnc_getNumber;
+    if (_vehicleCargoLimit == 0) exitWith {
+        DEBUG {
+            [["Attempted to fill vehicle: %1 with cargo units but it has no cargo space!", _vehicle], DEBUG_ERROR] call navy_debug_fnc_log;
+        };
+    };
     DECLARE(_skillArray) = ["Camp"] call adm_common_fnc_getZoneTemplateSkillValues;
     if (_amount > _vehicleCargoLimit) then {
         DEBUG {
