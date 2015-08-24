@@ -46,6 +46,7 @@ navy_method_fnc_paradrop = {
         sleep 0.6;
     } forEach units _cargoGroup;
     [_vehicle, NAVY_CLOSE_DOOR] call navy_main_fnc_animateDoors;
+    //[["type", "patrol"], ["position", (getWPPos _paradropWP)], ["area", [300, 300, 0, false]], ] call adm_api_fnc_initZone;
     //[_cargoGroup, "SoldierWB", "Patrol", 3] call adm_patrol_fnc_createWaypoints;
     waitUntil {
         sleep 2;

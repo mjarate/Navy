@@ -1,5 +1,9 @@
 #include "navy_macros.h"
 
+navy_isEnabled = false;
+
+if (!isServer) exitWith {};
+
 navy_isInitialised = false;
 navy_logToServer = true;
 navy_debugEnabled = if (!isMultiplayer) then {true;} else {false;};
