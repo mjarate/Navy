@@ -12,11 +12,14 @@ navy_method_fnc_paradrop = {
         [["Waypoint count given: %1 not equal to amount required: %2", count _waypoints, _reqWaypointCount], DEBUG_INFO] call navy_debug_fnc_log;
     };
 
-    PVT_4(_side,_pilotClassname,_vehicle,_pilot);
+    PVT_3(_side,_vehicle,_pilot);
     _side = [_unitTemplate] call adm_common_fnc_getUnitTemplateSide;
-    _pilotClassname = [_side] call navy_main_fnc_getPilotClassname;
     _vehicle = [_vehicleClassname, _trigger] call navy_spawn_fnc_airVehicle;
-    _pilot = [_pilotClassname, _side, _vehicle] call navy_spawn_fnc_pilot;
+    _pilot = [
+        [_side] call navy_main_fnc_getPilotClassname,
+        _side,
+        _vehicle
+    ] call navy_spawn_fnc_pilot;
     _cargoClassnames = [_unitTemplate, "infantry"] call adm_common_fnc_getUnitTemplateArray;
     _cargoGroup = [_cargoClassnames, _side, _cargoAmount, _vehicle, true] call navy_spawn_fnc_cargoUnits;
     [_vehicle, NAVY_OPEN_DOOR] call navy_main_fnc_animateDoors;
