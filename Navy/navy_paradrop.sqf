@@ -15,11 +15,8 @@ navy_method_fnc_paradrop = {
     PVT_3(_side,_vehicle,_pilot);
     _side = [_unitTemplate] call adm_common_fnc_getUnitTemplateSide;
     _vehicle = [_vehicleClassname, _trigger] call navy_spawn_fnc_airVehicle;
-    _pilot = [
-        [_side] call navy_main_fnc_getPilotClassname,
-        _side,
-        _vehicle
-    ] call navy_spawn_fnc_pilot;
+    DECLARE(_pilotClassname) = [_side] call navy_main_fnc_getPilotClassname;
+    _pilot = [_pilotClassname, _side, _vehicle] call navy_spawn_fnc_pilot;
     _cargoClassnames = [_unitTemplate, "infantry"] call adm_common_fnc_getUnitTemplateArray;
     _cargoGroup = [_cargoClassnames, _side, _cargoAmount, _vehicle, true] call navy_spawn_fnc_cargoUnits;
     [_vehicle, NAVY_OPEN_DOOR] call navy_main_fnc_animateDoors;
@@ -27,7 +24,7 @@ navy_method_fnc_paradrop = {
     _vehicle flyInHeight _routineFlightHeight;
 
     DEBUG {
-        [["Spawning helicopter: %1 on side: %2 with pilot: %3 in trigger: %4 for routine: Paradrop", _vehicleClassname, _side, _pilotClassname, _trigger], DEBUG_INFO] call navy_debug_fnc_log;
+        [["Spawning helicopter: %1 on side: %2 with pilot: %3 in trigger: %4 for routine: Paradrop", _vehicleClassname, _side, _pilot, _trigger], DEBUG_INFO] call navy_debug_fnc_log;
     };
 
     DECLARE(_paradropWP) = [_pilot, _waypoints, "Paradrop", 1] call navy_main_fnc_addWaypoint;
