@@ -26,6 +26,7 @@ class Navy_Module: Module_F {
 class Navy_Paradrop: Navy_Module {
     scope = 2;
     displayName = "Paradrop";
+    icon = ADDON_PATH(resources\paradrop.paa);
     function = "navy_init_module_paradrop";
 
     class ModuleDescription {
