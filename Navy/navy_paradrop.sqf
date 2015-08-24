@@ -18,7 +18,7 @@ navy_method_fnc_paradrop = {
     _vehicle = [_vehicleClassname, _trigger] call navy_spawn_fnc_airVehicle;
     _pilot = [_pilotClassname, _side, _vehicle] call navy_spawn_fnc_pilot;
     _cargoClassnames = [_unitTemplate, "infantry"] call adm_common_fnc_getUnitTemplateArray;
-    _cargoUnits = [_cargoClassnames, _side, _cargoAmount, _vehicle, true] call navy_spawn_fnc_cargoUnits;
+    _cargoGroup = [_cargoClassnames, _side, _cargoAmount, _vehicle, true] call navy_spawn_fnc_cargoUnits;
     [_vehicle, NAVY_OPEN_DOOR] call navy_main_fnc_animateDoors;
 
     DEBUG {
@@ -44,8 +44,9 @@ navy_method_fnc_paradrop = {
         unassignVehicle _x;
         //_x setVelocity [0,0,-5];
         sleep 0.6;
-    } forEach _cargoUnits;
+    } forEach units _cargoGroup;
     [_vehicle, NAVY_CLOSE_DOOR] call navy_main_fnc_animateDoors;
+    //[_cargoGroup, "SoldierWB", "Patrol", 3] call adm_patrol_fnc_createWaypoints;
     waitUntil {
         sleep 2;
         DEBUG {

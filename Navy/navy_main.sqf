@@ -58,7 +58,7 @@ navy_main_fnc_cleanupVehicle = {
     DEC(_waypointCount);  // count is increased in method
     DEBUG {
         [["Vehicle: %1 is being deleted with: %2 waypoint markers", _vehicle, _waypointCount], DEBUG_INFO] call navy_debug_fnc_log;
-        // remove waypoing debug markers, format ["%1_%2", (vehicle _unit), _number]
+        // remove waypoint debug markers, format ["%1_%2", (vehicle _unit), _number]
         for "_i" from 1 to _waypointCount do {
             deleteMarkerLocal format ["%1_%2", _vehicle, _i];
         };
@@ -136,9 +136,11 @@ navy_module_paradrop = {
     DECLARE(_vehicleClassname) = _module getVariable "Vehicle_Classname";
     DECLARE(_unitTemplate) = _module getVariable "Unit_Template";
     DECLARE(_cargoAmount) = _module getVariable "Cargo_Amount";
+
     DEBUG {
         [["Module: %1 initialised with synchronised objects: %2 unit template: %3, classname: %4 taking waypoints: %5 from logic: %6 with cargo amount: %7", _module, _syncronisedObjects, _unitTemplate, _vehicleClassname, _waypoints, _navyLogic, _cargoAmount], DEBUG_INFO] call navy_debug_fnc_log;
     };
+
     [_trigger, _vehicleClassname, _unitTemplate, _cargoAmount, _waypoints] spawn navy_method_fnc_paradrop;
 
     true;

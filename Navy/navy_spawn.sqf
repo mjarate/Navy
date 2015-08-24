@@ -12,7 +12,8 @@ navy_spawn_fnc_airVehicle = {
     SET_ALTITUDE(_spawnPosition,_flightAltitude);
     _vehicle = createVehicle [_vehicleClassname, _spawnPosition, [], 0, "FLY"];
     _vehicle setPosATL _spawnPosition;
-    _vehicle flyInHeight _flightAltitude;  // TODO: Set this in the config
+    _vehicle flyInHeight _flightAltitude;
+
     DEBUG {
         [["Spawned vehicle: %1 at position: %2", _vehicle, _spawnPosition], DEBUG_INFO] call navy_debug_fnc_log
     };
@@ -56,7 +57,6 @@ navy_spawn_fnc_cargoUnits = {
     DECLARE(_unitGroup) = createGroup _unitSide;
     for "_i" from 1 to _amount step 1 do {
         _unit = [NAVY_SPAWN_POSITION, _unitGroup, _unitClassnames, _skillArray] call adm_common_fnc_placeMan;
-        // TODO: put zone template as option field in the module
         _unit moveInCargo _vehicle;
         _cargoUnits pushBack _unit;
     };
@@ -74,5 +74,5 @@ navy_spawn_fnc_cargoUnits = {
         } forEach _cargoUnits;
     };
 
-    _cargoUnits;
+    _unitGroup;
 };
