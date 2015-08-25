@@ -2,7 +2,7 @@
 #include "navy_macros.h"
 
 navy_method_fnc_paradrop = {
-    FUN_ARGS_5(_trigger,_vehicleClassname,_unitTemplate,_cargoAmount,_waypoints);
+    FUN_ARGS_6(_module,_trigger,_vehicleClassname,_unitTemplate,_cargoAmount,_waypoints);
 
     DECLARE(_paradropDistance) = [NAVY_CONFIG_FILE, "Settings", "paradropDistance"] call navy_config_fnc_getNumber;
     DECLARE(_cleanupDistance) = [NAVY_CONFIG_FILE, "Settings", "cleanupDistance"] call navy_config_fnc_getNumber;
@@ -48,7 +48,7 @@ navy_method_fnc_paradrop = {
         sleep 0.6;
     } forEach units _cargoGroup;
     [_vehicle, NAVY_CLOSE_DOOR] call navy_main_fnc_animateDoors;
-    [_cargoGroup, (getWPPos _paradropWP), 3] call navy_main_assignPatrolWaypoints;
+    [_module, _cargoGroup, (getWPPos _paradropWP)] call navy_main_assignPatrolWaypoints;
     waitUntil {
         sleep 5;
         DEBUG {

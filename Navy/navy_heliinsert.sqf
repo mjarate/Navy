@@ -2,9 +2,8 @@
 #include "navy_macros.h"
 
 navy_method_fnc_heliInsert = {
-    FUN_ARGS_5(_trigger,_vehicleClassname,_unitTemplate,_cargoAmount,_waypoints);
+    FUN_ARGS_6(_module,_trigger,_vehicleClassname,_unitTemplate,_cargoAmount,_waypoints);
 
-    //DECLARE(_insertDistance) = [NAVY_CONFIG_FILE, "Settings", "paradropDistance"] call navy_config_fnc_getNumber;
     DECLARE(_cleanupDistance) = [NAVY_CONFIG_FILE, "Settings", "cleanupDistance"] call navy_config_fnc_getNumber;
     DECLARE(_reqWaypointCount) = [NAVY_CONFIG_ROUTINES, "Heli_Insert", "waypoint_count"] call navy_config_fnc_getNumber;
     INC(_reqWaypointCount);  // taking into account waypoint 0 on the logic's position
@@ -59,7 +58,7 @@ navy_method_fnc_heliInsert = {
         (_x) action ["GETOUT", vehicle _x];
         sleep 0.1;
     } forEach units _cargoGroup;
-    [_cargoGroup, (getWPPos _insertWP), 3] call navy_main_assignPatrolWaypoints;
+    [_module, _cargoGroup, (getWPPos _insertWP)] call navy_main_assignPatrolWaypoints;
     waitUntil {
         sleep 1;
         (count (assignedCargo _vehicle) == 0);
