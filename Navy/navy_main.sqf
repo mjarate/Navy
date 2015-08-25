@@ -70,15 +70,29 @@ navy_main_fnc_cleanupVehicle = {
 };
 
 navy_main_assignPatrolWaypoints = {
-    FUN_ARGS_3(_group,_position,_wpAmount);
+    FUN_ARGS_3(_module,_group,_defaultPosition);
 
-    DECLARE(_trigger) = createTrigger ["EmptyDetector", _position, false];
+    PVT_1(_patrolPosition);
+    DECLARE(_assaultPositionObject) = _module getVariable "Assault_Position";
+    if (count (toArray _assaultPositionObject) == 0) then {
+        _patrolPosition = _defaultPosition;
+        DEBUG {
+            [["Group: %1 will centre their patrol zone on the drop off position at co-ords: %2", _group, _defaultPosition], DEBUG_INFO] call navy_debug_fnc_log;
+        };
+    } else {
+        DECLARE(_patrolObject) = call compile _assaultPositionObject;
+        _patrolPosition = getposATL _patrolObject;
+        DEBUG {
+            [["Group: %1 will centre their patrol zone on the object: %2 at position: %3", _group, _patrolObject, _patrolPosition], DEBUG_INFO] call navy_debug_fnc_log;
+        };
+    };
+    DECLARE(_trigger) = createTrigger ["EmptyDetector", _patrolPosition, false];
     DECLARE(_radius) = [NAVY_CONFIG_FILE, "Settings", "patrolRadius"] call navy_config_fnc_getNumber;
     _trigger setTriggerArea [_radius, _radius, 0, false];
     while {(count (waypoints _group)) > 0} do {
         deleteWaypoint ((waypoints _group) select 0);
     };
-    [_group, "SoldierWB", (triggerArea _trigger), _position, ["COMBAT", "AWARE"], _wpAmount] call adm_camp_fnc_createPatrolWaypoints;
+    [_group, "SoldierWB", (triggerArea _trigger), _patrolPosition, ["COMBAT", "AWARE"], 3] call adm_camp_fnc_createPatrolWaypoints;
 
     DEBUG {
         {
@@ -164,7 +178,7 @@ navy_main_fnc_initFromModule = {
         [["Module: %1 for routine function: %2 initialised with synchronised objects: %3 unit template: %4, classname: %5 taking waypoints: %6 from logic: %7 with cargo amount: %8", _module, _routineFunction, _synchronisedObjects, _unitTemplate, _vehicleClassname, _waypoints, _navyLogic, _cargoAmount], DEBUG_INFO] call navy_debug_fnc_log;
     };
 
-    [_trigger, _vehicleClassname, _unitTemplate, _cargoAmount, _waypoints] spawn (call compile _routineFunction);
+    [_module, _trigger, _vehicleClassname, _unitTemplate, _cargoAmount, _waypoints] spawn (call compile _routineFunction);
 
     true;
 };

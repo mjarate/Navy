@@ -55,6 +55,13 @@ class Navy_Paradrop: Navy_Module {
             defaultValue = 10;
         };
 
+        class Assault_Position {
+            displayName = "Assault Position Object";
+            description = "The object on the position the cargo units will converge to after drop off. If left empty, the units will act like an admiral patrol";
+            typeName = "STRING";
+            defaultValue = "";
+        };
+
         class Routine_Function {
             displayName = "Routine Function";
             description = "The function called by this module. Do not change this unless you know what it does";
@@ -93,6 +100,13 @@ class Navy_HeliInsert: Navy_Module {
             description = "The amount of cargo units that will be placed inside the helicopter";
             typeName = "NUMBER";
             defaultValue = 10;
+        };
+
+        class Assault_Position {
+            displayName = "Assault Position Object";
+            description = "The object on the position the cargo units will converge to after drop off. If left empty, the units will act like an admiral patrol";
+            typeName = "STRING";
+            defaultValue = "";
         };
 
         class Routine_Function {
