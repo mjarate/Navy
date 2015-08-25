@@ -24,6 +24,7 @@
 #define NAVY_PILOT_CLASSNAMES           [[west, "B_Helipilot_F"], [east, "O_helipilot_F"], [resistance, "I_helipilot_F"], [civilian, "C_man_pilot_F"]]
 #define NAVY_CLOSE_DOOR                 0
 #define NAVY_OPEN_DOOR                  1
+#define NAVY_ANIMATION_ALTITUDE         15
 
 #define CONFIG_TYPE_BOOL                0
 #define CONFIG_TYPE_NUMBER              1
