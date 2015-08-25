@@ -67,7 +67,6 @@ class Navy_Paradrop: Navy_Module {
 class Navy_HeliInsert: Navy_Module {
     scope = 2;
     displayName = "Heli Insert";
-    icon = ADDON_PATH(resources\paradrop.paa);
     function = "navy_init_fnc_initFromModule";
 
     class ModuleDescription {
