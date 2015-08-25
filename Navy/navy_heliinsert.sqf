@@ -68,6 +68,7 @@ navy_method_fnc_heliInsert = {
     [_vehicle, NAVY_CLOSE_DOOR] call navy_main_fnc_animateDoors;
     _vehicle land "NONE";
     DECLARE(_deleteWP) = [_pilot, _waypoints, "Heli_Insert", 2] call navy_main_fnc_addWaypoint;
+    deleteVehicle _landingH;  // avoids other helicopters landing on it.
     waitUntil {
         sleep 5;
         DEBUG {
