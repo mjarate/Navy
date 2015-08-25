@@ -1,7 +1,7 @@
 #ifndef NAVY_MACROS_H
 #define NAVY_MACROS_H
 
-#define NAVY_VERSION_STR             "0.2.0"
+#define NAVY_VERSION_STR             "0.2.1"
 
 #define CONCAT_ADDON_PATH(FILE)         x\ark\addons\navy\FILE
 #define ADDON_PATH(FILE)                #CONCAT_ADDON_PATH(FILE)
