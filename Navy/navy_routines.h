@@ -31,10 +31,10 @@ class Routines {
     class Heli_Insert : Default {
         flight_height = 100;
         waypoint_count = 2;
-        waypoint_speed[] = {"NORMAL", "FULL"};
-        waypoint_type[] = {"MOVE", "MOVE"};
-        waypoint_behaviour[] = {"CARELESS", "AWARE"};
-        waypoint_combatmode[] = {"BLUE", "BLUE"};
+        waypoint_speed[] = {"", "FULL", "FULL"};
+        waypoint_type[] = {"", "MOVE", "MOVE"};
+        waypoint_behaviour[] = {"", "CARELESS", "AWARE"};
+        waypoint_combatmode[] = {"", "BLUE", "BLUE"};
     };
 
     class Paradrop : Default {
