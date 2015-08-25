@@ -1,16 +1,19 @@
 #include "navy_macros.h"
 
-navy_init_module_paradrop = {
+navy_init_fnc_initFromModule = {
     FUN_ARGS_3(_module,_units,_activated);
 
     if !(_activated) exitWith {
-        diag_log format ["NAVY temp debug: module not activated"];
+        DEBUG {
+            [["Module: %1 was not activated!", _module], DEBUG_ERROR] call navy_debug_fnc_log;
+        };
     };
     waitUntil {
         sleep 2;
         navy_isInitialised;
     };
-    [_module, _units] call navy_module_paradrop;
+    [_module, _units] call navy_main_fnc_initFromModule;
 
     true;
 };
+

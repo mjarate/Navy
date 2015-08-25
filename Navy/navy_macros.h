@@ -1,7 +1,7 @@
 #ifndef NAVY_MACROS_H
 #define NAVY_MACROS_H
 
-#define NAVY_VERSION_STR             "0.1.5.0"
+#define NAVY_VERSION_STR             "0.2.0"
 
 #define CONCAT_ADDON_PATH(FILE)         x\ark\addons\navy\FILE
 #define ADDON_PATH(FILE)                #CONCAT_ADDON_PATH(FILE)
@@ -20,9 +20,11 @@
 
 #define NAVY_SPAWN_POSITION             [10000, 10000, 0]
 #define NAVY_PILOT_SKILL_ARRAY          [["courage", 1], ["general", 1]]
+#define NAVY_PILOT_DISABLE_AI_ARRAY     ["AUTOTARGET", "AIMINGERROR", "SUPPRESSION"]
 #define NAVY_PILOT_CLASSNAMES           [[west, "B_Helipilot_F"], [east, "O_helipilot_F"], [resistance, "I_helipilot_F"], [civilian, "C_man_pilot_F"]]
 #define NAVY_CLOSE_DOOR                 0
 #define NAVY_OPEN_DOOR                  1
+#define NAVY_ANIMATION_ALTITUDE         15
 
 #define CONFIG_TYPE_BOOL                0
 #define CONFIG_TYPE_NUMBER              1
@@ -36,11 +38,12 @@
 #define DEBUG_INFO                      "INFO"
 #define DEBUG_WARN                      "WARN"
 #define DEBUG_ERROR                     "ERROR"
-#define DEBUG_MARKER_ARGS_ARRAY         [[_name, _position, "ICON", "mil_dot_noShadow", "colorBrown"], [_name, _position, "ICON", "hd_pickup", "colorRed"], [_name, _position, "ICON", "mil_triangle_noShadow", "colorGreen"], [_name, _position, "ICON", "mil_triangle_noShadow", "colorBlue"]]
+#define DEBUG_MARKER_ARGS_ARRAY         [[_name, _position, "ICON", "mil_dot_noShadow", "colorBrown"], [_name, _position, "ICON", "hd_pickup", "colorRed"], [_name, _position, "ICON", "mil_triangle_noShadow", "colorGreen"], [_name, _position, "ICON", "mil_triangle_noShadow", "colorBlue"], [_name, _position, "ICON", "mil_dot", "colorRed", [0.5, 0.5]]]
 #define DEBUG_MARKER_LOCATION           0
 #define DEBUG_MARKER_WAYPOINT           1
 #define DEBUG_MARKER_VEHICLE            2
 #define DEBUG_MARKER_UNIT               3
+#define DEBUG_MARKER_UNIT_WAYPOINT      4
 
 // WARNING
 // Macros are sensitive for "," (comma), "(", ")" (parenthese) and " " (space).
