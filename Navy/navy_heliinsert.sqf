@@ -1,7 +1,7 @@
 //#include "..\navy_macros.h" // TODO: Change to this after 1.50 goes live, and put routines back in their folder!
 #include "navy_macros.h"
 
-navy_method_fnc_heliinsert = {
+navy_method_fnc_heliInsert = {
     FUN_ARGS_5(_trigger,_vehicleClassname,_unitTemplate,_cargoAmount,_waypoints);
 
     //DECLARE(_insertDistance) = [NAVY_CONFIG_FILE, "Settings", "paradropDistance"] call navy_config_fnc_getNumber;

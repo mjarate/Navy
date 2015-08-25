@@ -99,7 +99,7 @@ class Navy_HeliInsert: Navy_Module {
             displayName = "Routine Function";
             description = "The function called by this module. Do not change this unless you know what it does";
             typeName = "STRING";
-            defaultValue = "navy_method_fnc_heliinsert";
+            defaultValue = "navy_method_fnc_heliInsert";
         };
     };
 };
