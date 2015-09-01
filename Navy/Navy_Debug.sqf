@@ -11,7 +11,7 @@ navy_debug_fnc_logToServer = {
 navy_debug_fnc_log = {
     FUN_ARGS_2(_message,_level);
 
-    hint format [NAVY_DEBUG_FORMAT, time, _level, format _message];
+    hint format [NAVY_DEBUG_HINT_FORMAT, time, _level, format _message];
     diag_log format [NAVY_DEBUG_FORMAT, time, _level, format _message];
 };
 
