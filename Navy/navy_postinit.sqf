@@ -14,4 +14,3 @@ if (navy_isEnabled) then {
     navy_isInitialised = true;
     [["Navy version %1 has successfully initialised", NAVY_VERSION_STR], DEBUG_INFO] call navy_debug_fnc_logToServer;
 };
-
