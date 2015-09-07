@@ -71,11 +71,20 @@ navy_spawn_fnc_cargoUnits = {
         _unit = [NAVY_SPAWN_POSITION, _unitGroup, _unitClassnames, _skillArray] call adm_common_fnc_placeMan;
         _unit moveInCargo _vehicle;
         _cargoUnits pushBack _unit;
+        DEBUG {
+            [["Spawned cargo unit: %1 number: %2 for vehicle: %3", _unit, _i, _vehicle], DEBUG_INFO] call navy_debug_fnc_log;
+        };
+        sleep NAVY_SPAWN_DELAY;
     };
     if (_addParachute) then {
+        DEBUG {
+            [["Adding parachutes to the cargo units: %1 of vehicle: %2", _cargoUnits, _vehicle], DEBUG_INFO] call navy_debug_fnc_log;
+        };
+        sleep 
         {
             removeBackpack _x;
             _x addBackpackGlobal "B_Parachute";
+            sleep NAVY_GEAR_ADD_DELAY;
         } forEach _cargoUnits;
     };
 

@@ -19,6 +19,8 @@
 #define SET_ALTITUDE(ARRAY,NUM)         ARRAY set [2,NUM]
 
 #define NAVY_SPAWN_POSITION             [10000, 10000, 0]
+#define NAVY_SPAWN_DELAY                1
+#define NAVY_GEAR_ADD_DELAY             0.5
 #define NAVY_PILOT_SKILL_ARRAY          [["courage", 1], ["general", 1]]
 #define NAVY_PILOT_DISABLE_AI_ARRAY     ["AUTOTARGET", "AIMINGERROR", "SUPPRESSION"]
 #define NAVY_PILOT_CLASSNAMES           [[west, "B_Helipilot_F"], [east, "O_helipilot_F"], [resistance, "I_helipilot_F"], [civilian, "C_man_pilot_F"]]
