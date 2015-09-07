@@ -1,5 +1,4 @@
-//#include "..\navy_macros.h" // TODO: Change to this after 1.50 goes live, and put routines back in their folder!
-#include "navy_macros.h"
+#include "..\navy_macros.h"
 
 navy_method_fnc_paradrop = {
     FUN_ARGS_6(_module,_trigger,_vehicleClassname,_unitTemplate,_cargoAmount,_waypoints);

@@ -1,7 +1,7 @@
 #ifndef NAVY_MACROS_H
 #define NAVY_MACROS_H
 
-#define NAVY_VERSION_STR             "0.2.2"
+#define NAVY_VERSION_STR             "0.2.4"
 
 #define CONCAT_ADDON_PATH(FILE)         x\ark\addons\navy\FILE
 #define ADDON_PATH(FILE)                #CONCAT_ADDON_PATH(FILE)
@@ -19,6 +19,8 @@
 #define SET_ALTITUDE(ARRAY,NUM)         ARRAY set [2,NUM]
 
 #define NAVY_SPAWN_POSITION             [10000, 10000, 0]
+#define NAVY_SPAWN_DELAY                1
+#define NAVY_GEAR_ADD_DELAY             0.5
 #define NAVY_PILOT_SKILL_ARRAY          [["courage", 1], ["general", 1]]
 #define NAVY_PILOT_DISABLE_AI_ARRAY     ["AUTOTARGET", "AIMINGERROR", "SUPPRESSION"]
 #define NAVY_PILOT_CLASSNAMES           [[west, "B_Helipilot_F"], [east, "O_helipilot_F"], [resistance, "I_helipilot_F"], [civilian, "C_man_pilot_F"]]
@@ -34,7 +36,6 @@
 #define IF_IS_SERVER                    if !isServer exitWith {}
 #define DEBUG                           if (navy_debugEnabled) then
 
-//#define NAVY_DEBUG_FORMAT               "%1-[NAVY]-[%2]: %3" // %1: time, %2: debug level,%3 formatted message
 #define NAVY_DEBUG_FORMAT               "%1         [%2]    NAVY                             %3" // %1: time, %2: debug level,%3 formatted message
 #define NAVY_DEBUG_HINT_FORMAT          "NAVY\n%1\n%2\n%3" // %1: time, %2: debug level,%3 formatted message
 #define DEBUG_INFO                      "INFO"
