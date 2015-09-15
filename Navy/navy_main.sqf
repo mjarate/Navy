@@ -147,36 +147,25 @@ navy_main_fnc_initFromModule = {
 
     DECLARE(_synchronisedObjects) = synchronizedObjects _module;
     if (count _synchronisedObjects == 0) exitWith {
-        DEBUG {
-            [["Logic: %1 had no synchronised objects!", _module], DEBUG_ERROR] call navy_debug_fnc_log;
-        };
+        [["Logic: %1 had no synchronised objects!", _module], DEBUG_ERROR] call navy_debug_fnc_logToServer;
     };
     if (count _synchronisedObjects > 1) exitWith {
-        DEBUG {
-            [["More than one trigger was synchronised to the module: %1, only one can be synced!", _module], DEBUG_ERROR] call navy_debug_fnc_log;
-        };
+        [["More than one trigger was synchronised to the module: %1, only one can be synced!", _module], DEBUG_ERROR] call navy_debug_fnc_logToServer;
     };
     DECLARE(_trigger) = _synchronisedObjects select 0;
     DECLARE(_navyLogic) = [_trigger] call navy_main_fnc_checkLogic;
     if (isNil "_navyLogic") exitWith {
-        DEBUG {
-            [["No logic found for module: %1 with trigger: %2", _module, _trigger], DEBUG_INFO] call navy_debug_fnc_log;
-        };
+        [["No logic found for module: %1 with trigger: %2", _module, _trigger], DEBUG_INFO] call navy_debug_fnc_logToServer;
     };
     DECLARE(_waypoints) = waypoints _navyLogic;
     if (count _waypoints == 0) exitWith {
-        DEBUG {
-            [["Logic: %1 had no waypoints attached!", _navyLogic], DEBUG_ERROR] call navy_debug_fnc_log;
-        };
+        [["Logic: %1 had no waypoints attached!", _navyLogic], DEBUG_ERROR] call navy_debug_fnc_logToServer;
     };
     DECLARE(_routineFunction) = _module getVariable "Routine_Function";
     DECLARE(_vehicleClassname) = _module getVariable "Vehicle_Classname";
     DECLARE(_unitTemplate) = _module getVariable "Unit_Template";
     DECLARE(_cargoAmount) = _module getVariable "Cargo_Amount";
-
-    DEBUG {
-        [["Module: %1 for routine function: %2 initialised with synchronised objects: %3 unit template: %4, classname: %5 taking waypoints: %6 from logic: %7 with cargo amount: %8", _module, _routineFunction, _synchronisedObjects, _unitTemplate, _vehicleClassname, _waypoints, _navyLogic, _cargoAmount], DEBUG_INFO] call navy_debug_fnc_log;
-    };
+    [["Module: %1 for routine function: %2 initialised with synchronised objects: %3 unit template: %4, classname: %5 taking waypoints: %6 from logic: %7 with cargo amount: %8", _module, _routineFunction, _synchronisedObjects, _unitTemplate, _vehicleClassname, _waypoints, _navyLogic, _cargoAmount], DEBUG_INFO] call navy_debug_fnc_logToServer;
 
     [_module, _trigger, _vehicleClassname, _unitTemplate, _cargoAmount, _waypoints] spawn (call compile _routineFunction);
 
