@@ -80,7 +80,7 @@ navy_spawn_fnc_cargoUnits = {
         DEBUG {
             [["Adding parachutes to the cargo units: %1 of vehicle: %2", _cargoUnits, _vehicle], DEBUG_INFO] call navy_debug_fnc_log;
         };
-        sleep 
+        
         {
             removeBackpack _x;
             _x addBackpackGlobal "B_Parachute";
