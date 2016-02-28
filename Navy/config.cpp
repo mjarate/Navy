@@ -6,8 +6,8 @@ class CfgPatches {
         weapons[] = {};
         requiredVersion = 1.0;
         requiredAddons[] = {"CBA_MAIN", "admiral"};
-        author[] = {"Winter", "ARK"};
-        authorUrl = "https://github.com/Winter259";
+        author[] = {"was Winter now Jarate", "ARK"};
+        authorUrl = "https://github.com/mjarate/Navy/";
     };
 };
 
