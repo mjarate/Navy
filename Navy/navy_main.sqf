@@ -1,5 +1,5 @@
 #include "navy_macros.h"
-
+//
 navy_main_fnc_getPilotClassname = {
     FUN_ARGS_1(_side);
 
@@ -12,17 +12,44 @@ navy_main_fnc_getPilotClassname = {
     _pilotClassname;
 };
 
+//called below, check if logic/VR bob is synced to trigger
 navy_main_fnc_checkLogic = {
     FUN_ARGS_1(_trigger);
 
     DECLARE(_logic) = nil;
+	DECLARE(_objectCheck) = nil;
+	//get objects synced to trigger
     DECLARE(_synchronisedObjects) = synchronizedObjects _trigger;
     DECLARE(_syncronisedLogics) = [];
+	
+	//for each object synced to the trigger do the following
     {
-        // [str(_x), (getposATL _x), DEBUG_MARKER_LOCATION] call navy_debug_placeMarker;
+		//place marker at spawn location DISABLE ON RELEASE
+		//[str(_x), (getposATL _x), DEBUG_MARKER_LOCATION] call navy_debug_placeMarker;
+		_objectCheck = typeOf _x;
+		
+		[["checking if: %1 is the right entity", _objectCheck], DEBUG_INFO] call navy_debug_fnc_logToServer;
+
+		//check if VR BOB is synced
+		if (typeOf _x isEqualTo "C_Bob_VR") then {
+		   [["C_Bob_VR DETECTED: %1", _module], DEBUG_INFO] call navy_debug_fnc_logToServer;
+           _syncronisedLogics pushBack _x;
+        };
+		//Check if its a logic
         if (typeOf _x isEqualTo "Logic") then {
             _syncronisedLogics pushBack _x;
+			[["Logic DETECTED: %1", _module], DEBUG_INFO] call navy_debug_fnc_logToServer;
         };
+		//check if VR BOB is synced
+		  if (typeOf _x isEqualTo "C_man_1") then {
+		     [["Unit DETECTED: %1", _module], DEBUG_INFO] call navy_debug_fnc_logToServer;
+            _syncronisedLogics pushBack _x;
+        };
+		//check if VR BOB is synced
+		  if (typeOf _x isEqualTo "C_Soldier_VR_F") then {
+		     [["C_Soldier_VR_F DETECTED: %1", _module], DEBUG_INFO] call navy_debug_fnc_logToServer;
+            _syncronisedLogics pushBack _x;
+        };	
     } forEach _synchronisedObjects;
     // [["Trigger: %1 Logics: %2", _trigger, _syncronisedLogics], DEBUG_INFO] call navy_debug_fnc_log;
     if (count _syncronisedLogics > 1) then {
@@ -141,10 +168,10 @@ navy_main_fnc_addWaypoint = {
 
     _waypoint;
 };
-
+//called by navy_Init
 navy_main_fnc_initFromModule = {
     FUN_ARGS_2(_module,_units);
-
+//get the trigger synced to module
     DECLARE(_synchronisedObjects) = synchronizedObjects _module;
     if (count _synchronisedObjects == 0) exitWith {
         [["Logic: %1 had no synchronised objects!", _module], DEBUG_ERROR] call navy_debug_fnc_logToServer;
@@ -153,6 +180,8 @@ navy_main_fnc_initFromModule = {
         [["More than one trigger was synchronised to the module: %1, only one can be synced!", _module], DEBUG_ERROR] call navy_debug_fnc_logToServer;
     };
     DECLARE(_trigger) = _synchronisedObjects select 0;
+	
+//check if trigger has synced logic/VR bob
     DECLARE(_navyLogic) = [_trigger] call navy_main_fnc_checkLogic;
     if (isNil "_navyLogic") exitWith {
         [["No logic found for module: %1 with trigger: %2", _module, _trigger], DEBUG_INFO] call navy_debug_fnc_logToServer;
