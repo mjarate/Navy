@@ -53,7 +53,11 @@ navy_spawn_fnc_cargoUnits = {
     };
     PVT_1(_unit);
     DECLARE(_cargoUnits) = [];
-    DECLARE(_vehicleCargoLimit) = [NAVY_CONFIG_VEHICLES, (typeOf _vehicle), "cargo_limit"] call navy_config_fnc_getNumber;
+	
+	//test see if crew count -1 is better than custom function (PLUS NOT STATIC LISTS!:D) 
+	DECLARE(_vehicleCargoLimit) = [typeOf _vehicle,true] call BIS_fnc_crewCount;
+	_vehicleCargoLimit = _vehicleCargoLimit -1;
+    //DECLARE(_vehicleCargoLimit) = [NAVY_CONFIG_VEHICLES, (typeOf _vehicle), "cargo_limit"] call navy_config_fnc_getNumber;
     if (_vehicleCargoLimit == 0) exitWith {
         DEBUG {
             [["Attempted to fill vehicle: %1 with cargo units but it has no cargo space!", _vehicle], DEBUG_ERROR] call navy_debug_fnc_log;
