@@ -24,23 +24,23 @@ navy_main_fnc_checkLogic = {
 	
 	//for each object synced to the trigger do the following
     {
-		//place marker at spawn location DISABLE ON RELEASE
-		//[str(_x), (getposATL _x), DEBUG_MARKER_LOCATION] call navy_debug_placeMarker;
+		//place marker at spawn locations when activated
+		[str(_x), (getposATL _x), DEBUG_MARKER_LOCATION] call navy_debug_placeMarker;
 		_objectCheck = typeOf _x;
 		
 		[["checking if: %1 is the right entity", _objectCheck], DEBUG_INFO] call navy_debug_fnc_logToServer;
 
-		//check if VR BOB is synced
+		//check if VR BOB is synced (won't work)
 		if (typeOf _x isEqualTo "C_Bob_VR") then {
 		   [["C_Bob_VR DETECTED: %1", _module], DEBUG_INFO] call navy_debug_fnc_logToServer;
            _syncronisedLogics pushBack _x;
         };
-		//Check if its a logic
+		//Check if its a logic (legacy support)
         if (typeOf _x isEqualTo "Logic") then {
             _syncronisedLogics pushBack _x;
 			[["Logic DETECTED: %1", _module], DEBUG_INFO] call navy_debug_fnc_logToServer;
         };
-		//check if VR BOB is synced
+		//check if Placeholder unit is synced
 		  if (typeOf _x isEqualTo "C_man_1") then {
 		     [["Unit DETECTED: %1", _module], DEBUG_INFO] call navy_debug_fnc_logToServer;
             _syncronisedLogics pushBack _x;
