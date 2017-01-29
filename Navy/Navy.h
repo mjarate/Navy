@@ -16,7 +16,8 @@ class Navy {
     class Settings {
         isEnabled = 0;
         debugEnabled = 1;
-        paradropDistance = 500;
+        paradropDistance = 250;
+		bombingDistance = 250;
         flightAltitude = 200;
         cleanupDistance = 600;
         patrolRadius = 500;

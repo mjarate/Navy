@@ -34,7 +34,7 @@ class Routines {
         waypoint_speed[] = {"", "FULL", "FULL"};
         waypoint_type[] = {"", "MOVE", "MOVE"};
         waypoint_behaviour[] = {"", "CARELESS", "AWARE"};
-        waypoint_combatmode[] = {"", "BLUE", "BLUE"};
+        waypoint_combatmode[] = {"", "YELLOW", "YELLOW"};
     };
 
     class Paradrop : Default {
@@ -43,6 +43,15 @@ class Routines {
         waypoint_speed[] = {"", "NORMAL", "NORMAL"};
         waypoint_type[] = {"", "MOVE", "MOVE"};
         waypoint_behaviour[] = {"", "AWARE", "AWARE"};
-        waypoint_combatmode[] = {"", "BLUE", "BLUE"};
+        waypoint_combatmode[] = {"", "YELLOW", "YELLOW"};
+    };
+	
+	 class Barrel_bomb : Default {
+        flight_height = 200;
+        waypoint_count = 2;
+        waypoint_speed[] = {"", "NORMAL", "NORMAL"};
+        waypoint_type[] = {"", "MOVE", "MOVE"};
+        waypoint_behaviour[] = {"", "CARELESS", "CARELESS"};
+        waypoint_combatmode[] = {"", "YELLOW", "YELLOW"};
     };
 };
