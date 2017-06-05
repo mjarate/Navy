@@ -71,6 +71,47 @@ class Navy_Paradrop: Navy_Module {
     };
 };
 
+class Navy_barrelbomb: Navy_Module {
+    scope = 2;
+    displayName = "barrelbomb";
+    icon = ADDON_PATH(resources\barrel.paa);
+    function = "navy_init_fnc_initFromModule";
+
+    class ModuleDescription {
+        description = "Spawns a unit barrelbomber";
+    };
+
+    class Arguments {
+        class Unit_Template {
+            displayName = "Vehicle Unit Template";
+            description = "The faction the aircraf pilot will belong to (Admiral template)";
+            typeName = "STRING";
+            defaultValue = "NATO_WOODLAND";
+        };
+
+        class Vehicle_Classname {
+            displayName = "Vehicle Classname";
+            description = "The classname of the helicopter that will be spawned";
+            typeName = "STRING";
+            defaultValue = "B_Heli_Transport_03_black_F";
+        };
+
+        class Cargo_Amount {
+            displayName = "Barrel bomb Amount (1-3)";
+            description = "The amount of barrel bombs that will be dropped";
+            typeName = "NUMBER";
+            defaultValue = 1;
+        };
+
+        class Routine_Function {
+            displayName = "Routine Function";
+            description = "The function called by this module. Do not change this unless you know what it does";
+            typeName = "STRING";
+            defaultValue = "navy_method_fnc_barrelbomb";
+        };
+    };
+};
+
 class Navy_HeliInsert: Navy_Module {
     scope = 2;
     displayName = "Heli Insert";
