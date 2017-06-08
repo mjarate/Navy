@@ -1,5 +1,5 @@
 #include "navy_macros.h"
-
+//
 navy_main_fnc_getPilotClassname = {
     FUN_ARGS_1(_side);
 
@@ -12,17 +12,44 @@ navy_main_fnc_getPilotClassname = {
     _pilotClassname;
 };
 
+//called below, check if logic/VR bob is synced to trigger
 navy_main_fnc_checkLogic = {
     FUN_ARGS_1(_trigger);
 
     DECLARE(_logic) = nil;
+	DECLARE(_objectCheck) = nil;
+	//get objects synced to trigger
     DECLARE(_synchronisedObjects) = synchronizedObjects _trigger;
     DECLARE(_syncronisedLogics) = [];
+	
+	//for each object synced to the trigger do the following
     {
-        // [str(_x), (getposATL _x), DEBUG_MARKER_LOCATION] call navy_debug_placeMarker;
+		//place marker at spawn locations when activated
+		[str(_x), (getposATL _x), DEBUG_MARKER_LOCATION] call navy_debug_placeMarker;
+		_objectCheck = typeOf _x;
+		
+		[["checking if: %1 is the right entity", _objectCheck], DEBUG_INFO] call navy_debug_fnc_logToServer;
+
+		//check if VR BOB is synced (won't work)
+		if (typeOf _x isEqualTo "C_Bob_VR") then {
+		   [["C_Bob_VR DETECTED: %1", _module], DEBUG_INFO] call navy_debug_fnc_logToServer;
+           _syncronisedLogics pushBack _x;
+        };
+		//Check if its a logic (legacy support)
         if (typeOf _x isEqualTo "Logic") then {
             _syncronisedLogics pushBack _x;
+			[["Logic DETECTED: %1", _module], DEBUG_INFO] call navy_debug_fnc_logToServer;
         };
+		//check if Placeholder unit is synced
+		  if (typeOf _x isEqualTo "C_man_1") then {
+		     [["Unit DETECTED: %1", _module], DEBUG_INFO] call navy_debug_fnc_logToServer;
+            _syncronisedLogics pushBack _x;
+        };
+		//check if VR BOB is synced
+		  if (typeOf _x isEqualTo "C_Soldier_VR_F") then {
+		     [["C_Soldier_VR_F DETECTED: %1", _module], DEBUG_INFO] call navy_debug_fnc_logToServer;
+            _syncronisedLogics pushBack _x;
+        };	
     } forEach _synchronisedObjects;
     // [["Trigger: %1 Logics: %2", _trigger, _syncronisedLogics], DEBUG_INFO] call navy_debug_fnc_log;
     if (count _syncronisedLogics > 1) then {
@@ -54,23 +81,19 @@ navy_main_fnc_animateDoors = {
 
 navy_main_fnc_cleanupVehicle = {
     FUN_ARGS_2(_vehicle,_waypointCount);
-    [_vehicle, _waypointCount] call navy_main_fnc_cleanupVehicleMarkers;
-    {
-        deleteVehicle _x;
-    } forEach crew _vehicle;
-    deleteVehicle _vehicle;
-};
 
-navy_main_fnc_cleanupVehicleMarkers = {
-    FUN_ARGS_2(_vehicle,_markerCount);
-    DEC(_markerCount);  // count is increased in method
+    DEC(_waypointCount);  // count is increased in method
     DEBUG {
-        [["Vehicle: %1's waypoint markers count: %2 are being removed", _vehicle, _markerCount], DEBUG_INFO] call navy_debug_fnc_log;
+        [["Vehicle: %1 is being deleted with: %2 waypoint markers", _vehicle, _waypointCount], DEBUG_INFO] call navy_debug_fnc_log;
         // remove waypoint debug markers, format ["%1_%2", (vehicle _unit), _number]
         for "_i" from 1 to _waypointCount do {
             deleteMarkerLocal format ["%1_%2", _vehicle, _i];
         };
     };
+    {
+        deleteVehicle _x;
+    } forEach crew _vehicle;
+    deleteVehicle _vehicle;
 };
 
 navy_main_assignPatrolWaypoints = {
@@ -145,42 +168,33 @@ navy_main_fnc_addWaypoint = {
 
     _waypoint;
 };
-
+//called by navy_Init
 navy_main_fnc_initFromModule = {
     FUN_ARGS_2(_module,_units);
-
+//get the trigger synced to module
     DECLARE(_synchronisedObjects) = synchronizedObjects _module;
     if (count _synchronisedObjects == 0) exitWith {
-        DEBUG {
-            [["Logic: %1 had no synchronised objects!", _module], DEBUG_ERROR] call navy_debug_fnc_log;
-        };
+        [["Logic: %1 had no synchronised objects!", _module], DEBUG_ERROR] call navy_debug_fnc_logToServer;
     };
     if (count _synchronisedObjects > 1) exitWith {
-        DEBUG {
-            [["More than one trigger was synchronised to the module: %1, only one can be synced!", _module], DEBUG_ERROR] call navy_debug_fnc_log;
-        };
+        [["More than one trigger was synchronised to the module: %1, only one can be synced!", _module], DEBUG_ERROR] call navy_debug_fnc_logToServer;
     };
     DECLARE(_trigger) = _synchronisedObjects select 0;
+	
+//check if trigger has synced logic/VR bob
     DECLARE(_navyLogic) = [_trigger] call navy_main_fnc_checkLogic;
     if (isNil "_navyLogic") exitWith {
-        DEBUG {
-            [["No logic found for module: %1 with trigger: %2", _module, _trigger], DEBUG_INFO] call navy_debug_fnc_log;
-        };
+        [["No logic found for module: %1 with trigger: %2", _module, _trigger], DEBUG_INFO] call navy_debug_fnc_logToServer;
     };
     DECLARE(_waypoints) = waypoints _navyLogic;
     if (count _waypoints == 0) exitWith {
-        DEBUG {
-            [["Logic: %1 had no waypoints attached!", _navyLogic], DEBUG_ERROR] call navy_debug_fnc_log;
-        };
+        [["Logic: %1 had no waypoints attached!", _navyLogic], DEBUG_ERROR] call navy_debug_fnc_logToServer;
     };
     DECLARE(_routineFunction) = _module getVariable "Routine_Function";
     DECLARE(_vehicleClassname) = _module getVariable "Vehicle_Classname";
     DECLARE(_unitTemplate) = _module getVariable "Unit_Template";
     DECLARE(_cargoAmount) = _module getVariable "Cargo_Amount";
-
-    DEBUG {
-        [["Module: %1 for routine function: %2 initialised with synchronised objects: %3 unit template: %4, classname: %5 taking waypoints: %6 from logic: %7 with cargo amount: %8", _module, _routineFunction, _synchronisedObjects, _unitTemplate, _vehicleClassname, _waypoints, _navyLogic, _cargoAmount], DEBUG_INFO] call navy_debug_fnc_log;
-    };
+    [["Module: %1 for routine function: %2 initialised with synchronised objects: %3 unit template: %4, classname: %5 taking waypoints: %6 from logic: %7 with cargo amount: %8", _module, _routineFunction, _synchronisedObjects, _unitTemplate, _vehicleClassname, _waypoints, _navyLogic, _cargoAmount], DEBUG_INFO] call navy_debug_fnc_logToServer;
 
     [_module, _trigger, _vehicleClassname, _unitTemplate, _cargoAmount, _waypoints] spawn (call compile _routineFunction);
 

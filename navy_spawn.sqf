@@ -36,7 +36,19 @@ navy_spawn_fnc_pilot = {
         [["Spawned pilot: %1 and placed inside vehicle: %2", _pilot, _vehicle], DEBUG_INFO] call navy_debug_fnc_log;
         [_pilot] spawn navy_debug_trackUnit;
     };
-
+	private _gunnerGroup = createGroup _pilotSide;
+	private _turretArray = allTurrets _vehicle;
+	private _count = count _turretArray;
+	for "_i" from 0 to ((_count) -1) step 1 do {
+	private _pos1 = allTurrets _vehicle;
+	private _pos = (_pos1 select _i);
+	private _gunner = [NAVY_SPAWN_POSITION, _gunnerGroup, [_pilotClassname], NAVY_PILOT_SKILL_ARRAY] call adm_common_fnc_placeMan;
+	_gunner moveInTurret [_vehicle,_pos];
+	_gunner setBehaviour "COMBAT";
+	_gunner setSkill 0.20;
+	_gunner setCombatMode "YELLOW";
+	};
+	
     _pilot;
 };
 
@@ -53,7 +65,11 @@ navy_spawn_fnc_cargoUnits = {
     };
     PVT_1(_unit);
     DECLARE(_cargoUnits) = [];
-    DECLARE(_vehicleCargoLimit) = [NAVY_CONFIG_VEHICLES, (typeOf _vehicle), "cargo_limit"] call navy_config_fnc_getNumber;
+	
+	//test see if crew count -1 is better than custom function (PLUS NOT STATIC LISTS!:D) 
+	DECLARE(_vehicleCargoLimit) = [typeOf _vehicle,true] call BIS_fnc_crewCount;
+	_vehicleCargoLimit = _vehicleCargoLimit -1;
+    //DECLARE(_vehicleCargoLimit) = [NAVY_CONFIG_VEHICLES, (typeOf _vehicle), "cargo_limit"] call navy_config_fnc_getNumber;
     if (_vehicleCargoLimit == 0) exitWith {
         DEBUG {
             [["Attempted to fill vehicle: %1 with cargo units but it has no cargo space!", _vehicle], DEBUG_ERROR] call navy_debug_fnc_log;
@@ -80,7 +96,7 @@ navy_spawn_fnc_cargoUnits = {
         DEBUG {
             [["Adding parachutes to the cargo units: %1 of vehicle: %2", _cargoUnits, _vehicle], DEBUG_INFO] call navy_debug_fnc_log;
         };
-        sleep 
+        
         {
             removeBackpack _x;
             _x addBackpackGlobal "B_Parachute";

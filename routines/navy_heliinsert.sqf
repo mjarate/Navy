@@ -13,7 +13,7 @@ navy_method_fnc_heliInsert = {
     PVT_3(_side,_vehicle,_pilot);
     _side = [_unitTemplate] call adm_common_fnc_getUnitTemplateSide;
     _vehicle = [_vehicleClassname, _trigger] call navy_spawn_fnc_airVehicle;
-    DECLARE(_pilotClassname) = [_side] call navy_main_fnc_getPilotClassname;
+    DECLARE(_pilotClassname) = [_unitTemplate, "pilots"] call adm_common_fnc_getUnitTemplateArray;
     _pilot = [_pilotClassname, _side, _vehicle] call navy_spawn_fnc_pilot;
     _cargoClassnames = [_unitTemplate, "infantry"] call adm_common_fnc_getUnitTemplateArray;
     _cargoGroup = [_cargoClassnames, _side, _cargoAmount, _vehicle, false] call navy_spawn_fnc_cargoUnits;
@@ -27,6 +27,7 @@ navy_method_fnc_heliInsert = {
 
     DECLARE(_insertWP) = [_pilot, _waypoints, "Heli_Insert", 1] call navy_main_fnc_addWaypoint;
     DECLARE(_landingH) = createVehicle ["Land_HelipadEmpty_F", (getWPPos _insertWP), [], 0, "CAN_COLLIDE"];
+	DECLARE(_pilotGP) = group _pilot;
     waitUntil {
         sleep 2;
         DEBUG {
@@ -63,9 +64,10 @@ navy_method_fnc_heliInsert = {
         (count (assignedCargo _vehicle) == 0);
     };
     sleep 1;
-    [_vehicle, NAVY_CLOSE_DOOR] call navy_main_fnc_animateDoors;
+   // [_vehicle, NAVY_CLOSE_DOOR] call navy_main_fnc_animateDoors;
     _vehicle land "NONE";
     DECLARE(_deleteWP) = [_pilot, _waypoints, "Heli_Insert", 2] call navy_main_fnc_addWaypoint;
+	_pilotGP setCurrentWaypoint [_pilotGP,2];
     deleteVehicle _landingH;  // avoids other helicopters landing on it.
     waitUntil {
         sleep 5;

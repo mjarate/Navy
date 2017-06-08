@@ -14,7 +14,7 @@ navy_method_fnc_paradrop = {
     PVT_3(_side,_vehicle,_pilot);
     _side = [_unitTemplate] call adm_common_fnc_getUnitTemplateSide;
     _vehicle = [_vehicleClassname, _trigger] call navy_spawn_fnc_airVehicle;
-    DECLARE(_pilotClassname) = [_side] call navy_main_fnc_getPilotClassname;
+    DECLARE(_pilotClassname) = [_unitTemplate, "pilots"] call adm_common_fnc_getUnitTemplateArray;
     _pilot = [_pilotClassname, _side, _vehicle] call navy_spawn_fnc_pilot;
     _cargoClassnames = [_unitTemplate, "infantry"] call adm_common_fnc_getUnitTemplateArray;
     _cargoGroup = [_cargoClassnames, _side, _cargoAmount, _vehicle, true] call navy_spawn_fnc_cargoUnits;
@@ -28,6 +28,7 @@ navy_method_fnc_paradrop = {
 
     DECLARE(_paradropWP) = [_pilot, _waypoints, "Paradrop", 1] call navy_main_fnc_addWaypoint;
     DECLARE(_deleteWP) = [_pilot, _waypoints, "Paradrop", 2] call navy_main_fnc_addWaypoint;
+	DECLARE(_pilotGP) = group _pilot;
     waitUntil {
         sleep 2;
         DEBUG {
@@ -48,6 +49,7 @@ navy_method_fnc_paradrop = {
     } forEach units _cargoGroup;
     [_vehicle, NAVY_CLOSE_DOOR] call navy_main_fnc_animateDoors;
     [_module, _cargoGroup, (getWPPos _paradropWP)] call navy_main_assignPatrolWaypoints;
+	_pilotGP setCurrentWaypoint [_pilotGP,2];
     waitUntil {
         sleep 5;
         DEBUG {
